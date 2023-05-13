@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UniversityController;
@@ -31,8 +32,15 @@ require __DIR__.'/auth.php';
 
 
 Route::middleware(['auth','verified','role:user'])->group(function(){
-    Route::get('/user/dashboard', function () {
-        return view('user/dashboard');})->name('dashboard');
+    Route::get('/user/createprofile', function () {
+        return view('user/createprofile');})->name('dashboard');
+    Route::get('/user/dashboard', [AttendeeController::class, 'read'])->name('dashboard');
+    
+    Route::post('/user/create', [AttendeeController::class,'create'])->name('attendee.store');
+
+    Route::get('/user/updateprofile', [AttendeeController::class, 'loadupdate'])->name('attendee.update');
+    Route::post('/user/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
+    Route::get('/user/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
     
 });//end group uni middleware
 

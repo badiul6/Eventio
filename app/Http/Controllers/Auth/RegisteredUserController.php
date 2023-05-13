@@ -76,7 +76,7 @@ class RegisteredUserController extends Controller
             $r= "/society/dashboard";
         }
         else{
-            $r= "/user/dashboard";
+            $r= "/user/createprofile";
 
         }
 
