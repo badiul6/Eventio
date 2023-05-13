@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                   <h1 style="font-size: 24px">{{ __("Edit Profile Information") }}
 </h1><br><br>
-<form action="{{route('university.update')}}" method="post">
+<form action="{{route('attendee.update')}}" method="post">
         @csrf
             <label for="firstname">First Name</label><br>
             <input type="text" id="firstname" name="firstname" value="{{$attendee->firstname}}"><br><br>

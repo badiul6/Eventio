@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\University;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Attendee;
 
 
 use Illuminate\Http\Request;
