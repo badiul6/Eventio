@@ -70,7 +70,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         $r="";
         if($user->role=="university"){
-            $r= "/university/dashboard";
+            $r= "/university/createprofile";
         }
         elseif($user->role=="society"){
             $r= "/society/dashboard";

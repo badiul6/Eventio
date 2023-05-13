@@ -13,15 +13,13 @@
 </h1><br><br>
 <form action="{{route('university.update')}}" method="post">
         @csrf
-            <label for="firstname">First Name</label><br>
-            <input type="text" id="firstname" name="firstname" value="{{$attendee->firstname}}"><br><br>
-            <label for="lastname">Last Name</label><br>
-            <input type="text" id="lastname" name="lastname" value="{{$attendee->lastname}}"><br><br>
-            <label for="contact">Contact Number</label><br>
-            <input type="text" id="contact" name="contact" value="{{$attendee->contact}}"><br><br>
-            <label for="uniname">Institute</label><br>
-            <input type="text" id="uniname" name="uniname" value="{{$attendee->uniname}}"><br><br>
-
+            <label for="uniname">University Name</label><br>
+            <input type="text" id="uniname" name="uniname" value="{{$uni->uniname}}"><br><br>
+            <label for="contact">University Contact No:</label><br>
+            <input type="text" id="contact" name="contact" value="{{$uni->contact}}"><br><br>
+            <label for="address">University Address</label><br>
+            <input type="text" id="address" name="address" value="{{$uni->address}}"><br><br>
+            
             <br><br>
          
         <input type="submit" value="Save info" style="background-color: blue; padding:05px; color:white">

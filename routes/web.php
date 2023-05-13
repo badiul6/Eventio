@@ -32,8 +32,10 @@ require __DIR__.'/auth.php';
 
 
 Route::middleware(['auth','verified','role:user'])->group(function(){
+
     Route::get('/user/createprofile', function () {
         return view('user/createprofile');})->name('dashboard');
+
     Route::get('/user/dashboard', [AttendeeController::class, 'read'])->name('dashboard');
     
     Route::post('/user/create', [AttendeeController::class,'create'])->name('attendee.store');
@@ -46,7 +48,17 @@ Route::middleware(['auth','verified','role:user'])->group(function(){
 
 
 Route::middleware(['auth','verified','role:university'])->group(function(){
-    Route::get('/university/dashboard', [UniversityController::class, 'uniDashboard']);
+
+    Route::get('/university/createprofile', function () {
+        return view('university/createprofile');})->name('dashboard');
+    Route::get('/university/dashboard', [UniversityController::class, 'read']);
+
+    Route::post('/university/create', [UniversityController::class,'create'])->name('university.store');
+    Route::get('/university/updateprofile', [UniversityController::class, 'loadupdate'])->name('university.update');
+    Route::post('/university/updateprofile', [UniversityController::class, 'update'])->name('university.update');
+    Route::get('/university/delete', [UniversityController::class, 'delete'])->name('university.delete');
+
+
 });//end group uni middleware
 
 Route::middleware(['auth','verified','role:society'])->group(function(){

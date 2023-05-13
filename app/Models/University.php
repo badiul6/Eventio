@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attendee extends Model
+class University extends Model
 {
     use HasFactory;
     protected $primaryKey = 'email';
@@ -15,8 +15,8 @@ class Attendee extends Model
     {
         return $this->belongsTo(User::class, 'email', 'email');
     }
-    public function university()
+    public function attendees()
     {
-        return $this->belongsTo(University::class, 'uniname', 'uniname');
+        return $this->hasMany(Attendee::class, 'uniname', 'uniname');
     }
 }
