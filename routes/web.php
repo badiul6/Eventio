@@ -62,7 +62,17 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
 });//end group uni middleware
 
 Route::middleware(['auth','verified','role:society'])->group(function(){
-    Route::get('/society/dashboard', [SocietyController::class, 'societyDashboard']);
+    
+    Route::get('/society/createprofile', function () {
+        return view('society/createprofile');})->name('dashboard');
+    
+    Route::post('/society/create', [SocietyController::class,'create'])->name('society.store');
+
+    Route::get('/society/dashboard', [SocietyController::class, 'read']);
+    Route::get('/society/updateprofile', [SocietyController::class, 'loadupdate'])->name('society.update');
+    Route::post('/society/updateprofile', [SocietyController::class, 'update'])->name('society.update');
+    Route::get('/society/delete', [SocietyController::class, 'delete'])->name('society.delete');
+
 
 });//end group society middleware
 

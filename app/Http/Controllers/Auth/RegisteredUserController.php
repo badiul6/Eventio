@@ -73,7 +73,7 @@ class RegisteredUserController extends Controller
             $r= "/university/createprofile";
         }
         elseif($user->role=="society"){
-            $r= "/society/dashboard";
+            $r= "/society/createprofile";
         }
         else{
             $r= "/user/createprofile";

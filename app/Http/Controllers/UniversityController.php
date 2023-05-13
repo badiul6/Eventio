@@ -6,8 +6,7 @@ use App\Models\University;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Attendee;
-
-
+use App\Models\Society;
 use Illuminate\Http\Request;
 
 class UniversityController extends Controller
@@ -59,15 +58,23 @@ class UniversityController extends Controller
     public function delete(Request $request)
     {
         $email= auth()->user()->email;
+        $university = University::find($email);
+        $name=$university->uniname;
 
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+        $societies = Society::where('uniname', $name)->get();
+        foreach ($societies as $society) {
+            $society->delete();
+        }
         University::find($email)->delete();    // Find the Student based on Primary Key
 
         User::where('email',$email)->delete();
+
+        
 
         return redirect('/');
 
