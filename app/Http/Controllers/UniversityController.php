@@ -68,7 +68,9 @@ class UniversityController extends Controller
         $request->session()->regenerateToken();
         $societies = Society::where('uniname', $name)->get();
         foreach ($societies as $society) {
+            $s=$society->email;
             $society->delete();
+            User::where('email',$s)->delete();
         }
         University::find($email)->delete();    // Find the Student based on Primary Key
 
