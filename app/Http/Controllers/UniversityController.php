@@ -40,10 +40,13 @@ class UniversityController extends Controller
         $email= auth()->user()->email;
         $uni = University::find($email);
         
-
         return view('/university/updateprofile')->with(['uni'=> $uni]);
     }
     
+    public function loadcreateevent() {
+        return view('university.createevent');
+    }
+
     public function update(Request $request){
         $email= auth()->user()->email;
         $uni = University::find($email);    // Find the Student based on Primary Key

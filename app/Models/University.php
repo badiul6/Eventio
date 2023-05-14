@@ -15,12 +15,18 @@ class University extends Model
     {
         return $this->belongsTo(User::class, 'email', 'email');
     }
+    
     public function attendees()
     {
         return $this->hasMany(Attendee::class, 'uniname', 'uniname');
     }
+    
     public function society()
     {
         return $this->hasMany(Society::class, 'uniname', 'uniname');
+    }
+
+    public function events() {
+        return $this->hasMany(Event::class, 'uni_email', 'email');
     }
 }

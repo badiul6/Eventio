@@ -15,8 +15,14 @@ class Society extends Model
     {
         return $this->belongsTo(User::class, 'email', 'email');
     }
+    
     public function university()
     {
         return $this->belongsTo(University::class, 'uniname', 'uniname');
     }
+
+    public function events() {
+        return $this->hasMany(Event::class, 'society_email', 'email');
+    }
+    
 }

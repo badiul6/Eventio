@@ -27,6 +27,16 @@
         <input type="submit" value="Update info" style="background-color: blue; padding:05px; color:white">
     </form>
     <br><br>
+    <form action="/user/viewevent" method="get">
+        @csrf
+        <input type="submit" value="View Events" style="background-color: blue; padding:05px; color:white">
+    </form>
+    <br><br>
+    <form action="/user/viewjoinedevent" method="get">
+        @csrf
+        <input type="submit" value="Joined Events" style="background-color: blue; padding:05px; color:white">
+    </form>
+    <br><br>
     <form action="{{route('attendee.delete')}}" method="get">
         @csrf
         <input type="submit" value="Delete Account" style="background-color: blue; padding:05px; color:white">

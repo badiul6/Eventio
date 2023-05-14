@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AttendeeController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UniversityController;
 
 use App\Http\Controllers\SocietyController;
+use App\Models\University;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +46,12 @@ Route::middleware(['auth','verified','role:user'])->group(function(){
     Route::get('/user/updateprofile', [AttendeeController::class, 'loadupdate'])->name('attendee.update');
     Route::post('/user/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
     Route::get('/user/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
+
+    Route::get('/user/viewevent', [EventController::class, 'read'])->name('event.read');
+    
+    Route::get('/user/joinevent/{id}', [EventController::class, 'join'])->name('event.join');
+    Route::get('/user/viewjoinedevent/', [EventController::class, 'viewJoined'])->name('event.viewjoined');
+    Route::get('/user/leaveevent/{id}', [EventController::class, 'leave'])->name('event.leave');
     
 });//end group uni middleware
 
@@ -57,6 +66,16 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
     Route::get('/university/updateprofile', [UniversityController::class, 'loadupdate'])->name('university.update');
     Route::post('/university/updateprofile', [UniversityController::class, 'update'])->name('university.update');
     Route::get('/university/delete', [UniversityController::class, 'delete'])->name('university.delete');
+    
+    Route::get('/university/createevent', [UniversityController::class, 'loadcreateevent'])->name('university.cevent');
+    Route::post('/university/createevent', [EventController::class, 'create'])->name('event.create');
+    
+    Route::get('/university/viewevent', [EventController::class, 'read'])->name('event.read');
+
+    Route::get('/university/editevent/{id}', [EventController::class, 'showUpdate'])->name('event.showedit');
+    Route::post('/university/editevent/{id}', [EventController::class, 'update'])->name('event.edit');
+
+    Route::get('/university/deleteevent/{id}', [EventController::class, 'delete'])->name('event.delete');
 
 
 });//end group uni middleware

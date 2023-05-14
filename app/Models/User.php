@@ -46,5 +46,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(University::class, 'email', 'email');
     }
-
 }

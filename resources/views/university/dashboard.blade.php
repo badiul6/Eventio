@@ -31,6 +31,16 @@
         @csrf
         <input type="submit" value="Delete University Account" style="background-color: blue; padding:05px; color:white">
     </form>
+    <br><br>
+    <form action="{{route('university.cevent')}}" method="get">
+        @csrf
+        <input type="submit" value="Create Event" style="background-color: blue; padding:05px; color:white">
+    </form>
+    <form action="/university/viewevent" method="get">
+        @csrf
+        <input type="submit" value="View Event" style="background-color: blue; margin-top:5px; padding:05px; color:white">
+    </form>
+
 
 </div>
                 </div>
