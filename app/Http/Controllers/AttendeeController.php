@@ -13,7 +13,7 @@ class AttendeeController extends Controller
     {    
         $attendee = Attendee::create($request);
         
-        return redirect('/user/dashboard',)->with(['attendee'=>$attendee]);
+        return redirect('/user/dashboard')->with(['attendee'=>$attendee]);
     }
 
     public function read()

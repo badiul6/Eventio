@@ -18,7 +18,7 @@ class SocietyController extends Controller
     {
         Society::create($request);
 
-        return redirect('/society/dashboard',);
+        return redirect('/society/dashboard');
     }
     
     public function read()

@@ -19,7 +19,7 @@ class UniversityController extends Controller
     {
         University::create($request);
         
-        return redirect('/university/dashboard',);
+        return redirect('/university/dashboard');
     }
     public function read(){
         $email= auth()->user()->email;
