@@ -42,6 +42,7 @@ Route::middleware(['auth','verified','role:user'])->group(function(){
 
     Route::get('/user/updateprofile', [AttendeeController::class, 'loadupdate'])->name('attendee.update');
     Route::post('/user/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
+    
     Route::get('/user/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
     
 });//end group uni middleware

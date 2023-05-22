@@ -18,9 +18,26 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function choose(): View
     {
-        return view('auth.register');
+        return view('signup');
+    }
+
+    public function create(Request $request)
+    {
+        $r=$request->input('userType');
+
+        if($r=='Attendee')
+            return view('auth.register');
+
+        else if($request->userType=='Society')
+            return view('auth.sregister');
+        else if($request->userType=='University')
+            return view('auth.uregister');
+        else
+        return view('signup');
+
+            
     }
 
     public function loadUniRegPage(): View

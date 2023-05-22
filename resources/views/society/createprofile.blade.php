@@ -17,7 +17,7 @@
 <div style="text-align:center; ">
 <form action="{{route('society.store')}}" method="post">
     @csrf
-    <h1>Create University profile</h1><br><br>
+    <h1>Create Society profile</h1><br><br>
     <label for="name">Society Name</label> <br>
     <input type="text" id="name" name="name">
     <br>

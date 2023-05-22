@@ -17,7 +17,7 @@
 <div style="text-align:center; ">
 <form action="{{route('university.store')}}" method="post">
     @csrf
-    <h1>Create University profile</h1><br><br>
+    <h1 class="uni">Create University profile</h1><br><br>
     <label for="uniname">University Name</label> <br>
     <input type="text" id="uniname" name="uniname">
     <br>
