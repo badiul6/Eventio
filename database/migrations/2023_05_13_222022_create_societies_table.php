@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->string('uniname');
-            $table->foreign('email')->references('email')->on('users');
-            $table->foreign('uniname')->references('uniname')->on('universities');
+            $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
+            $table->foreign('uniname')->references('uniname')->on('universities')->onDelete('cascade');
 
             $table->timestamps();
         });

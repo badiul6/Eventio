@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('contact');
             $table->string('uniname')->nullable();
-            $table->foreign('email')->references('email')->on('users');
+            $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->foreign('uniname')->references('uniname')->on('universities')->onDelete('set null');
 
             $table->timestamps();

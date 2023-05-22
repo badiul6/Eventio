@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('uniname')->unique();
             $table->string('contact');
             $table->string('address');
-            $table->foreign('email')->references('email')->on('users');
+            $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

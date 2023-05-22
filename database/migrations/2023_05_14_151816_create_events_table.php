@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('niche', 255);
             $table->string('location', 255);
             $table->double('capacity', 3);
-            $table->foreign('society_email')->references('email')->on('societies');
-            $table->foreign('uni_email')->references('email')->on('universities');
+            $table->foreign('society_email')->references('email')->on('societies')->onDelete('set null');
+            $table->foreign('uni_email')->references('email')->on('universities')->onDelete('cascade');
             $table->timestamps();
         });
     }
