@@ -38,6 +38,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function attendee()
     {
         return $this->hasOne(Attendee::class, 'email', 'email');
@@ -47,4 +48,23 @@ class User extends Authenticatable
         return $this->hasOne(University::class, 'email', 'email');
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_users');
+    }
+
+    public function joinEvent($event_id) 
+    {
+        $this->events()->attach($event_id);
+    }
+
+    public function leaveEvent($event_id)
+    {
+        $this->events()->detach($event_id);
+    }
+
+    public function getJoinedEvents()
+    {
+        return $this->events();
+    }
 }
