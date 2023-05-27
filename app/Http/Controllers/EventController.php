@@ -7,35 +7,37 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    protected Event $event;
-
-    public function __construct(Event $event)
-    {
-        $this->event = $event;
-    }
 
     public function create(Request $request)
     {
-        Event::create($request);
+        $data = [
+            'uni_id' => auth()->user()->university->id,
+            'name' => $request->name,
+            'niche' => $request->niche,
+            'location' => $request->location,
+            'capacity' => $request->capacity,
+            'date' => $request->date, 
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time
+        ];
+
+        $event = new Event;
+        $event->fill($data);
+        $event->save();
 
         return redirect('/university/dashboard');
     }
 
     public function read()
     {
+        $part_id = auth()->user()->participant->id;
         $user_role = auth()->user()->role;
+        
+        $events = Event::whereDoesntHave('attendees', function ($query) use ($part_id) {
+            $query->where('attendee_id', $part_id);
+        })->get();
 
-        if ($user_role === 'university') {
-
-            $email = auth()->user()->email;
-            $events = $this->event->getEventsForUniversity($email);
-
-        } else {
-            $user_id = auth()->user()->id;
-            $events = $this->event->getEventsForUser($user_id);
-        }
-
-        return view('/'. $user_role . '/viewevent')->with(['events'=> $events]);
+        return view('/'. $user_role . '/viewevent', compact('events'));
     }
 
     public function showUpdate($id)
@@ -47,9 +49,18 @@ class EventController extends Controller
 
     public function update(Request $request, $id)
     {
-        $event = Event::find($id);  // Find the Student based on Primary Key
+        $event = Event::find($id);
 
-        $event->updateEvent($request);   
+        $event->update([
+            'uni_id' => auth()->user()->university->id,
+            'name' => $request->name,
+            'niche' => $request->niche,
+            'location' => $request->location,
+            'capacity' => $request->capacity,
+            'date' => $request->date, 
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time
+        ]);   
 
         return redirect('/university/viewevent');
     }
@@ -60,25 +71,24 @@ class EventController extends Controller
         return redirect('/university/viewevent');
     }
 
-    public function join($id)
+    public function join($event_id)
     {
-        auth()->user()->joinEvent($id);
+        auth()->user()->participant->eventsAttendees()->attach($event_id);
 
-        return redirect('/user/viewevent');
+        return redirect('/participant/viewevent');
     }
 
-    public function leave($id)
+    public function leave($event_id)
     {
-        auth()->user()->leaveEvent($id);
+        auth()->user()->participant->eventsAttendees()->detach($event_id);
 
-        return redirect('/user/viewjoinedevent');
+        return redirect('/participant/viewjoinedevent');
     }
 
     public function viewJoinedEvents()
     {
-        $user = auth()->user();
-        $events = $user->getJoinedEvents()->get();
+        $events = auth()->user()->participant->eventsAttendees;
 
-        return view('user.viewjoinedevent')->with('events', $events);
+        return view('participant.viewjoinedevent')->with('events', $events);
     }
 }

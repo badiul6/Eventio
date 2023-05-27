@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('trainee_id')
-                  ->constrained(table: 'participant', column: 'id')
+                  ->constrained(table: 'participants', column: 'id')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
 

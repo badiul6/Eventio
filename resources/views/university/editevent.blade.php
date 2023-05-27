@@ -13,28 +13,32 @@
                     </h1><br><br>
                     <form method="POST" action="{{route('event.edit', $event->id)}}">
                         @csrf
-                            <label for="uni_email">University Email:</label><br>
-                            <input type="text" id="uni_email" name="uni_email" value={{$event->uni_email}}><br><br>
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name" value={{$event->name}}><br><br>
 
-                            <label for="society_email">Society Email:</label><br>
-                            <input type="text" id="society_email" name="society_email" value={{$event->society_email}}><br><br>
+                        <label for="niche">Niche:</label><br>
+                        <input type="text" id="niche" name="niche" value={{$event->niche}}><br><br>
 
-                            <label for="name">Name:</label><br>
-                            <input type="text" id="name" name="name" value={{$event->name}}><br><br>
-                            
-                            <label for="niche">Niche:</label><br>
-                            <input type="text" id="niche" name="niche" value={{$event->niche}}><br><br>
-                            
-                            <label for="location">Location:</label><br>
-                            <input type="text" id="location" name="location" value={{$event->location}}><br><br>
-                            
-                            <label for="capacity">Capacity:</label><br>
-                            <input type="number" id="capacity" name="capacity" value={{$event->capacity}}><br><br>
-                        </div>
-                        <button type="submit" style="background-color: blue; padding:05px; color:white">Edit Event</button>
-                    </form>
+                        <label for="location">Location:</label><br>
+                        <input type="text" id="location" name="location" value={{$event->location}}><br><br>
+
+                        <label for="capacity">Capacity:</label><br>
+                        <input type="number" id="capacity" name="capacity" value={{$event->capacity}}><br><br>
+
+                        <label for="date">Date:</label><br>
+                        <input type="date" id="date" name="date" required value={{$event->date}}><br><br>
+
+                        <label for="time1">Start Time:</label><br>
+                        <input type="time" id="start_time" name="start_time" min="08:00" max="18:00" required value={{$event->start_time}} ><br><br>
+
+                        <label for="time2">End Time:</label><br>
+                        <input type="time" id="end_time" name="end_time" min="08:00" max="18:00" required value={{$event->end_time}}><br><br>
+
                 </div>
+                <button type="submit" style="background-color: blue; padding:05px; color:white">Edit Event</button>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>

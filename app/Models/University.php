@@ -4,57 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class University extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'email';
-    public $incrementing = false;
-    public $fillable = ['email', 'uniname', 'contact', 'address'];
+    
+    public $fillable = ['name', 'contact', 'address', 'user_id'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'email', 'email');
+        return $this->belongsTo(User::class, 'user_id');
     }
     
     public function attendees()
     {
-        return $this->hasMany(Attendee::class, 'uniname', 'uniname');
-    }
-    
-    public function society()
-    {
-        return $this->hasMany(Society::class, 'uniname', 'uniname');
+        return $this->hasMany(Participant::class, 'uni_id');
     }
 
     public function events() {
-        return $this->hasMany(Event::class, 'uni_email', 'email');
-    }
-
-    public static function create(Request $request) : University
-    {
-        $data = [
-            'email' => auth()->user()->email,
-            'uniname' => $request->uniname,
-            'contact' => $request->contact,
-            'address' => $request->address
-        ];
-        
-        $uni = new University;
-        
-        $uni->fill($data);
-        $uni->save();
-
-        return $uni;
-    } 
-
-    public function updateUniversity(Request $request)
-    {
-        self::update([
-            'uniname' => $request->uniname,
-            'contact' => $request->contact,
-            'address' => $request->address,
-        ]);
+        return $this->hasMany(Event::class, 'uni_id');
     }
 }

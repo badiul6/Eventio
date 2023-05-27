@@ -4,36 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\University;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Society;
 use Illuminate\Http\Request;
 
 class UniversityController extends Controller
 {
-    public function uniDashboard()
+
+    public function read()
     {
-        return view('university/dashboard');
+        $uni =  auth()->user()->university;
+        
+        return view('/university/dashboard', compact('uni'));
     }
 
     public function create(Request $request)
     {
-        University::create($request);
-        
-        return redirect('/university/dashboard');
+
+        $data = [
+            'name' => $request->name,
+            'address' => $request->address,
+            'contact' => $request->contact,
+            'user_id' => auth()->user()->id
+        ];
+
+        $uni = new University;
+        $uni->create($data);
+
+        return $this->read();
     }
-    public function read(){
-        $email= auth()->user()->email;
-        
-        $uni = University::find($email);
-        
-        return view('/university/dashboard')->with(['uni'=> $uni]);
-    }
+    
     public function showUpdate()
     {
-        $email= auth()->user()->email;
-        $uni = University::find($email);
+        $uni =  auth()->user()->university;
         
-        return view('/university/updateprofile')->with(['uni'=> $uni]);
+        return view('/university/updateprofile', compact('uni'));
     }
     
     public function loadcreateevent() 
@@ -41,26 +44,29 @@ class UniversityController extends Controller
         return view('university.createevent');
     }
 
-    public function update(Request $request){
-        $email= auth()->user()->email;
-        $uni = University::find($email);    // Find the Student based on Primary Key
+    public function update(Request $request)
+    {
+        $data = [
+            'name' => $request->name,
+            'address' => $request->address,
+            'contact' => $request->contact,
+            'user_id' => auth()->user()->id
+        ];
 
-        $uni->updateUniversity($request);
+        auth()->user()->university->update($data);
         
         return redirect('/university/dashboard');
     }
+
     public function delete(Request $request)
     {
-        $email= auth()->user()->email;
+        auth()->user()->delete();
 
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        User::where('email',$email)->delete();
-
         return redirect('/');
-
     }
 }

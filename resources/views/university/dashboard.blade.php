@@ -11,9 +11,9 @@
                 <div class="p-6 text-gray-900" style="display: flex; flex: row unwrap">
                     <div style="margin-right:800px">
                         <h2 style="text-align: center; font-size: medium; font-weight: bold;">University Name</h2>
-                        <p style="text-align: center; border-radius: 4px; padding: 5px; ">{{ __("$uni->uniname") }}</p><br>
+                        <p style="text-align: center; border-radius: 4px; padding: 5px; ">{{ __("$uni->name") }}</p><br>
                         <h2 style="text-align: center; font-size: medium; font-weight: bold;">Email ID</h2>
-                        <p style="text-align: center; border-radius: 4px; padding: 5px;">{{$uni->email}}</p><br>
+                        <p style="text-align: center; border-radius: 4px; padding: 5px;">{{$uni->user->email}}</p><br>
                         <h2 style="text-align: center; font-size: medium; font-weight: bold;">Contact Number</h2>
                         <p style="text-align: center; border-radius: 4px; padding: 5px;">{{$uni->contact}}</p><br>
                         <h2 style="text-align: center; font-size: medium; font-weight: bold;">Address</h2>
@@ -34,6 +34,7 @@
                             @csrf
                             <input type="submit" value="Delete University Account" style="width: 100%; background-color: #4CAF50; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 4px;">
                         </form>
+
                         <br><br>
                         <form action="{{route('university.cevent')}}" method="get">
                             @csrf
@@ -43,6 +44,7 @@
                             @csrf
                             <input type="submit" value="View Event" style="width: 100%; background-color: #4CAF50; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 4px;">
                         </form>
+
                     </div>
 
                 </div>

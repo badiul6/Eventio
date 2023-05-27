@@ -11,15 +11,17 @@
                 <div class="p-6 text-gray-900">
                   <h1 style="font-size: 24px">{{ __("Edit Profile Information") }}
 </h1><br><br>
-<form action="{{route('society.update')}}" method="post">
+<form action="{{route('attendee.update')}}" method="post">
         @csrf
-            <label for="name">Society Name</label><br>
-            <input type="text" id="name" name="name" value="{{$society->name}}"><br><br>
-            <label for="type">Society Type:</label><br>
-            <input type="text" id="type" name="type" value="{{$society->type}}"><br><br>
-            <label for="uniname">Society University:</label><br>
-            <input type="text" id="uniname" name="uniname" value="{{$society->uniname}}"><br><br>
-            
+            <label for="firstname">First Name</label><br>
+            <input type="text" id="firstname" name="first_name" value="{{$part->first_name}}"><br><br>
+            <label for="lastname">Last Name</label><br>
+            <input type="text" id="lastname" name="last_name" value="{{$part->last_name}}"><br><br>
+            <label for="contact">Contact Number</label><br>
+            <input type="text" id="contact" name="phone_no" value="{{$part->phone_no}}"><br><br>
+            <label for="uniname">Institute</label><br>
+            <input type="text" id="uniname" name="uni_id" value="{{$part->uni_id}}"><br><br>
+
             <br><br>
          
         <input type="submit" value="Save info" style="background-color: blue; padding:05px; color:white">

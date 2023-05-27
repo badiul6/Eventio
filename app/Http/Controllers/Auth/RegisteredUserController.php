@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,30 +26,20 @@ class RegisteredUserController extends Controller
     {
         $r=$request->input('userType');
 
-        if($r=='Attendee')
+        if($r=='Participant')
             return view('auth.register');
-
-        else if($request->userType=='Society')
-            return view('auth.sregister');
-        else if($request->userType=='University')
-            return view('auth.uregister');
-        else
-        return view('signup');
-
             
+        else if($r=='University')
+            return view('auth.uregister');
+
+        else
+            return view('signup');
     }
 
     public function loadUniRegPage(): View
     {
         return view('auth.uregister');
     }
-
-    public function loadSocietyRegPage(): View
-    {
-        return view('auth.sregister');
-    }
-
-
 
     /**
      * Handle an incoming registration request.
@@ -65,38 +54,17 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $role="";
-        if($request->role== "university"){
-            $role= "university";
-        }
-        elseif($request->role== "society"){
-            $role= "society";
-        }
-        else{
-            $role= "user";
-        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $role,
+            'role' => $request->role,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
-        $r="";
-        if($user->role=="university"){
-            $r= "/university/createprofile";
-        }
-        elseif($user->role=="society"){
-            $r= "/society/createprofile";
-        }
-        else{
-            $r= "/user/createprofile";
 
-        }
-
-        return redirect($r);
+        return redirect("/".$request->user()->role.'/createprofile');
     }
 }

@@ -29,18 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $r="";
-        if($request->user()->role=="university"){
-            $r="/university/dashboard";
-        }
-        elseif($request->user()->role=="society"){
-            $r="/society/dashboard";
-        }
-        else{
-            $r="/user/dashboard";
-        }
-
-        return redirect()->intended($r);
+        return redirect()->intended('/'.$request->user()->role.'/dashboard');
     }
 
     /**

@@ -19,7 +19,7 @@
     @csrf
     <h1 class="uni">Create University profile</h1><br><br>
     <label for="uniname">University Name</label> <br>
-    <input type="text" id="uniname" name="uniname">
+    <input type="text" id="uniname" name="name">
     <br>
     <label for="contact">Contact No</label>
     <br>

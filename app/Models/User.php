@@ -39,32 +39,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function attendee()
+    public function participant()
     {
-        return $this->hasOne(Attendee::class, 'email', 'email');
+        return $this->hasOne(Participant::class, 'user_id');
     }
+
     public function university()
     {
-        return $this->hasOne(University::class, 'email', 'email');
-    }
-
-    public function events()
-    {
-        return $this->belongsToMany(Event::class, 'event_users');
-    }
-
-    public function joinEvent($event_id) 
-    {
-        $this->events()->attach($event_id);
-    }
-
-    public function leaveEvent($event_id)
-    {
-        $this->events()->detach($event_id);
-    }
-
-    public function getJoinedEvents()
-    {
-        return $this->events();
+        return $this->hasOne(University::class, 'user_id');
     }
 }

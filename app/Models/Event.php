@@ -9,64 +9,21 @@ use Illuminate\Http\Request;
 class Event extends Model
 {
     use HasFactory;
-    public $fillable = ['society_email', 'uni_email', 'name', 'niche', 'location', 'capacity'];
-    // Relations - Start
 
-    public function society() {
-        return $this->belongsTo(Society::class, 'society_email', 'email');
-    }
+    public $fillable = ['uni_id', 'name', 'niche', 'location', 'capacity', 'date', 'start_time', 'end_time'];
 
-    public function university() {
+    public function university() 
+    {
         return $this->belongsTo(University::class, 'uni_email', 'email');
     }
 
-    public function users()
+    public function trainees()
     {
-        return $this->belongsToMany(User::class, 'event_users');
+        return $this->belongsToMany(Participant::class, 'events_trainees', 'event_id', 'participant_id');
     }
 
-    public static function create(Request $request) : Event
+    public function attendees()
     {
-        $data = [
-            'uni_email' => auth()->user()->email,
-            'society_email' => $request->has('society_email') ? $request->society_email : null,
-            'name' => $request->name,
-            'niche' => $request->niche,
-            'location' => $request->location,
-            'capacity' => $request->capacity,
-        ];
-
-        $event = new Event;
-        $event->fill($data);
-        $event->save();
-
-        return $event;
-    }
-
-    public function updateEvent(Request $request)
-    {
-        self::update([
-            'uni_email' => auth()->user()->email,
-            'society_email' => $request->has('society_email') ? $request->society_email : null,
-            'name' => $request->name,
-            'niche' => $request->niche,
-            'location' => $request->location,
-            'capacity' => $request->capacity,
-        ]);
-    }
-    
-    // Relations - End
-    public function getEventsForUser($user_id)
-    {
-        return self::whereNotIn('id', 
-            function($query) use ($user_id) {
-                $query->select('event_id')->from('event_users')->where('user_id', $user_id);
-            }
-        )->get();
-    }
-
-    public function getEventsForUniversity($uni_email) 
-    {
-        return self::where('uni_email', $uni_email)->get();
+        return $this->belongsToMany(Participant::class, 'events_attendees', 'event_id', 'attendee_id');
     }
 }

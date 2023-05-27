@@ -14,7 +14,7 @@
 <form action="{{route('university.update')}}" method="post">
         @csrf
             <label for="uniname">University Name</label><br>
-            <input type="text" id="uniname" name="uniname" value="{{$uni->uniname}}"><br><br>
+            <input type="text" id="uniname" name="name" value="{{$uni->name}}"><br><br>
             <label for="contact">University Contact No:</label><br>
             <input type="text" id="contact" name="contact" value="{{$uni->contact}}"><br><br>
             <label for="address">University Address</label><br>
