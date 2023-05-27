@@ -13,14 +13,21 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('society_email')->nullable(); // Add email column
-            $table->string('uni_email'); // Add email column
+            
             $table->string('name', 255);
             $table->string('niche', 255);
             $table->string('location', 255);
             $table->double('capacity', 3);
-            $table->foreign('society_email')->references('email')->on('societies')->onDelete('set null');
-            $table->foreign('uni_email')->references('email')->on('universities')->onDelete('cascade');
+            
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
+
+            $table->foreignId('uni_id')
+                  ->constrained(table: 'universities', column: 'id')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
