@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('address');
             $table->string('contact');
+            $table->string('website');
+            $table->string('social_link');
+            $table->string('description');
 
             $table->foreignId('user_id')
                   ->constrained(table: 'users', column: 'id')

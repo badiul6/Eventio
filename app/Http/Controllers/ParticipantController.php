@@ -29,6 +29,10 @@ class ParticipantController extends Controller
 
     public function read()
     {
+        if(is_null(auth()->user()->participant))
+        {
+            return redirect('/participant/createprofile');
+        }
         $part= auth()->user()->participant;
         
         return view('/participant/dashboard', compact('part'));

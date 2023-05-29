@@ -24,9 +24,9 @@
       </div>
       <div class="form-container">
         <x-text-input placeholder="Email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-        <x-input-error :messages="$errors->get('email')" class="mt-2" />
         <div class="mt-4">
           <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" placeholder="Password" />
+          <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
           <x-input-error :messages="$errors->get('password')" class="mt-2" />
           <label class="flex items-center mr-4 mt-5">

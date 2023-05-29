@@ -11,6 +11,10 @@ class UniversityController extends Controller
 
     public function read()
     {
+        if(is_null(auth()->user()->university))
+        {
+            return redirect('/university/createprofile');
+        }
         $uni =  auth()->user()->university;
         
         return view('/university/dashboard', compact('uni'));

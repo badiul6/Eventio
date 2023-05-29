@@ -37,7 +37,7 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth','verified','role:participant'])->group(function(){
 
     Route::get('/participant/createprofile', function () {
-        return view('user/createprofile');})->name('createprofile');
+        return view('participant/createprofile');})->name('createprofile');
 
     Route::get('/participant/dashboard', [ParticipantController::class, 'read'])->name('dashboard');
     
