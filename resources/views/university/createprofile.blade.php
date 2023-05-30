@@ -1,23 +1,18 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-<div style="text-align:center; ">
-<form action="{{route('university.store')}}" method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    @vite('resources/css/app.css')
+</head>
+<body >
+<div class="container mx-auto my-20 bg-white p-6 text-center border border-gray-300 rounded-lg shadow-md flex flex-wrap">
+<img src="https://media-cdn.tripadvisor.com/media/photo-o/10/4a/72/06/haleji-lake.jpg" alt="" class="flex-grow w-auto">
+<form action="{{route('university.store')}}" method="post" class="flex-grow w-auto">
     @csrf
-    <h1 class="uni">Create University profile</h1><br><br>
+    <h1 class="text">Create University profile</h1><br><br>
     <label for="uniname">University Name</label> <br>
     <input type="text" id="uniname" name="name">
     <br>
@@ -35,4 +30,5 @@
 </form>
 
 </div>
-</x-app-layout>
+</body>
+</html>
