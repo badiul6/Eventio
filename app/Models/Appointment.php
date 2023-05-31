@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     use HasFactory;
+
+    public function trainee()
+    {
+        return $this->belongsTo(Trainee::class);
+    }
+    public function university()
+    {
+        return $this->belongsTo(University::class);
+    }
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

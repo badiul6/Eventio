@@ -11,19 +11,26 @@ class Event extends Model
     use HasFactory;
 
     public $fillable = ['uni_id', 'name', 'niche', 'location', 'capacity', 'date', 'start_time', 'end_time'];
+    
+    public function attendees()
+    {
+        return $this->hasMany(Attendee::class);
+    }
 
     public function university() 
     {
-        return $this->belongsTo(University::class, 'uni_email', 'email');
+        return $this->belongsTo(University::class);
     }
 
-    public function trainees()
+    public function topic() 
     {
-        return $this->belongsToMany(Participant::class, 'events_trainees', 'event_id', 'participant_id');
+        return $this->belongsTo(Topic::class);
     }
 
-    public function attendees()
+    public function appointments()
     {
-        return $this->belongsToMany(Participant::class, 'events_attendees', 'event_id', 'attendee_id');
+        return $this->hasMany(Appointment::class);
     }
+   
+    
 }

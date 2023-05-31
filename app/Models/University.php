@@ -16,12 +16,13 @@ class University extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
     
-    public function attendees()
-    {
-        return $this->hasMany(Participant::class, 'uni_id');
+    public function events() {
+        return $this->hasMany(Event::class);
     }
 
-    public function events() {
-        return $this->hasMany(Event::class, 'uni_id');
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
+   
 }

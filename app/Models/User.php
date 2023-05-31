@@ -46,6 +46,14 @@ class User extends Authenticatable
 
     public function university()
     {
-        return $this->hasMany(University::class, 'user_id');
+        return $this->hasOne(University::class);
+    }
+    public function trainee()
+    {
+        return $this->hasOne(Trainee::class);
+    }
+    public function attendee()
+    {
+        return $this->hasOne(Attendee::class);
     }
 }
