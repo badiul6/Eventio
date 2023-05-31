@@ -11,23 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('universities', function (Blueprint $table) {
+        Schema::create('trainees', function (Blueprint $table) {
             $table->id();
-            
-            $table->string('name')->unique();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone_no');
+            $table->string('bio')->nullable();
+            $table->string('experience');
             $table->string('address');
-            $table->string('contact');
-            $table->string('website');
-            $table->string('social_link')->nullable();
-            $table->string('description')->nullable();
-            
+
 
             $table->foreignId('user_id')
                   ->constrained(table: 'users', column: 'id')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
 
-            $table->timestamps();
         });
     }
 
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('universities');
+        Schema::dropIfExists('trainees');
     }
 };

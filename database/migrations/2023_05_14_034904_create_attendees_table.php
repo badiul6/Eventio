@@ -11,28 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('participants', function (Blueprint $table) {
+        Schema::create('attendees', function (Blueprint $table) {
             $table->id();
-
+            
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_no');
-
-            $table->enum('participant_type', ['attendee', 'trainee'])->default('attendee');
+            $table->string('bio')->nullable();
+            $table->string('address')->nullable();
 
             $table->foreignId('user_id')
                   ->constrained(table: 'users', column: 'id')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
 
-            $table->foreignId('uni_id')
-                  ->nullable()
-                  ->constrained('universities', 'id')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-              
-                  
-            $table->timestamps();
         });
     }
 

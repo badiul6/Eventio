@@ -15,16 +15,22 @@ return new class extends Migration
             $table->id();
             
             $table->string('name', 255);
-            $table->string('niche', 255);
+            $table->string('description', 255);
             $table->string('location', 255);
             $table->double('capacity', 3);
             
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->enum('status',['pending','active','completed'])->default('pending');
 
             $table->foreignId('uni_id')
                   ->constrained(table: 'universities', column: 'id')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+            
+          $table->foreignId('topic_id')
+                  ->constrained(table: 'topics', column: 'id')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
 

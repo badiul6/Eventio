@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('attendee_id')
-                  ->constrained(table: 'participants', column: 'id')
+                  ->constrained(table: 'attendees', column: 'id')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
 
@@ -23,6 +23,9 @@ return new class extends Migration
                   ->constrained(table: 'events', column: 'id')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
+            
+         
+                  
 
             $table->timestamps();
         });

@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events_trainees', function (Blueprint $table) {
+        Schema::create('pictures', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('trainee_id')
-                  ->constrained(table: 'participants', column: 'id')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->string('dp_path')->nullable();
+            $table->string('cover_path')->nullable();
 
-            $table->foreignId('event_id')
-                  ->constrained(table: 'events', column: 'id')
+            
+            $table->foreignId('user_id')
+                  ->constrained(table: 'users', column: 'id')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
 
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events_trainees');
+        Schema::dropIfExists('pictures');
     }
 };

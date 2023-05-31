@@ -39,13 +39,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function participant()
+    public function picture()
     {
-        return $this->hasOne(Participant::class, 'user_id');
+        return $this->hasOne(Picture::class);
     }
 
     public function university()
     {
-        return $this->hasOne(University::class, 'user_id');
+        return $this->hasMany(University::class, 'user_id');
     }
 }
