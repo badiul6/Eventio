@@ -23,7 +23,7 @@
         <!-- <img src="instagram-logo.png" alt="Instagram Logo"> -->
       </div>
       <div class="form-container">
-        <x-text-input placeholder="Email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+        <x-text-input placeholder="Email/Username" id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" required autofocus autocomplete="username" />
         <div class="mt-4">
           <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" placeholder="Password" />
           <x-input-error :messages="$errors->get('email')" class="mt-2" />
