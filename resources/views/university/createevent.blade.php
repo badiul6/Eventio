@@ -25,7 +25,7 @@
                         <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 required="">
                     </div>
                     <div>
-                        <label for="topic" class="block mb-2 text-sm font-medium text-gray-900 ">Topic</label>
+                        <label for=" topic" class="block mb-2 text-sm font-medium text-gray-900 ">Topic</label>
                         <select id="topic" name="topic" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here">
                             <option value="1">Sports</option>
                             <option value="2">Events</option>
@@ -36,13 +36,14 @@
                         <input type="location" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 required="">
                     </div>
                     <div>
-                        <label for="capacity" class="block mb-2 text-sm font-medium text-gray-900 ">Capacity</label>
+                        <label for=" capacity" class="block mb-2 text-sm font-medium text-gray-900 ">Capacity</label>
                         <input id="capacity" name="capacity" type="capacity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                     </div>
                     <div class="col-span-2">
                         <label for="datee" class="block mb-2 text-sm font-medium text-gray-900 ">Date</label>
                         <input id="datee" name="datee" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                     </div>
+
                     <div>
                         <label for="s_time" class="block mb-2 text-sm font-medium text-gray-900 ">Start Time</label>
                         <input id="s_time" type="time" name="s_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
@@ -51,7 +52,36 @@
                         <label for="e_time" class="block mb-2 text-sm font-medium text-gray-900 ">End Time</label>
                         <input id="e_time" type="time" name="e_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                     </div>
-                    
+                    <div class="col-span-2 relative">
+                        <label for="trainee" class="block mb-2 text-sm font-medium text-gray-900 ">Select Trainees</label>
+                        <button id="dropdownCheckboxButton" data-dropdown-toggle="dropdownDefaultCheckbox" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown checkbox <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg></button>
+
+                        <!-- Dropdown menu -->
+                        <div id="dropdownDefaultCheckbox" class="col-span-2 inset-0 hidden bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+                            <ul class=" w-full bg-white absolute p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
+                                <li>
+                                    <div class="flex items-center">
+                                        <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default checkbox</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-center">
+                                        <input checked id="checkbox-item-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="checkbox-item-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Checked state</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-center">
+                                        <input id="checkbox-item-3" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="checkbox-item-3" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default checkbox</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class=" sm:col-span-2">
                         <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
                         <textarea id="desc" name="desc" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here"></textarea>

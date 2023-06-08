@@ -53,7 +53,10 @@ class UniversityController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'contact' => $request->contact,
-            'user_id' => auth()->user()->id
+            'website' => $request->website,
+            'social_link' => $request->social,
+            'description' => $request->desc,
+            
         ];
 
         auth()->user()->university->update($data);

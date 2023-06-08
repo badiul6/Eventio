@@ -20,11 +20,11 @@
 </head>
 
 <body>
-
     @if (is_null(auth()->user()->university))
         @include("university.createprofile")
     @else
     @include("university.createevent")
+    @include("university.updateprofile")
     <div class="flex h-screen items-center p-3 bg-slate-200">
         <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-slate-200">
             <div class="flex flex-col basis-1/6 h-full items-center pt-6">
@@ -32,8 +32,13 @@
                 <span>Eventio</span>
 
                 <div class="flex flex-col pt-16 h-full w-3/4 mb-7 items-center space-y-5 p-5">
-                    <button id="profile-modal">Profile</button>
+                    <button id="event-modal">Create Event</button>
+                    <button id="update-modal">Update</button>
+
                     <div class="width h-full">&nbsp;</div>
+                    <form  action="{{route('profile.edit')}}" method="get">
+                        <input type="submit" value="Account Settings" class="cursor-pointer">
+                    </form>
                     <div>
                         <a href="#">Log out</a>
                     </div>
@@ -152,8 +157,16 @@
             $(this).closest('div[name="Modal"]').hide();
         });
 
-        $('#profile-modal').click(function() {
-            $('div[name="Modal"]').toggle();
+        $('#event-modal').click(function() {
+            $('#eventModal').toggle();
+        });
+
+        $('#update-modal').click(function() {
+            $('#updateModal').toggle();
+        });
+
+        $('#dropdownCheckboxButton').click(function() {
+            $('#dropdownDefaultCheckbox').toggle();
         });
     });
 </script>
