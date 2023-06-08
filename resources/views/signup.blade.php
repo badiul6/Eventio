@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="flex flex-row h-full justify-start md:w-max md:basis-0">
-                    <input class="hidden peer" name="userType" id="University" type="radio" value="University">
+                    <input class="hidden peer" name="userType" id="University" type="radio" value="university">
                     <label for="University" class="flex items-center justify-between text-2xl w-full h-40 bg-white hover:bg-gray-50 transition-colors duration-500 peer-checked:text-blue-500 rounded-lg border-2 border-gray-300 shadow-xl peer-checked:border-blue-500 hover:border-blue-500
                 peer-hover:shadow-inner  cursor-pointer md:flex-col-reverse md:h-full md:px-10">
                         <div class="block p-5">
@@ -36,11 +36,11 @@
                 </div>
 
                 <div class="flex flex-row h-full justify-start md:w-max md:basis-0 md:mr-5">
-                    <input class="hidden peer" name="userType" id="Participant" type="radio" value="Participant">
-                    <label for="Participant" class="flex items-center justify-between text-2xl w-full hover:bg-gray-50 h-40 bg-white transition-colors duration-500 peer-checked:text-blue-500 rounded-lg border-2 border-gray-300 shadow-xl peer-checked:border-blue-500 hover:border-blue-500
+                    <input class="hidden peer" name="userType" id="Attendee" type="radio" value="attendee">
+                    <label for="Attendee" class="flex items-center justify-between text-2xl w-full hover:bg-gray-50 h-40 bg-white transition-colors duration-500 peer-checked:text-blue-500 rounded-lg border-2 border-gray-300 shadow-xl peer-checked:border-blue-500 hover:border-blue-500
                 peer-hover:shadow-inner cursor-pointer md:flex-col-reverse md:h-full md:px-10">
                         <div class="block p-5">
-                            <div class="w-full text-4xl font-semibold">Participant</div>
+                            <div class="w-full text-4xl font-semibold">Attendee</div>
                             <div class="w-full text-sm font-light text-gray-500 text-center">I want to join events</div>
                         </div>
                         <div class="block">

@@ -22,23 +22,12 @@ class RegisteredUserController extends Controller
         return view('signup');
     }
 
-    public function create(Request $request)
+    public function create(Request $req)
     {
-        $r=$request->input('userType');
 
-        if($r=='Participant')
-            return view('auth.register');
-            
-        else if($r=='University')
-            return view('auth.uregister');
-
-        else
-            return view('signup');
-    }
-
-    public function loadUniRegPage(): View
-    {
-        return view('auth.uregister');
+        $type= $req->userType;
+        
+        return view('auth.register',compact("type"));
     }
 
     /**
@@ -49,8 +38,8 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:'.User::class],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'name' => ['required', 'string', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -65,6 +54,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect("/".$request->user()->role.'/createprofile');
+        return redirect("/" . $request->user()->role . '/dashboard');
     }
 }

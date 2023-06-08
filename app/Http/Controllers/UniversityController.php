@@ -11,10 +11,6 @@ class UniversityController extends Controller
 
     public function read()
     {
-        if(is_null(auth()->user()->university))
-        {
-            return redirect('/university/createprofile');
-        }
         $uni =  auth()->user()->university;
         
         return view('/university/dashboard', compact('uni'));
@@ -22,11 +18,14 @@ class UniversityController extends Controller
 
     public function create(Request $request)
     {
-
+        // name 	address 	contact 	website 	social_link 	description
         $data = [
             'name' => $request->name,
             'address' => $request->address,
             'contact' => $request->contact,
+            'website' => $request->website,
+            'social_link' => $request->social,
+            'description' => $request->desc,
             'user_id' => auth()->user()->id
         ];
 

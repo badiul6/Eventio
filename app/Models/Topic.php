@@ -14,6 +14,6 @@ class Topic extends Model
     }
 
     public function trainees() {
-        return $this->hasMany(Trainee::class);
+        return $this->belongsToMany(Trainee::class);
     }
 }

@@ -10,7 +10,7 @@ class Event extends Model
 {
     use HasFactory;
 
-    public $fillable = ['uni_id', 'name', 'niche', 'location', 'capacity', 'date', 'start_time', 'end_time'];
+    public $fillable = ['uni_id', 'topic_id', 'name', 'location', 'description', 'capacity', 'date', 'start_time', 'end_time'];
     
     public function attendees()
     {

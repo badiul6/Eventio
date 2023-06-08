@@ -8,17 +8,19 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
 
+    // id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id
     public function create(Request $request)
     {
         $data = [
             'uni_id' => auth()->user()->university->id,
+            'topic_id' => $request->topic,
             'name' => $request->name,
-            'niche' => $request->niche,
+            'description' => $request->desc,
             'location' => $request->location,
             'capacity' => $request->capacity,
-            'date' => $request->date, 
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time
+            'date' => $request->datee, 
+            'start_time' => $request->s_time,
+            'end_time' => $request->e_time
         ];
 
         $event = new Event;

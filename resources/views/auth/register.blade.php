@@ -16,7 +16,7 @@
     </a>
   </div>
   <div class="container max-w-md mx-auto bg-white p-6 text-center border border-gray-300 rounded-lg shadow-md">
-    <h1 class="text-blue-500 mb-6 text-3xl font-semibold">Create Account</h1>
+    <h1 class="text-blue-500 mb-6 text-3xl font-semibold">Create {{ucfirst($type)}} Account</h1>
     <div class="form-container">
       <form action="{{route('register')}}" method="POST">
         @csrf
@@ -38,7 +38,7 @@
         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 
         <input type="submit" value="Signup" class="w-full bg-blue-500 text-white rounded-lg py-2 mt-4 hover:bg-blue-600 cursor-pointer">
-        <input type="hidden" name="role" value="participant">
+        <input type="hidden" name="role" value={{$type}}>
       </form>
     </div>
     <div class="divider flex items-center mt-6">

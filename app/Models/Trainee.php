@@ -16,8 +16,8 @@ class Trainee extends Model
     {
         return $this->belongsToMany(Topic::class);
     }
-    public function appointments()
+    public function events()
     {
-        return $this->hasMany(Appointment::class);
+        return $this->belongsToMany(Event::class);
     }
 }

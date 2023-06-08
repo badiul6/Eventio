@@ -37,33 +37,31 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::middleware(['auth','verified','role:user'])->group(function(){
+Route::middleware(['auth','verified','role:attendee'])->group(function(){
 
-    Route::get('/user/createprofile', function () {
-        return view('user/createprofile');})->name('dashboard');
+    Route::get('/attendee/createprofile', function () {
+        return view('attendee/createprofile');})->name('dashboard');
 
-    Route::get('/user/dashboard', [AttendeeController::class, 'read'])->name('dashboard');
+    Route::get('/attendee/dashboard', [AttendeeController::class, 'read'])->name('dashboard');
     
-    Route::post('/user/create', [AttendeeController::class,'create'])->name('attendee.store');
+    Route::post('/attendee/create', [AttendeeController::class,'create'])->name('attendee.store');
 
-    Route::get('/user/updateprofile', [AttendeeController::class, 'showUpdate'])->name('attendee.update');
-    Route::post('/user/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
+    Route::get('/attendee/updateprofile', [AttendeeController::class, 'showUpdate'])->name('attendee.update');
+    Route::post('/attendee/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
     
-    Route::get('/user/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
+    Route::get('/attendee/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
 
-    Route::get('/user/viewevent', [EventController::class, 'read'])->name('event.read');
+    Route::get('/attendee/viewevent', [EventController::class, 'read'])->name('event.read');
     
-    Route::get('/user/joinevent/{id}', [EventController::class, 'join'])->name('event.join');
-    Route::get('/user/viewjoinedevent/', [EventController::class, 'viewJoinedEvents'])->name('event.viewjoinedevents');
-    Route::get('/user/leaveevent/{id}', [EventController::class, 'leave'])->name('event.leave');
+    Route::get('/attendee/joinevent/{id}', [EventController::class, 'join'])->name('event.join');
+    Route::get('/attendee/viewjoinedevent/', [EventController::class, 'viewJoinedEvents'])->name('event.viewjoinedevents');
+    Route::get('/attendee/leaveevent/{id}', [EventController::class, 'leave'])->name('event.leave');
     
 });//end group uni middleware
 
 
 Route::middleware(['auth','verified','role:university'])->group(function(){
 
-    Route::get('/university/createprofile', function () {
-        return view('university/createprofile');})->name('dashboard');
     Route::get('/university/dashboard', [UniversityController::class, 'read']);
 
     Route::post('/university/create', [UniversityController::class,'create'])->name('university.store');
@@ -71,7 +69,6 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
     Route::post('/university/updateprofile', [UniversityController::class, 'update'])->name('university.update');
     Route::get('/university/delete', [UniversityController::class, 'delete'])->name('university.delete');
     
-    Route::get('/university/createevent', [UniversityController::class, 'loadcreateevent'])->name('university.cevent');
     Route::post('/university/createevent', [EventController::class, 'create'])->name('event.create');
     
     Route::get('/university/viewevent', [EventController::class, 'read'])->name('event.read');
@@ -85,24 +82,6 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
 
 
 });//end group uni middleware
-
-Route::middleware(['auth','verified','role:society'])->group(function(){
-    
-    Route::get('/society/createprofile', function () {
-        $uni= University::all();
-
-        
-        return view('society/createprofile')->with(['uni'=>$uni]);})->name('dashboard');
-    
-    Route::post('/society/create', [SocietyController::class,'create'])->name('society.store');
-
-    Route::get('/society/dashboard', [SocietyController::class, 'read']);
-    Route::get('/society/updateprofile', [SocietyController::class, 'showUpdate'])->name('society.update');
-    Route::post('/society/updateprofile', [SocietyController::class, 'update'])->name('society.update');
-    Route::get('/society/delete', [SocietyController::class, 'delete'])->name('society.delete');
-
-
-});//end group society middleware
 
 Route::get('/createtrainee', [TraineeController::class, 'loadCreate']);
 
@@ -129,4 +108,3 @@ Route::get('/create', [TraineeController::class,'createPage']);
 
 Route::post('/create', [TraineeController::class,'tcreate'])->name("create");
 Route::get('/eventusers', [TraineeController::class, 'read']);
-
