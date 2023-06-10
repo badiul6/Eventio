@@ -39,8 +39,11 @@
                     <form  action="{{route('profile.edit')}}" method="get">
                         <input type="submit" value="Account Settings" class="cursor-pointer">
                     </form>
-                    <div>
-                        <a href="#">Log out</a>
+                    <div >
+                        <form action="{{route('logout')}}" method="post">
+                            @csrf
+                            <input type="submit" value="Logout" class="cursor-pointer">
+                        </form>
                     </div>
                 </div>
 

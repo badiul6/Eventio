@@ -57,7 +57,7 @@ Route::middleware(['auth','verified','role:attendee'])->group(function(){
     Route::get('/attendee/viewjoinedevent/', [EventController::class, 'viewJoinedEvents'])->name('event.viewjoinedevents');
     Route::get('/attendee/leaveevent/{id}', [EventController::class, 'leave'])->name('event.leave');
     
-});//end group uni middleware
+});//end group attendee middleware
 
 
 Route::middleware(['auth','verified','role:university'])->group(function(){
@@ -82,6 +82,14 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
 
 
 });//end group uni middleware
+
+Route::middleware(['auth','verified','role:trainee'])->group(function(){
+
+    Route::get('trainee/dashboard', [TraineeController::class, 'read']);
+    Route::post('/trainee/updateprofile', [TraineeController::class, 'update'])->name('trainee.update');
+
+
+});//end group trainee middleware
 
 Route::get('/createtrainee', [TraineeController::class, 'loadCreate']);
 

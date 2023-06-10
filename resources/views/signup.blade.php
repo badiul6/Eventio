@@ -34,6 +34,19 @@
                         </div>
                     </label>
                 </div>
+                <div class="flex flex-row h-full justify-start md:w-max md:basis-0">
+                    <input class="hidden peer" name="userType" id="Trainee" type="radio" value="trainee">
+                    <label for="Trainee" class="flex items-center justify-between text-2xl w-full h-40 bg-white hover:bg-gray-50 transition-colors duration-500 peer-checked:text-blue-500 rounded-lg border-2 border-gray-300 shadow-xl peer-checked:border-blue-500 hover:border-blue-500
+                peer-hover:shadow-inner  cursor-pointer md:flex-col-reverse md:h-full md:px-10">
+                        <div class="block p-5">
+                            <div class="w-full text-4xl font-semibold">Trainee&nbsp;&nbsp;&nbsp;</div>
+                            <div class="w-full text-sm font-light text-gray-500 text-center">I want to organize events</div>
+                        </div>
+                        <div class="block">
+                            <img class="mr-5 md:mt-14" src="/imgs/organizer.svg" width="120px">
+                        </div>
+                    </label>
+                </div>
 
                 <div class="flex flex-row h-full justify-start md:w-max md:basis-0 md:mr-5">
                     <input class="hidden peer" name="userType" id="Attendee" type="radio" value="attendee">
@@ -50,6 +63,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="flex w-full p-5 justify-center">
             @csrf
