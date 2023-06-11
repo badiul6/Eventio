@@ -15,7 +15,7 @@
 
     <nav class="relative flex flex-row border-b-2 md:pr-10">
         <div class="basis-2/3 ">
-            <a class="bg-red-100" href="/"><img src="/imgs/logo.svg" width="164px"></a>
+            <a class="bg-red-100" href="/"><img src="{{asset('/imgs/logo.svg')}}" width="164px"></a>
         </div>
         <div class="flex justify-end basis-1/3 px-4 space-x-5 py-3">
             <a class="hidden items-center md:flex" href="login">Login</a>
@@ -35,14 +35,14 @@
                     </form>
                 </div>
                 <div class="flex items-center justify-center basis-4/5 md:w-full">
-                    <img class="w-full md:w-full md:-mt-24" src="/imgs/landing_img.svg">
+                    <img class="w-full md:w-full md:-mt-24" src="{{asset('/imgs/landing_img.svg')}}">
                 </div>
             </div>
         </section>
     </div>
 
     <div class="hidden md:block bg-slate-50 bottom-0">
-        <img class="absolute bottom-0" src="/imgs/waves.svg" height="10%">
+        <img class="absolute bottom-0" src="{{asset('/imgs/waves.svg')}}" height="10%">
     </div>
 </body>
 

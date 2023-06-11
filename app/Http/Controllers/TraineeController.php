@@ -26,7 +26,7 @@ class TraineeController extends Controller
             'address' => $request->address,
             'user_id' => auth()->user()->id
         ];
-
+        dd($request->all());        
         $train = new Trainee;
         $train->create($data);
 
@@ -34,11 +34,7 @@ class TraineeController extends Controller
     }
     public function update(Request $request)
     {
-        $request->validate([
-            'fname' => 'required',
-            'lname' => 'required',
-            // Add more validation rules for other fields if needed
-        ]);
+        
         $data = [
             'first_name' => $request->fname,
             'last_name' => $request->lname,

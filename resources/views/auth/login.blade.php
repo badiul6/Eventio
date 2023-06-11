@@ -14,7 +14,7 @@
     @csrf
     <div class="flex justify-center items-center mb-8">
       <a href="/">
-        <img src="/imgs/logo.svg" width="300px">
+        <img src="{{asset('/imgs/logo.svg')}}" width="300px">
       </a>
     </div>
     <div class="container max-w-md mx-auto bg-white p-6 text-center border border-gray-300 rounded-lg shadow-md">

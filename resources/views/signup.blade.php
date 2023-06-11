@@ -12,7 +12,7 @@
 <body>
     <form action="{{route('register')}}" method="get">
         <div class="border-b-2">
-            <a class="bg-red-100" href="/"><img src="/imgs/logo.svg" width="164px"></a>
+            <a class="bg-red-100" href="/"><img src="{{asset('/imgs/logo.svg')}}" width="164px"></a>
         </div>
 
         <div class="md:flex md:justify-center">
@@ -30,7 +30,7 @@
                             <div class="w-full text-sm font-light text-gray-500 text-center">I want to organize events</div>
                         </div>
                         <div class="block">
-                            <img class="mr-5 md:mt-14" src="/imgs/organizer.svg" width="120px">
+                            <img class="mr-5 md:mt-14" src="{{asset('/imgs/organizer.svg')}}" width="120px">
                         </div>
                     </label>
                 </div>
@@ -43,7 +43,7 @@
                             <div class="w-full text-sm font-light text-gray-500 text-center">I want to organize events</div>
                         </div>
                         <div class="block">
-                            <img class="mr-5 md:mt-14" src="/imgs/organizer.svg" width="120px">
+                            <img class="mr-5 md:mt-14" src="{{asset('/imgs/organizer.svg')}}" width="120px">
                         </div>
                     </label>
                 </div>
@@ -57,7 +57,7 @@
                             <div class="w-full text-sm font-light text-gray-500 text-center">I want to join events</div>
                         </div>
                         <div class="block">
-                            <img class="mr-5 md:mt-14" src="/imgs/attendee.svg" width="120px">
+                            <img class="mr-5 md:mt-14" src="{{asset('/imgs/attendee.svg')}}" width="120px">
                         </div>
                     </label>
                 </div>

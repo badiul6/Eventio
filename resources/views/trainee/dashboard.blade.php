@@ -27,7 +27,7 @@
     <div class="flex h-screen items-center p-3 bg-slate-200">
         <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-slate-200">
             <div class="flex flex-col basis-1/6 h-full items-center pt-6">
-                <img src="imgs/logo.svg" width="64px">
+                <img src="{{asset('imgs/logo.svg')}}" width="64px">
                 <span>Eventio</span>
 
                 <div class="flex flex-col pt-16 h-full w-3/4 mb-7 items-center space-y-5 p-5">
@@ -63,7 +63,7 @@
                 <div class="flex space-x-1">
                     <div class="flex basis-1/3 px-6 items-center space-x-4 border-r-[3px] border-slate-200">
                         <div>
-                            <img src="imgs/logo.svg" width="30px">
+                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class="w-full text-center">
                             <p>In Progress</p>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="flex basis-1/3 px-6 py-2 items-center space-x-4 border-r-[3px] border-slate-200">
                         <div>
-                            <img src="imgs/logo.svg" width="30px">
+                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class="w-full text-center" <p>Completed</p>
                             <span>11</span>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="flex basis-1/3 px-6 items-center space-x-4 border-slate-200">
                         <div>
-                            <img src="imgs/logo.svg" width="30px">
+                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class=" w-full text-center" <p>Pending</p>
                             <span>0</span>

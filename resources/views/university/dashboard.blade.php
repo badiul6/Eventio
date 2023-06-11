@@ -15,11 +15,12 @@
     <!-- Include DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
-
+    
     @vite('resources/css/app.css')
 </head>
 
 <body>
+    
     @if (is_null(auth()->user()->university))
         @include("university.createprofile")
     @else
@@ -28,7 +29,7 @@
     <div class="flex h-screen items-center p-3 bg-slate-200">
         <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-slate-200">
             <div class="flex flex-col basis-1/6 h-full items-center pt-6">
-                <img src="imgs/logo.svg" width="64px">
+                <img src="{{asset('imgs/logo.svg')}}" width="64px">
                 <span>Eventio</span>
 
                 <div class="flex flex-col pt-16 h-full w-3/4 mb-7 items-center space-y-5 p-5">
@@ -52,11 +53,11 @@
             <div class="flex flex-col bg-white basis-4/5 h-full p-5 border-x-[3px] border-slate-200 px-10">
                 <div class="flex">
                     <div class="flex flex-col basis-4/5">
-                        <span class="text-4xl font-semibold">Hello, User</span>
+                        <span class="text-4xl font-semibold">Hello, {{auth()->user()->name}}</span>
                         <span class="text-sm">Track your events here, stay up-to-date!</span>
                     </div>
                     <div class="flex justify-end m-2 items-top basis-1/5 px-2">
-                        <p class="font-semibold text-sm">July 20, 2023</p>
+                        <p class="font-semibold text-sm">{{ \Carbon\Carbon::now()->format('F d, Y') }}</p>
                     </div>
                 </div>
                 <hr class="h-px mt-8 mb-2 border-[2] border-slate-300 rounded-xl">
@@ -64,7 +65,7 @@
                 <div class="flex space-x-1">
                     <div class="flex basis-1/3 px-6 items-center space-x-4 border-r-[3px] border-slate-200">
                         <div>
-                            <img src="imgs/logo.svg" width="30px">
+                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class="w-full text-center">
                             <p>In Progress</p>
@@ -73,7 +74,7 @@
                     </div>
                     <div class="flex basis-1/3 px-6 py-2 items-center space-x-4 border-r-[3px] border-slate-200">
                         <div>
-                            <img src="imgs/logo.svg" width="30px">
+                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class="w-full text-center" <p>Completed</p>
                             <span>11</span>
@@ -81,7 +82,7 @@
                     </div>
                     <div class="flex basis-1/3 px-6 items-center space-x-4 border-slate-200">
                         <div>
-                            <img src="imgs/logo.svg" width="30px">
+                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class=" w-full text-center" <p>Pending</p>
                             <span>0</span>
@@ -123,8 +124,8 @@
                             <img class="h-20 bg-gray-100 rounded-t-lg" src="https://marketplace.canva.com/EAEmB3DmXk0/1/0/1600w/canva-bright-gradient-lettering-rainbow-facebook-cover-0Z5QgybLshE.jpg" width="100%">
                             <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
                         </div>
-                        <span class="font-semibold">Username</span>
-                        <span class="text-sm font-light">To be or not to be</span>
+                        <span class="font-semibold">{{$uni->name}}</span>
+                        <span class="text-sm font-light">{{$uni->description}}</span>
                     </div>
                 </div>
 
@@ -149,6 +150,7 @@
 
         </div>
         @endif
+        
 </body>
 
 </html>

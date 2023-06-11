@@ -86,6 +86,8 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
 Route::middleware(['auth','verified','role:trainee'])->group(function(){
 
     Route::get('trainee/dashboard', [TraineeController::class, 'read']);
+    Route::post('/trainee/create', [TraineeController::class,'create'])->name('trainee.store');
+
     Route::post('/trainee/updateprofile', [TraineeController::class, 'update'])->name('trainee.update');
 
 
@@ -93,7 +95,6 @@ Route::middleware(['auth','verified','role:trainee'])->group(function(){
 
 Route::get('/createtrainee', [TraineeController::class, 'loadCreate']);
 
-Route::post('/createtrainee', [TraineeController::class, 'create'])->name('trainee.store');
 
 Route::get('/logintrainee', [TraineeController::class, 'loadLogin']);
 Route::post('/logintrainee', [TraineeController::class, 'login'])->name('login.trainee');
