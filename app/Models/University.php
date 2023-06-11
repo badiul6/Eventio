@@ -22,9 +22,6 @@ class University extends Model
         return $this->hasMany(Event::class);
     }
 
-    public function appointments()
-    {
-        return $this->hasMany(Appointment::class);
-    }
+  
    
 }

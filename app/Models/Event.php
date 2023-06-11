@@ -16,7 +16,7 @@ class Event extends Model
     
     public function attendees()
     {
-        return $this->hasMany(Attendee::class);
+        return $this->belongsToMany(Attendee::class, 'attendee_events');
     }
 
     public function university() 
@@ -29,9 +29,9 @@ class Event extends Model
         return $this->belongsTo(Topic::class);
     }
 
-    public function appointments()
+    public function trainees()
     {
-        return $this->hasMany(Appointment::class);
+        return $this->belongsToMany(Trainee::class, 'event_trainees');
     }
    
     

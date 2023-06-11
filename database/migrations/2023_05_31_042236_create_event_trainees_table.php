@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('event_trainees', function (Blueprint $table) {
             $table->id();
 
-            $table->enum('status',['pending','accepted'])->default('pending');
+            $table->enum('status',['pending','accepted','declined'])->default('pending');
 
-            $table->foreignId('uni_id')
-                ->constrained(table: 'universities', column: 'id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+         
 
             $table->foreignId('event_id')
                 ->constrained(table: 'events', column: 'id')
@@ -40,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('event_trainees');
     }
 };
