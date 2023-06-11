@@ -15,7 +15,6 @@
     <!-- Include DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
-
     @vite('resources/css/app.css')
 </head>
 
@@ -107,9 +106,6 @@
                                 <img class="h-8 rounded-2xl" src="https://randomuser.me/api/portraits/lego/3.jpg">
                             </td>
                         </tr>
-
-                       
-
                     </table>
                 </div>
 
@@ -164,7 +160,9 @@
         });
 
         $('#update-modal').click(function() {
+            showPreviousEvents();
             $('#updateModal').toggle();
+
         });
 
         $('#dropdownCheckboxButton').click(function() {

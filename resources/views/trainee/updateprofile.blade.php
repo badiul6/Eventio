@@ -1,4 +1,28 @@
 <!-- Main modal -->
+<style>
+    #interests-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .interest {
+        display: flex;
+        align-items: center;
+        background-color: #e0e0e0;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    .interest-text {
+        margin-right: 4px;
+    }
+
+    .remove-icon {
+        cursor: pointer;
+        color: red;
+    }
+</style>
 <div id="updateModal" name="Modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
     <div class="flex flex-row items-center justify-center p-4 w-full h-full">
         <!-- Modal content -->
@@ -21,14 +45,14 @@
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="fname" class="block mb-2 text-sm font-medium text-gray-900 ">First Name</label>
-                        <input type="text" name="fname" required value="{{$train->first_name}}" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " >
+                        <input type="text" name="fname" required value="{{$train->first_name}}" id="fname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
                     </div>
                     <div>
                         <label for="lname" class="block mb-2 text-sm font-medium text-gray-900 ">Last Name</label>
                         <input id="lname" name="lname" value="{{$train->last_name}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 " required>
-          
+
                     </div>
-                    
+
                     <div>
                         <label for="contact" class="block mb-2 text-sm font-medium text-gray-900 ">Contact No</label>
                         <input type="number" name="contact" value="{{$train->phone_no}}" id="contact" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required placeholder="03XXXXXXXXX">
@@ -37,19 +61,23 @@
                         <label for="experience" class="block mb-2 text-sm font-medium text-gray-900 ">Years of Experience</label>
                         <input id="experience" type="number" name="experience" value="{{$train->experience}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 " required>
                     </div>
-                  
+
                     <div class="col-span-2">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
                         <input type="address" name="address" id="address" value="{{$train->address}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " required>
                     </div>
-                    
+
                     <div class=" sm:col-span-2">
                         <label for="bio" class="block mb-2 text-sm font-medium text-gray-900 ">Bio</label>
-                        <textarea id="bio" name="bio" rows="2"  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here" required>{{$train->bio}}</textarea>
+                        <textarea id="bio" name="bio" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here" required>{{$train->bio}}</textarea>
                     </div>
-                    
+                    <div class="sm:col-span-2">
+                        <label for="interest-input" class="block mb-2 text-sm font-medium text-gray-900 ">Areas of interest</label>
+                        <input type="text" id="interest-input" placeholder="Enter an interest">
+                        <div id="interests-container"></div>
+                    </div>
                 </div>
-      
+
 
                 <button type="submit" class="text-black inline-flex items-center bg-blue-200 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                     <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -61,3 +89,69 @@
         </div>
     </div>
 </div>
+
+<script>
+    const interestsContainer = document.getElementById('interests-container');
+    const interestInput = document.getElementById('interest-input');
+    const form = document.getElementById('profileForm');
+
+    let interests = [];
+
+    function showPreviousEvents() {
+        var assignedTopics = <?php echo json_encode(auth()->user()->trainee->topics); ?>;
+
+        Array.from(assignedTopics).forEach(topic => {
+            const interest = topic.topic_name;
+            addInterest(interest);
+            interests.push(interest);
+        });
+    }
+
+    interestInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && interestInput.value.trim() !== '') {
+            const interest = interestInput.value.trim();
+            addInterest(interest);
+            interests.push(interest);
+            interestInput.value = '';
+        }
+    });
+
+    function addInterest(interest) {
+        const interestElement = document.createElement('div');
+        interestElement.classList.add('interest');
+
+        const interestText = document.createElement('span');
+        interestText.classList.add('interest-text');
+        interestText.textContent = interest;
+        interestElement.appendChild(interestText);
+
+        const removeIcon = document.createElement('span');
+        removeIcon.classList.add('remove-icon');
+        removeIcon.innerHTML = '&#10006;';
+        removeIcon.addEventListener('click', function() {
+            interestElement.remove();
+            interests = interests.filter(item => item !== interest);
+        });
+        interestElement.appendChild(removeIcon);
+
+        interestsContainer.appendChild(interestElement);
+    }
+
+    form.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'interests');
+        input.setAttribute('value', JSON.stringify(interests));
+
+        form.appendChild(input);
+        form.submit();
+    });
+</script>
