@@ -16,7 +16,7 @@ class UniversityController extends Controller
         $uni =  auth()->user()->university;
         $topics = Topic::all();
         $trainees= Trainee::all();
-
+        
 
 
         

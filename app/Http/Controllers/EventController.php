@@ -22,7 +22,10 @@ class EventController extends Controller
             'start_time' => $request->s_time,
             'end_time' => $request->e_time
         ];
-
+        $checkedTraineeIds = $request->input('trainee_ids', []);
+        
+        
+        
         $event = new Event;
         $event->fill($data);
         $event->save();
