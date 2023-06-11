@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class University extends Model
 {
     use HasFactory;
+    protected $table = 'universities';
+
     // name 	address 	contact 	website 	social_link 	description
     public $fillable = ['name', 'contact', 'address', 'website', 'description', 'social_link', 'user_id'];
 

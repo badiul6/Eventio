@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Attendee_Event extends Model
 {
     use HasFactory;
+    protected $table = 'attendee_events';
+
     public function event()
     {
         return $this->belongsTo(Event::class);

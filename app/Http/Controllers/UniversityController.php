@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\University;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Topic;
+use App\Models\Trainee;
 
 class UniversityController extends Controller
 {
@@ -12,8 +14,13 @@ class UniversityController extends Controller
     public function read()
     {
         $uni =  auth()->user()->university;
+        $topics = Topic::all();
+        $trainees= Trainee::all();
+
+
+
         
-        return view('/university/dashboard', compact('uni'));
+        return view('/university/dashboard', compact('uni','topics','trainees'));
     }
 
     public function create(Request $request)

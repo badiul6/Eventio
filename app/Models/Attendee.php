@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Attendee extends Model
 {
     use HasFactory;
+    protected $table = 'attendees';
+
 
     public function user()
     {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
 use App\Models\Trainee;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class TraineeController extends Controller
@@ -26,10 +28,20 @@ class TraineeController extends Controller
             'address' => $request->address,
             'user_id' => auth()->user()->id
         ];
+        $interestsArray = json_decode($request->interests);
+//this will interest all the new topics entered by trianee in topics table
+        $topicIds = [];
 
-        dd($request);        
+        foreach ($interestsArray as $topic) {
+            $existingTopic = Topic::firstOrCreate(['topic_name' => $topic]);
+            $topicIds[] = $existingTopic->id;
+        }
+
         $train = new Trainee;
         $train->create($data);
+        
+        auth()->user()->trainee->topics()->attach($topicIds);
+
 
         return $this->read();
     }

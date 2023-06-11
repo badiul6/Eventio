@@ -47,6 +47,7 @@
                         <label for="bio" class="block mb-2 text-sm font-medium text-gray-900 ">Bio</label>
                         <textarea id="bio" name="bio" rows="2"  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here" required>{{$train->bio}}</textarea>
                     </div>
+                    
                 </div>
       
 

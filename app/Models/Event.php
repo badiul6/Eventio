@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 class Event extends Model
 {
     use HasFactory;
+    protected $table = 'events';
+
 
     public $fillable = ['uni_id', 'topic_id', 'name', 'location', 'description', 'capacity', 'date', 'start_time', 'end_time'];
     

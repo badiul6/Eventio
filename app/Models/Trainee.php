@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Trainee extends Model
 {
     use HasFactory;
+    protected $table = 'trainees';
+
         // fname  lname 	address 	phone_no 	bio 	experience 	
         public $fillable = ['first_name', 'last_name', 'phone_no', 'bio', 'experience', 'address', 'user_id'];
     public function user()
@@ -16,7 +18,7 @@ class Trainee extends Model
     }
     public function topics()
     {
-        return $this->belongsToMany(Topic::class);
+        return $this->belongsToMany(Topic::class, 'topic_trainees');
     }
     public function events()
     {
