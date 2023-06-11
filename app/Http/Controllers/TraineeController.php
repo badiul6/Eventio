@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event_Trainee;
 use App\Models\Topic;
 use App\Models\Trainee;
 use Illuminate\Http\Request;
@@ -11,8 +12,13 @@ class TraineeController extends Controller
     public function read()
     {
         $train =  auth()->user()->trainee;
+        // dd($train->id);
 
-        return view('/trainee/dashboard', compact('train'));
+        $invites= Event_Trainee::where('trainee_id',$train->id )->where('status','pending')->get();
+        
+       
+
+        return view('/trainee/dashboard', compact('train','invites'));
     }
 
     public function create(Request $request)
@@ -74,5 +80,22 @@ class TraineeController extends Controller
         $topic = Topic::find($request->topic);
         
         return response()->json($topic->trainees);
+    }
+    public function acceptInvite(Request $req){
+        
+        $r= Event_Trainee::find($req->id );
+        $r->status="accepted";
+        $r->save();
+
+        return redirect("trainee/dashboard");
+    }
+
+    public function declineInvite(Request $req){
+        
+        $r= Event_Trainee::find($req->id );
+        $r->status="declined";
+        $r->save();
+        
+        return redirect("trainee/dashboard");
     }
 }

@@ -71,3 +71,25 @@ function populateDropDown(trainees) {
 
     $('#dropdownDefaultCheckbox').toggle();
 }
+$('#eventForm').on('submit', function (event) {
+    event.preventDefault();
+    
+    var selectedTrainees = $('input[name="trainee_ids[]"]:checked');
+
+    var traineeIds = [];
+
+    selectedTrainees.each(function() {
+      traineeIds.push($(this).val());
+    });
+
+    var hiddenInput = $('<input>')
+      .attr({
+        type: 'hidden',
+        name: 'trainee_ids[]',
+        value: traineeIds.join(',')
+      });
+    
+    $('#existingForm').append(hiddenInput);
+
+    this.submit();
+});

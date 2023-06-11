@@ -129,16 +129,28 @@
            before:bg-blue-300 before:inline-block before:relative before:align-middle 
            before:w-1/4 before:right-2 after:left-2 text-xl p-4">Activity
                     </h3>
-
+@foreach($invites as $invite)
                     <div class="flex flex-col space-y-3  overflow-auto">
                         <div class="flex flex-row px-6 pl-0 items-center justify-center rounded-2xl bg-slate-100 w-full cursor-pointer ">
                             <div class="flex flex-row px-6 pl-0 py-2 items-center h-16 justify-center rounded-2xl bg-slate-100 w-full cursor-pointer overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
                                 <img class="rounded-full border border-gray-100 shadow-xl shadow-blue-300 ml-[-10px]" src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
-                                <span class="text-sm"><span class="font-semibold">Mr. Ali</span> accepted your invitation to join <span class="font-semibold">Farewell Party</span>!</span>
-                            </div>
+                                <span class="text-sm"><span class="font-semibold">{{$invite->event->university->name}}</span> invites you for <span class="font-semibold">{{$invite->event->name}}</span>!</span>
+                                <form action="{{route('invite.accept')}}" method="post">
+                                @csrf
+                                    <input type="hidden" name="id" value="{{$invite->id}}">
+                                    
+                                    <input type="submit" class="cursor-pointer" value="Accept">
+                                </form>
+                               <form action="{{route('invite.decline')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$invite->id}}">
+
+                                    <input class="cursor-pointer" type="submit" value="Decline">
+                                </form>
+                           </div>
                         </div>
                     </div>
-
+@endforeach
                 </div>
             </div>
 

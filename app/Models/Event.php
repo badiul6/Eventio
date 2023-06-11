@@ -21,7 +21,7 @@ class Event extends Model
 
     public function university() 
     {
-        return $this->belongsTo(University::class);
+        return $this->belongsTo(University::class, 'uni_id');
     }
 
     public function topic() 

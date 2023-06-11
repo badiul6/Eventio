@@ -22,7 +22,7 @@
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for=" name" class="block mb-2 text-sm font-medium text-gray-900 ">Event Name</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 required="">
+                        <input type="text" name="name" required id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
                     </div>
                     <div>
                         <label for=" topic" class="block mb-2 text-sm font-medium text-gray-900 ">Topic</label>
@@ -34,24 +34,24 @@
                     </div>
                     <div>
                         <label for=" location" class="block mb-2 text-sm font-medium text-gray-900 ">Location</label>
-                        <input type="location" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 required="">
+                        <input type="location" name="location" required id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
                     </div>
                     <div>
                         <label for=" capacity" class="block mb-2 text-sm font-medium text-gray-900 ">Capacity</label>
-                        <input id="capacity" name="capacity" type="capacity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
+                        <input id="capacity" name="capacity" type="number" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                     </div>
                     <div class="col-span-2">
                         <label for="datee" class="block mb-2 text-sm font-medium text-gray-900 ">Date</label>
-                        <input id="datee" name="datee" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
+                        <input id="datee" name="datee" type="date" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                     </div>
 
                     <div>
                         <label for="s_time" class="block mb-2 text-sm font-medium text-gray-900 ">Start Time</label>
-                        <input id="s_time" type="time" name="s_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
+                        <input id="s_time" type="time" name="s_time" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                     </div>
                     <div>
                         <label for="e_time" class="block mb-2 text-sm font-medium text-gray-900 ">End Time</label>
-                        <input id="e_time" type="time" name="e_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
+                        <input id="e_time" type="time" name="e_time" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
                     </div>
                     <div class="col-span-2 relative">
                         <label for="trainee" class="block mb-2 text-sm font-medium text-gray-900 ">Select Trainees</label>
@@ -67,7 +67,7 @@
                     </div>
                     <div class=" sm:col-span-2">
                         <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                        <textarea id="desc" name="desc" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here"></textarea>
+                        <textarea id="desc" name="desc" required rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here"></textarea>
                     </div>
                 </div>
 

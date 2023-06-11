@@ -11,7 +11,8 @@ class EventController extends Controller
     // id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id
     public function create(Request $request)
     {
-        dd($request);
+       $train= $request->trainee_ids;
+       
         
         $data = [
             'uni_id' => auth()->user()->university->id,
@@ -28,6 +29,11 @@ class EventController extends Controller
         $event = new Event;
         $event->fill($data);
         $event->save();
+
+        $id= $event->id;
+
+        $events= Event::where("id",$id)->first();
+        $events->trainees()->attach($train);
 
         return redirect('/university/dashboard');
     }
