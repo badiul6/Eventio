@@ -27,9 +27,9 @@
                     <div>
                         <label for=" topic" class="block mb-2 text-sm font-medium text-gray-900 ">Topic</label>
                         <select id="topic" name="topic" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here">
-                       @foreach($topics as $topic)   
-                        <option value="{{$topic->id}}">{{$topic->topic_name}}</option>
-                           @endforeach
+                            @foreach($topics as $topic)
+                            <option value="{{$topic->id}}">{{$topic->topic_name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
@@ -55,22 +55,13 @@
                     </div>
                     <div class="col-span-2 relative">
                         <label for="trainee" class="block mb-2 text-sm font-medium text-gray-900 ">Select Trainees</label>
-                        <button id="dropdownCheckboxButton" data-dropdown-toggle="dropdownDefaultCheckbox" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> -- Select  -- <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <button id="dropdownCheckboxButton" data-dropdown-toggle="dropdownDefaultCheckbox" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> -- Select -- <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg></button>
 
                         <!-- Dropdown menu -->
                         <div id="dropdownDefaultCheckbox" class="col-span-2 inset-0 hidden bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class=" w-full bg-white absolute p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
-                            @foreach($trainees as $trainee)  
-                            <li>
-                                    <div class="flex items-center">
-                                        <input id="checkbox-item-1" name="trainee_ids[]" type="checkbox" value="{{$trainee->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$trainee->name}}</label>
-                                    </div>
-                                </li>
-                                @endforeach
-                              
+                            <ul id="dropDownUL" class=" w-full bg-white absolute p-3 space-y-3 text-sm text-gray-700 " aria-labelledby="dropdownCheckboxButton">
                             </ul>
                         </div>
                     </div>
@@ -90,3 +81,62 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    
+    $('#dropdownCheckboxButton').on('click', function() {
+        $.ajax({
+            type: "POST",
+            url: '/university/getFilteredTrainees',
+
+            data: {
+                topic: $("#topic").val(),
+                _token: '{{csrf_token()}}'
+            },
+
+            success: function(data) {
+                populateDropDown(data);
+            },
+
+            error: function(data, textStatus, errorThrown) {
+                console.log(data);
+            },
+        });
+    });
+
+    function populateDropDown(trainees) {
+        index = 0;
+
+        $('#dropDownUL').empty();
+
+        Array.from(trainees).forEach(trainee => {
+            var liElement = $('<li></li>');
+
+            var divElement = $('<div></div>').addClass('flex items-center');
+            liElement.append(divElement);
+
+            var inputElement = $('<input>')
+                .attr({
+                    'id': 'checkbox-item-' + (index + 1),
+                    'name': 'trainee_ids[]',
+                    'type': 'checkbox',
+                    'value': trainee.id
+                })
+                .addClass('w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500');
+            divElement.append(inputElement);
+
+            var labelElement = $('<label></label>')
+                .attr('for', 'checkbox-item-' + (index + 1))
+                .addClass('ml-2 text-sm font-medium text-gray-900')
+                .text(trainee.first_name + ' ' + trainee.last_name);
+            divElement.append(labelElement);
+
+            $('#dropDownUL').append(liElement);
+            index += 1;
+            
+        });
+
+        $('#dropdownDefaultCheckbox').toggle();
+    }
+</script>

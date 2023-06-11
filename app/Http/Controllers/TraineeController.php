@@ -68,4 +68,11 @@ class TraineeController extends Controller
 
         return $this->read();
     }
+
+    public function getFilteredTraninee(Request $request)
+    {
+        $topic = Topic::find($request->topic);
+        
+        return response()->json($topic->trainees);
+    }
 }

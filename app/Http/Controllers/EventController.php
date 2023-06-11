@@ -11,6 +11,8 @@ class EventController extends Controller
     // id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id
     public function create(Request $request)
     {
+        dd($request);
+        
         $data = [
             'uni_id' => auth()->user()->university->id,
             'topic_id' => $request->topic,
@@ -22,10 +24,7 @@ class EventController extends Controller
             'start_time' => $request->s_time,
             'end_time' => $request->e_time
         ];
-        $checkedTraineeIds = $request->input('trainee_ids', []);
-        
-        
-        
+
         $event = new Event;
         $event->fill($data);
         $event->save();
