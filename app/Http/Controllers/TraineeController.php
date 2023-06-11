@@ -26,7 +26,8 @@ class TraineeController extends Controller
             'address' => $request->address,
             'user_id' => auth()->user()->id
         ];
-        dd($request->all());        
+
+        dd($request);        
         $train = new Trainee;
         $train->create($data);
 

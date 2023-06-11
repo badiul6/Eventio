@@ -1,28 +1,28 @@
 <!-- Main modal -->
 <style>
     #interests-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     .interest {
-      display: flex;
-      align-items: center;
-      background-color: #e0e0e0;
-      padding: 4px 8px;
-      border-radius: 4px;
+        display: flex;
+        align-items: center;
+        background-color: #e0e0e0;
+        padding: 4px 8px;
+        border-radius: 4px;
     }
 
     .interest-text {
-      margin-right: 4px;
+        margin-right: 4px;
     }
 
     .remove-icon {
-      cursor: pointer;
-      color: red;
+        cursor: pointer;
+        color: red;
     }
-  </style>
+</style>
 <div id="profileModal" tabindex="-1" class="overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
     <div class="flex flex-row items-center justify-center p-4 w-full h-full">
         <!-- Modal content -->
@@ -43,7 +43,7 @@
                 </form>
             </div>
 
-            <form id="profileForm" action="{{route('trainee.store')}}" method="post">
+            <form id="profileForm" onsubmit="event.preventDefault();" action="{{route('trainee.store')}}" method="post">
                 @csrf
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
 
@@ -89,64 +89,61 @@
                     Submit
                 </button>
             </form>
-           
         </div>
     </div>
 </div>
 <script>
-  const interestsContainer = document.getElementById('interests-container');
-const interestInput = document.getElementById('interest-input');
-const form = document.querySelector('form');
+    const interestsContainer = document.getElementById('interests-container');
+    const interestInput = document.getElementById('interest-input');
+    const form = document.getElementById('profileForm');
 
-let interests = [];
+    let interests = [];
 
-interestInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter' && interestInput.value.trim() !== '') {
-        const interest = interestInput.value.trim();
-        addInterest(interest);
-        interests.push(interest);
-        interestInput.value = '';
-    }
-});
-
-function addInterest(interest) {
-    const interestElement = document.createElement('div');
-    interestElement.classList.add('interest');
-
-    const interestText = document.createElement('span');
-    interestText.classList.add('interest-text');
-    interestText.textContent = interest;
-    interestElement.appendChild(interestText);
-
-    const removeIcon = document.createElement('span');
-    removeIcon.classList.add('remove-icon');
-    removeIcon.innerHTML = '&#10006;';
-    removeIcon.addEventListener('click', function() {
-        interestElement.remove();
-        interests = interests.filter(item => item !== interest);
+    interestInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && interestInput.value.trim() !== '') {
+            const interest = interestInput.value.trim();
+            addInterest(interest);
+            interests.push(interest);
+            interestInput.value = '';
+        }
     });
-    interestElement.appendChild(removeIcon);
 
-    interestsContainer.appendChild(interestElement);
-}
+    function addInterest(interest) {
+        const interestElement = document.createElement('div');
+        interestElement.classList.add('interest');
 
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const input = document.createElement('input');
-    input.setAttribute('type', 'hidden');
-    input.setAttribute('name', 'interests');
-    input.setAttribute('value', JSON.stringify(interests));
-    form.appendChild(input);
-    form.submit();
-});
-document.addEventListener('keydown', function(event) {
-    // Check if the Enter key was pressed
-    if (event.key === 'Enter') {
-      // Check if the submit button is not focused
-      if (!document.activeElement || document.activeElement.id !== 'submit-btn') {
-        // Prevent form submission
-        event.preventDefault();
-      }
+        const interestText = document.createElement('span');
+        interestText.classList.add('interest-text');
+        interestText.textContent = interest;
+        interestElement.appendChild(interestText);
+
+        const removeIcon = document.createElement('span');
+        removeIcon.classList.add('remove-icon');
+        removeIcon.innerHTML = '&#10006;';
+        removeIcon.addEventListener('click', function() {
+            interestElement.remove();
+            interests = interests.filter(item => item !== interest);
+        });
+        interestElement.appendChild(removeIcon);
+
+        interestsContainer.appendChild(interestElement);
     }
-  });
-  </script>
+
+    form.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'interests');
+        input.setAttribute('value', JSON.stringify(interests));
+
+        form.appendChild(input);
+        form.submit();
+    });
+</script>
