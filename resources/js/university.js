@@ -13,6 +13,11 @@ $(document).ready(function () {
         $('#picModal').toggle();
     });
 
+    $('#cover').on('click', function (event) {
+        $('#coverModal').toggle();
+    });
+
+
     $('#CheckboxButton').click(function () {
         $('#DefaultCheckbox').toggle();
     });

@@ -1,12 +1,12 @@
 <!-- Main modal -->
-<div id="picModal" name="Modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
+<div id="coverModal" name="Modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
     <div class="flex flex-row items-center justify-center p-4 w-full h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 ">
                 <h3 class="text-lg font-semibold text-gray-900 ">
-                    Edit Picture
+                    Edit Cover
                 </h3>
 
                 <button name="m-close" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
@@ -17,7 +17,7 @@
             </div>
 
             <!-- id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id 	topic_id 	created_at 	updated_at -->
-            <form id="eventForm" action="{{route('trainee.upload.dp')}}" method="post" enctype="multipart/form-data">
+            <form id="eventForm" action="{{route('trainee.upload.cover')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col space-y-5">
                     <input type="file" name="file" >

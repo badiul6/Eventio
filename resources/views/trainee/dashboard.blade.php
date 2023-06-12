@@ -19,6 +19,7 @@
     @else
     @include("trainee.updateprofile")
     @include("trainee.editpic")
+    @include("trainee.editcover")
     <div class="flex h-screen items-center p-3 bg-slate-200">
         <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-[#d2e0ff]">
             <div class="flex flex-col basis-1/6 h-full items-center pt-6">
@@ -131,7 +132,7 @@
                 <div class="flex flex-col bg-[#e6efff] rounded-2xl w-full basis-1/5">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
-                            <img class="h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
+                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
 
                             <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
                             <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
@@ -194,6 +195,10 @@
 
         $('button[id="editPic"]').click(function(event) {
             $('#picModal').toggle();
+        });
+
+        $('#cover').on('click', function(event) {
+            $('#coverModal').toggle();
         });
 
         $('#event-modal').click(function() {

@@ -17,7 +17,7 @@
             </div>
 
             <!-- id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id 	topic_id 	created_at 	updated_at -->
-            <form id="eventForm" action="{{route('event.create')}}" method="post">
+            <form id="eventForm" action="{{route('university.upload.dp')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col space-y-5">
                     <input type="file" name="file" >
