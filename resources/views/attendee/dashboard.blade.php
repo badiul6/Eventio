@@ -24,12 +24,34 @@
     @include("attendee.createprofile")
     @else
     @include("attendee.updateprofile")
-    <div class="flex flex-col bg-[#28353e] h-screen p-3 space-y-2">
-        
-    <div class="bg-[#28353e]">
-        asdsad
-    </div>
-        <div class="flex bg-[#06141d] flex-grow items-center rounded-2xl h-full p-4">
+    <div class="flex flex-col bg-[#06141d] h-screen p-3 overflow-auto">
+
+        <div class="pr-12">
+            <div class="flex flex-row">
+                <img class="h-10 rounded-lg basis-1/12" src={{asset('imgs/logo.svg')}}>
+
+                <div class="flex justify-end w-full basis-11/12 items-center">
+                    <div id="profileArea" class="relative">
+                        <button class="flex items-center space-x-2 px-4 py-2 rounded-full bg-[#3e4a52]  focus:outline-none">
+                            <img class="w-8 h-8 rounded-full" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                            <span class="text-white font-semibold">{{$attendee->first_name . " " . $attendee->last_name}}</span>
+                            <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+
+                        <div id="profileDropDown" class="hidden absolute right-0 mt-2 w-48 bg-[#3e4a52] rounded-md shadow-lg z-10">
+                            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-500">Profile</a>
+                            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-500">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-500">Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-grow items-center rounded-2xl h-full p-4">
 
             <!-- Left bar -->
             <div class="flex flex-col basis-3/12 h-full items-center mr-3 space-y-4">
@@ -182,6 +204,15 @@
 
 <script>
     $(document).ready(function() {
-        $('#attendee-events').DataTable();
+
+        $('#profileArea').on('click', function(event) {
+            $('#profileDropDown').toggle();
+        });
+
+        $('#profileArea').focusout(function(event) {
+            if (!$('#profileArea').is(event.relatedTarget)) {
+                $('#profileDropDown').toggle();
+            }
+        });
     });
 </script>
