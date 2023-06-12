@@ -20,6 +20,7 @@
     @if (is_null(auth()->user()->university))
         @include("university.createprofile")
     @else
+    @include("university.editevent")
     @include("university.createevent")
     @include("university.updateprofile")
     <div class="flex h-screen items-center p-3 bg-slate-200">
@@ -89,22 +90,46 @@
                 <hr class="h-px mt-2 mb-2 border-[2] border-slate-300 rounded-xl">
 
                 <div>
+                Upcoming Events
 
                 </div>
                 <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
-
                     <table>
-                        <tr class="grid bg-slate-100 opacity-90 rounded-lg p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
+                        @foreach($upcomingEvents as $event)
+                        <tr id="{{$event->id}}" name="event-update" class="grid bg-slate-100 opacity-90 rounded-lg p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
                             <!-- name, niche, date time, pics -->
-                            <td class="text-xl font-semibold">Name</td>
-                            <td class="text-right text-sm font-light">Date Time</td>
-                            <td class="font-light">Sports</td>
+                            <td class="text-xl font-semibold">{{$event->name}}</td>
+                            <td class="text-right text-sm font-light">{{$event->date}} {{$event->start_time}} to {{$event->end_time}}</td>
+                            <td class="font-light">{{$event->topic->topic_name}}</td>
                             <td class="flex text-right space-x-1 justify-end">
                                 <img class="h-8 rounded-2xl border-2 border-red-500" src="https://randomuser.me/api/portraits/lego/1.jpg">
                                 <img class="h-8 rounded-2xl border-2 border-green-500" src="https://randomuser.me/api/portraits/lego/2.jpg">
                                 <img class="h-8 rounded-2xl" src="https://randomuser.me/api/portraits/lego/3.jpg">
                             </td>
                         </tr>
+                        @endforeach
+
+                       
+
+                    </table>
+                </div>
+                Events
+                <div></div>
+                <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
+                    <table>
+                        @foreach($events as $event)
+                        <tr  class="grid bg-slate-100 opacity-90 rounded-lg p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
+                            <!-- name, niche, date time, pics -->
+                            <td class="text-xl font-semibold">{{$event->name}}</td><td>{{$event->status}}</td>
+                            <td class="text-right text-sm font-light">{{$event->date}} {{$event->start_time}} to {{$event->end_time}}</td>
+                            <td class="font-light">{{$event->topic->topic_name}}</td>
+                            <td class="flex text-right space-x-1 justify-end">
+                                <img class="h-8 rounded-2xl border-2 border-red-500" src="https://randomuser.me/api/portraits/lego/1.jpg">
+                                <img class="h-8 rounded-2xl border-2 border-green-500" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                                <img class="h-8 rounded-2xl" src="https://randomuser.me/api/portraits/lego/3.jpg">
+                            </td>
+                        </tr>
+                        @endforeach
 
                        
 

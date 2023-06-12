@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event_Trainee;
 use App\Models\Topic;
+use App\Models\Event;
 use App\Models\Trainee;
 use Illuminate\Http\Request;
 
@@ -81,6 +82,7 @@ class TraineeController extends Controller
         
         return response()->json($topic->trainees);
     }
+    
     public function acceptInvite(Request $req){
         
         $r= Event_Trainee::find($req->id );

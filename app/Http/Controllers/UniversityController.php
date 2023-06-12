@@ -28,6 +28,15 @@ class UniversityController extends Controller
             ->orWhere('status', 'declined')
             ->latest()
             ->get();
+            $upcomingEvents = Event::where('uni_id', $uni->id)
+            ->where('status', 'pending')
+            ->latest()
+            ->get();
+            $events = Event::where('uni_id', $uni->id)
+            ->where('status','!=' , 'pending')
+            ->latest()
+            ->get();
+     
 
         $this->updateEventStatus();            
 
@@ -38,7 +47,7 @@ class UniversityController extends Controller
 
 
 
-        return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent'));
+        return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent','upcomingEvents','events'));
     }
 
     public function create(Request $request)
@@ -99,6 +108,12 @@ class UniversityController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+    public function getEvents(Request $request)
+    {
+        $event = Event::find($request->topic);
+        
+        return response()->json($event);
     }
 
     public function updateEventStatus(){

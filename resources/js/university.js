@@ -5,10 +5,45 @@ $(document).ready(function () {
     $('button[name="m-close"]').click(function (event) {
         $(this).closest('div[name="Modal"]').hide();
     });
+    $('#CheckboxButton').click(function() {
+        $('#DefaultCheckbox').toggle();
+    });
 
+    $('tr[name="event-update"]').on('click', function () {
+        var row = $(this).closest("tr");
+
+        $.ajax({
+            type: "POST",
+            url: '/university/getEvents',
+    
+            data: {
+                topic: row[0].id,
+                _token: document.querySelector('meta[name="csrf-token"]').content
+            },
+    
+            success: function (data) {
+                $('#name-inp').val(data.name);
+                $('#location').val(data.name);
+                $('#capacity').val(data.name);
+                $('#datee').val(data.name);
+                $('#s_time').val(data.name);
+                $('#e_time').val(data.name);
+                $('#desc').val(data.name);
+            },
+    
+            error: function (data, textStatus, errorThrown) {
+                console.log(data);
+            },
+        });
+
+       
+
+        $('#updateEvent').toggle();
+    });
     $('#event-modal').click(function () {
         $('#eventModal').toggle();
     });
+   
 
     $('#update-modal').click(function () {
         $('#updateModal').toggle();
@@ -35,6 +70,8 @@ $('#dropdownCheckboxButton').on('click', function () {
             console.log(data);
         },
     });
+
+    
 });
 
 function populateDropDown(trainees) {
