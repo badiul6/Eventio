@@ -33,7 +33,12 @@ class AttendeeController extends Controller
             })
                 ->where('status', 'completed')->latest()
                 ->get();
-                return view("attendee/dashboard", compact(['events', 'joinedEvents', 'completedEvents']));
+                $pic= Picture::where('user_id', auth()->user()->id)->first();
+
+                
+                    return view("attendee/dashboard", compact(['events', 'joinedEvents', 'completedEvents','pic']));
+                
+                
         }
 
         return view("attendee/dashboard");

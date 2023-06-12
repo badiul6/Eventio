@@ -33,7 +33,11 @@
                 <div class="flex justify-end w-full basis-11/12 items-center">
                     <div id="profileArea" class="relative">
                         <button class="flex items-center space-x-2 px-4 py-2 rounded-full bg-[#3e4a52]  focus:outline-none">
-                            <img class="w-8 h-8 rounded-full" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                        @if(is_null($pic))  
+                        <img class="w-8 h-8 rounded-full" src="https://ionicframework.com/docs/img/demos/avatar.svg">
+                        @else  
+                        <img class="w-8 h-8 rounded-full" src="{{asset('/uploads/'.$pic->dp_path)}}">
+@endif
                             <span class="text-white font-semibold">{{auth()->user()->name}}</span>
                             <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
@@ -84,9 +88,17 @@
                                 <input type="file" name="file">
                                 <button type="submit">cover</button>
                             </form>
-                            <img class="h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
-
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-12%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                            @if(is_null($pic))
+                            <img class="h-full bg-gray-100 rounded-t-lg" src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png">
+@else
+                            <img class="h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$pic->cover_path)}}">
+@endif
+@if(is_null($pic))
+      
+                            <img class="h-20 bg-gray-100 rounded-full mt-[-12%] border-[3px] border-white" src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="Profilepicture">
+@else
+                            <img class="h-20 bg-gray-100 rounded-full mt-[-12%] border-[3px] border-white" src="{{asset('/uploads/'.$pic->dp_path)}}" alt="Profilepicture">
+ @endif                           
                         </div>
                     </div>
                     <div class="flex flex-col items-center">
