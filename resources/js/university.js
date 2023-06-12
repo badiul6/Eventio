@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     $('button[name="m-close"]').click(function (event) {
         $(this).closest('div[name="Modal"]').hide();
+        location.reload();
     });
     $('#CheckboxButton').click(function () {
         $('#DefaultCheckbox').toggle();
@@ -31,6 +32,7 @@ $(document).ready(function () {
                 $('#desc').val(events.description);
                 $('#id').val(events.id);
                 $('#idd').val(events.id);
+                
                 Array.from(trainees).forEach(trainee => {
                     var liElement = $('<li></li>');
 
@@ -59,8 +61,6 @@ $(document).ready(function () {
                 });
             
 
-        console.log(events);
-        console.log(trainees);
     },
 
         error: function (data, textStatus, errorThrown) {

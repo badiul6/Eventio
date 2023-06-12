@@ -12,6 +12,7 @@ class EventController extends Controller
     public function create(Request $request)
     {
        $train= $request->trainee_ids;
+    //    dd($train);
        
         
         $data = [

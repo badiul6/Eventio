@@ -11,7 +11,7 @@ use App\Models\Trainee;
 use App\Models\Event_Trainee;
 use Carbon\Carbon;
 
-
+use function PHPUnit\Framework\isNull;
 
 class UniversityController extends Controller
 {
@@ -21,9 +21,10 @@ class UniversityController extends Controller
         $uni =  auth()->user()->university;
         $topics = Topic::all();
         $trainees = Trainee::all();
-        $eventIds = Event::where('uni_id', $uni->id)->pluck('id');
+        if($uni!= null){
+            $eventIds = Event::where('uni_id', $uni->id)->pluck('id');
 
-        $invites = Event_Trainee::whereIn('event_id', $eventIds)
+            $invites = Event_Trainee::whereIn('event_id', $eventIds)
             ->where('status', 'accepted')
             ->orWhere('status', 'declined')
             ->latest()
@@ -36,18 +37,22 @@ class UniversityController extends Controller
             ->where('status','!=' , 'pending')
             ->latest()
             ->get();
+            $this->updateEventStatus();            
+
+            $pevent = Event::where('uni_id', $uni->id)->where('status', 'pending')->pluck('id')->count();
+            $aevent = Event::where('uni_id', $uni->id)->where('status', 'active')->pluck('id')->count();
+            $cevent = Event::where('uni_id', $uni->id)->where('status', 'completed')->pluck('id')->count();
+             return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent','upcomingEvents','events'));
+
+        }
+        return view('/university/dashboard', compact('uni'));
+      
+         
+
      
-
-        $this->updateEventStatus();            
-
-        $pevent = Event::where('uni_id', $uni->id)->where('status', 'pending')->pluck('id')->count();
-        $aevent = Event::where('uni_id', $uni->id)->where('status', 'active')->pluck('id')->count();
-        $cevent = Event::where('uni_id', $uni->id)->where('status', 'completed')->pluck('id')->count();
-
         
 
 
-        return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent','upcomingEvents','events'));
     }
 
     public function create(Request $request)
@@ -117,12 +122,20 @@ class UniversityController extends Controller
 
         $eventtrain= $event->trainees;
         $eventTraineeIds = $eventtrain->pluck('id');
-
+        
         $temp = $traineeIds->diff($eventTraineeIds);
 
-        $remainingTrainees = Trainee::where('id', $temp)->get();
+        if(is_null($temp) || count($temp) === 0){
+           
 
+            return response()->json($event);
+           
+        }
+        $remainingTrainees = Trainee::where('id', $temp)->get();
         return response()->json([$event, $remainingTrainees]);
+
+
+
     }
 
     public function updateEventStatus(){

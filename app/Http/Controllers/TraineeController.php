@@ -8,18 +8,22 @@ use App\Models\Event;
 use App\Models\Trainee;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class TraineeController extends Controller
 {
     public function read()
     {
         $train =  auth()->user()->trainee;
         // dd($train->id);
-
-        $invites= Event_Trainee::where('trainee_id',$train->id )->where('status','pending')->get();
+        if($train!= null){
+            $invites= Event_Trainee::where('trainee_id',$train->id )->where('status','pending')->get();
+            return view('/trainee/dashboard', compact('train','invites'));
+        }
         
        
 
-        return view('/trainee/dashboard', compact('train','invites'));
+        return view('/trainee/dashboard', compact('train'));
     }
 
     public function create(Request $request)
