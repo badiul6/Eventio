@@ -21,38 +21,30 @@ class UniversityController extends Controller
         $uni =  auth()->user()->university;
         $topics = Topic::all();
         $trainees = Trainee::all();
-        if($uni!= null){
+        if ($uni != null) {
             $eventIds = Event::where('uni_id', $uni->id)->pluck('id');
 
             $invites = Event_Trainee::whereIn('event_id', $eventIds)
-            ->where('status', 'accepted')
-            ->orWhere('status', 'declined')
-            ->latest()
-            ->get();
+                ->where('status', 'accepted')
+                ->orWhere('status', 'declined')
+                ->latest()
+                ->get();
             $upcomingEvents = Event::where('uni_id', $uni->id)
-            ->where('status', 'pending')
-            ->latest()
-            ->get();
+                ->where('status', 'pending')
+                ->latest()
+                ->get();
             $events = Event::where('uni_id', $uni->id)
-            ->where('status','!=' , 'pending')
-            ->latest()
-            ->get();
-            $this->updateEventStatus();            
+                ->where('status', '!=', 'pending')
+                ->latest()
+                ->get();
+            $this->updateEventStatus();
 
             $pevent = Event::where('uni_id', $uni->id)->where('status', 'pending')->pluck('id')->count();
             $aevent = Event::where('uni_id', $uni->id)->where('status', 'active')->pluck('id')->count();
             $cevent = Event::where('uni_id', $uni->id)->where('status', 'completed')->pluck('id')->count();
-             return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent','upcomingEvents','events'));
-
+            return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent', 'upcomingEvents', 'events'));
         }
         return view('/university/dashboard', compact('uni'));
-      
-         
-
-     
-        
-
-
     }
 
     public function create(Request $request)
@@ -117,28 +109,23 @@ class UniversityController extends Controller
     public function getEvents(Request $request)
     {
         $event = Event::find($request->event_id);
-        $train= $event->topic->trainees;
+        $train = $event->topic->trainees;
         $traineeIds = $train->pluck('id');
 
-        $eventtrain= $event->trainees;
+        $eventtrain = $event->trainees;
         $eventTraineeIds = $eventtrain->pluck('id');
-        
+
         $temp = $traineeIds->diff($eventTraineeIds);
 
-        if(is_null($temp) || count($temp) === 0){
-           
-
-            return response()->json($event);
-           
+        if (is_null($temp) || count($temp) === 0) {
+            return response()->json([$event, []]);
         }
         $remainingTrainees = Trainee::where('id', $temp)->get();
         return response()->json([$event, $remainingTrainees]);
-
-
-
     }
 
-    public function updateEventStatus(){
+    public function updateEventStatus()
+    {
         $currentDateTime = now(); // Get the current date and time
         // dd($currentDateTime->toTimeString());   
         $records = Event::where('date', '<', $currentDateTime->toDateString()) // Filter by date less than the current date

@@ -32,55 +32,54 @@ $(document).ready(function () {
                 $('#desc').val(events.description);
                 $('#id').val(events.id);
                 $('#idd').val(events.id);
-                
-                Array.from(trainees).forEach(trainee => {
-                    var liElement = $('<li></li>');
 
-                    var divElement = $('<div></div>').addClass('flex items-center');
-                    liElement.append(divElement);
+                if (trainees.length > 0) {
+                    Array.from(trainees).forEach(trainee => {
+                        var liElement = $('<li></li>');
 
-                    var inputElement = $('<input>')
-                        .attr({
-                            'id': 'checkbox-item-' + (index + 1),
-                            'name': 't_ids[]',
-                            'type': 'checkbox',
-                            'value': trainee.id
-                        })
-                        .addClass('w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500');
-                    divElement.append(inputElement);
+                        var divElement = $('<div></div>').addClass('flex items-center');
+                        liElement.append(divElement);
 
-                    var labelElement = $('<label></label>')
-                        .attr('for', 'checkbox-item-' + (index + 1))
-                        .addClass('ml-2 text-sm font-medium text-gray-900')
-                        .text(trainee.first_name + ' ' + trainee.last_name);
-                    divElement.append(labelElement);
+                        var inputElement = $('<input>')
+                            .attr({
+                                'id': 'checkbox-item-' + (index + 1),
+                                'name': 't_ids[]',
+                                'type': 'checkbox',
+                                'value': trainee.id
+                            })
+                            .addClass('w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500');
+                        divElement.append(inputElement);
 
-                    $('#dropDownULL').append(liElement);
-                    index += 1;
+                        var labelElement = $('<label></label>')
+                            .attr('for', 'checkbox-item-' + (index + 1))
+                            .addClass('ml-2 text-sm font-medium text-gray-900')
+                            .text(trainee.first_name + ' ' + trainee.last_name);
+                        divElement.append(labelElement);
 
-                });
-            
+                        $('#dropDownULL').append(liElement);
+                        index += 1;
 
-    },
+                    });
+                }
+            },
 
-        error: function (data, textStatus, errorThrown) {
-            console.log(data);
-            console.log("ASDSADA");
-        },
+            error: function (data, textStatus, errorThrown) {
+                console.log(data);
+            },
         });
 
 
 
-$('#updateEvent').toggle();
+        $('#updateEvent').toggle();
     });
-$('#event-modal').click(function () {
-    $('#eventModal').toggle();
-});
+    $('#event-modal').click(function () {
+        $('#eventModal').toggle();
+    });
 
 
-$('#update-modal').click(function () {
-    $('#updateModal').toggle();
-});
+    $('#update-modal').click(function () {
+        $('#updateModal').toggle();
+    });
 });
 
 // Create Event Modal
