@@ -65,7 +65,7 @@
                         </div>
                         <div class="w-full text-center">
                             <p>In Progress</p>
-                            <span>3</span>
+                            <span>{{$aevent}}</span>
                         </div>
                     </div>
                     <div class="flex basis-1/3 px-6 py-2 items-center space-x-4 border-r-[3px] border-slate-200">
@@ -73,7 +73,7 @@
                             <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class="w-full text-center" <p>Completed</p>
-                            <span>11</span>
+                            <span>{{$cevent}}</span>
                         </div>
                     </div>
                     <div class="flex basis-1/3 px-6 items-center space-x-4 border-slate-200">
@@ -81,7 +81,7 @@
                             <img src="{{asset('imgs/logo.svg')}}" width="30px">
                         </div>
                         <div class=" w-full text-center" <p>Pending</p>
-                            <span>0</span>
+                            <span>{{$pevent}}</span>
                         </div>
                     </div>
                 </div>
@@ -131,15 +131,16 @@
            before:bg-blue-300 before:inline-block before:relative before:align-middle 
            before:w-1/4 before:right-2 after:left-2 text-xl p-4">Activity
                     </h3>
-
+@foreach($invites as $invite)
                     <div class="flex flex-col space-y-3  overflow-auto">
                         <div class="flex flex-row px-6 pl-0 items-center justify-center rounded-2xl bg-slate-100 w-full cursor-pointer ">
                             <div class="flex flex-row px-6 pl-0 py-2 items-center h-16 justify-center rounded-2xl bg-slate-100 w-full cursor-pointer overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
                                 <img class="rounded-full border border-gray-100 shadow-xl shadow-blue-300 ml-[-10px]" src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
-                                <span class="text-sm"><span class="font-semibold">Mr. Ali</span> accepted your invitation to join <span class="font-semibold">Farewell Party</span>!</span>
+                                <span class="text-sm"><span class="font-semibold">{{$invite->trainee->first_name}}&nbsp;{{$invite->trainee->last_name}}</span> {{$invite->status}} your invitation to join <span class="font-semibold">{{$invite->event->name}}</span>!</span>
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
                 </div>
             </div>
