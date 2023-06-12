@@ -17,7 +17,7 @@
             </div>
 
             <!-- id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id 	topic_id 	created_at 	updated_at -->
-            <form id="eventForm" action="{{route('event.create')}}" method="post">
+            <form id="eventForm" action="{{route('event.edit')}}" method="post">
                 @csrf
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div >
@@ -39,7 +39,7 @@
 
                         <!-- Dropdown menu -->
                         <div id="DefaultCheckbox" class="col-span-2 inset-0 hidden bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul id="dropDownUL" class=" w-full bg-white absolute p-3 space-y-3 text-sm text-gray-700 " aria-labelledby="dropdownCheckboxButton">
+                            <ul id="dropDownULL"  class=" w-full bg-white absolute p-3 space-y-3 text-sm text-gray-700 " aria-labelledby="dropdownCheckboxButton">
                             </ul>
                         </div>
                     </div>
@@ -47,6 +47,7 @@
                         <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
                         <textarea id="desc" name="desc" required rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here"></textarea>
                     </div>
+                    <input type="hidden" id="id" name="id">
                 </div>
 
                 <button type="submit" class="text-black inline-flex items-center bg-blue-200 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
@@ -56,13 +57,15 @@
                     Submit
                 </button>
             </form>
-            <form action="" method="post">
+            <form action="{{route('event.live')}}" method="post">
+                @csrf
             <button type="submit" class="text-black inline-flex items-center bg-blue-200 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                     <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                     </svg>
                     Go Live
                 </button>
+                <input type="hidden" id="idd" name="id">
             </form>
         </div>
     </div>

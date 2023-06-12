@@ -12,7 +12,7 @@ class Event extends Model
     protected $table = 'events';
 
 
-    public $fillable = ['uni_id', 'topic_id', 'name', 'location', 'description', 'capacity', 'date', 'start_time', 'end_time'];
+    public $fillable = ['uni_id', 'topic_id', 'name', 'location', 'description', 'status', 'capacity', 'date', 'start_time', 'end_time'];
     
     public function attendees()
     {

@@ -56,23 +56,23 @@ class EventController extends Controller
 
         return view('university.editevent')->with('event', $event);
     }
-
-    public function update(Request $request, $id)
-    {
-        $event = Event::find($id);
-
+    public function goLive(Request $request){
+        $event= Event::find($request->id);
         $event->update([
-            'uni_id' => auth()->user()->university->id,
-            'name' => $request->name,
-            'niche' => $request->niche,
-            'location' => $request->location,
+            'status'=> "active"
+        ]);
+        return redirect('/university/dashboard');
+    }
+    public function update(Request $request)
+    {
+        $event= Event::find($request->id);
+        $event->update([
+            'name' => $request->name,            
             'capacity' => $request->capacity,
-            'date' => $request->date, 
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time
+            'description'=>$request->desc
         ]);   
 
-        return redirect('/university/viewevent');
+        return redirect('/university/dashboard');
     }
 
     public function delete($id)

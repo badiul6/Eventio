@@ -44,7 +44,7 @@ class UniversityController extends Controller
         $aevent = Event::where('uni_id', $uni->id)->where('status', 'active')->pluck('id')->count();
         $cevent = Event::where('uni_id', $uni->id)->where('status', 'completed')->pluck('id')->count();
 
-
+        
 
 
         return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent','upcomingEvents','events'));
@@ -111,9 +111,18 @@ class UniversityController extends Controller
     }
     public function getEvents(Request $request)
     {
-        $event = Event::find($request->topic);
-        
-        return response()->json($event);
+        $event = Event::find($request->event_id);
+        $train= $event->topic->trainees;
+        $traineeIds = $train->pluck('id');
+
+        $eventtrain= $event->trainees;
+        $eventTraineeIds = $eventtrain->pluck('id');
+
+        $temp = $traineeIds->diff($eventTraineeIds);
+
+        $remainingTrainees = Trainee::where('id', $temp)->get();
+
+        return response()->json([$event, $remainingTrainees]);
     }
 
     public function updateEventStatus(){

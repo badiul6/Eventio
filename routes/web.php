@@ -74,7 +74,8 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
     Route::get('/university/viewevent', [EventController::class, 'read'])->name('event.read');
 
     Route::get('/university/editevent/{id}', [EventController::class, 'showUpdate'])->name('event.showedit');
-    Route::post('/university/editevent/{id}', [EventController::class, 'update'])->name('event.edit');
+    Route::post('/university/editevent/', [EventController::class, 'update'])->name('event.edit');
+    Route::post('/university/eventlive/', [EventController::class, 'goLive'])->name('event.live');
 
     Route::post('/university/getFilteredTrainees', [TraineeController::class, 'getFilteredTraninee'])->name('get.trainee');
     Route::post('/university/getEvents', [UniversityController::class, 'getEvents'])->name('get.event');
