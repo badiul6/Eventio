@@ -2,12 +2,19 @@
 
 $(document).ready(function () {
 
+    $('#topic').trigger("change");
+
     $('button[name="m-close"]').click(function (event) {
         $(this).closest('div[name="Modal"]').hide();
         location.reload();
     });
+
     $('#CheckboxButton').click(function () {
         $('#DefaultCheckbox').toggle();
+    });
+
+    $('#dropdownCheckboxButton').click(function () {
+        $('#dropdownDefaultCheckbox').toggle();
     });
 
     $('tr[name="event-update"]').on('click', function () {
@@ -84,7 +91,7 @@ $(document).ready(function () {
 
 // Create Event Modal
 
-$('#dropdownCheckboxButton').on('click', function () {
+$('#topic').on('change', function () {
     $.ajax({
         type: "POST",
         url: '/university/getFilteredTrainees',
@@ -137,9 +144,8 @@ function populateDropDown(trainees) {
         index += 1;
 
     });
-
-    $('#dropdownDefaultCheckbox').toggle();
 }
+
 $('#eventForm').on('submit', function (event) {
     event.preventDefault();
 

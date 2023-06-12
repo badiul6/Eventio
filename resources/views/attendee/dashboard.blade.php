@@ -43,7 +43,12 @@
                         <div id="profileDropDown" class="hidden absolute right-0 mt-2 w-48 bg-[#3e4a52] rounded-md shadow-lg z-10">
                             <a href="#" class="block px-4 py-2 text-white hover:bg-gray-500">Profile</a>
                             <a href="#" class="block px-4 py-2 text-white hover:bg-gray-500">Settings</a>
-                            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-500">Logout</a>
+                            <form action="{{route('logout')}}" class="block px-4 py-2 text-white hover:bg-gray-500" method="post">
+                                @csrf
+                                <button type="submit" class="text-left w-full" data-modal-toggle="defaultModal">
+                                    Logout
+                                </button>
+                            </form>
                         </div>
                     </div>
 
@@ -209,10 +214,10 @@
             $('#profileDropDown').toggle();
         });
 
-        $('#profileArea').focusout(function(event) {
-            if (!$('#profileArea').is(event.relatedTarget)) {
-                $('#profileDropDown').toggle();
-            }
-        });
+        // $('#profileArea').focusout(function(event) {
+        //     if (!$('#profileArea').is(event.relatedTarget)) {
+        //         $('#profileDropDown').toggle();
+        //     }
+        // });
     });
 </script>
