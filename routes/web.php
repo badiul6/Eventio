@@ -8,11 +8,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UniversityController;
 
-use App\Http\Controllers\SocietyController;
 use App\Http\Controllers\TraineeController;
-use App\Models\Attendee_Event;
-use App\Models\University;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +33,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
 Route::middleware(['auth','verified','role:attendee'])->group(function(){
 
     Route::get('/attendee/createprofile', function () {
@@ -51,8 +46,8 @@ Route::middleware(['auth','verified','role:attendee'])->group(function(){
     Route::post('/attendee/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
 
     Route::post('/attendee/joinevent', [EventController::class, 'join'])->name('event.join');
-    Route::post('/attendee/uploaddp', [AttendeeController::class, 'upload_dp'])->name('attendee.upload.dp');
-    Route::post('/attendee/uploadcover', [AttendeeController::class, 'upload_cover'])->name('attendee.upload.cover');
+    Route::post('/attendee/uploaddp', [ProfileController::class, 'upload_dp'])->name('attendee.upload.dp');
+    Route::post('/attendee/uploadcover', [ProfileController::class, 'upload_cover'])->name('attendee.upload.cover');
 
     Route::get('/attendee/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
 
@@ -88,6 +83,8 @@ Route::middleware(['auth','verified','role:university'])->group(function(){
     Route::get('/university/showtrainee/{id}', [EventController::class, 'showTrainee'])->name('event.trainees');
     Route::get('/university/editevent/{id}/{event}', [EventController::class, 'removetrainee'])->name('trainee.remove');
 
+    Route::post('/university/uploaddp', [ProfileController::class, 'upload_dp'])->name('university.upload.dp');
+    Route::post('/university/uploadcover', [ProfileController::class, 'upload_cover'])->name('university.upload.cover');
 
 });//end group uni middleware
 
@@ -101,6 +98,8 @@ Route::middleware(['auth','verified','role:trainee'])->group(function(){
     Route::post('/trainee/acceptinvite', [TraineeController::class, 'acceptInvite'])->name('invite.accept');
     Route::post('/trainee/declineinvite', [TraineeController::class, 'declineInvite'])->name('invite.decline');
 
+    Route::post('/trainee/uploaddp', [ProfileController::class, 'upload_dp'])->name('trainee.upload.dp');
+    Route::post('/trainee/uploadcover', [ProfileController::class, 'upload_cover'])->name('trainee.upload.cover');
 
 
 });//end group trainee middleware
