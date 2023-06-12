@@ -184,7 +184,11 @@
                         </td>
 
                         <td class="flex justify-end space-x-1 h-full w-full basis-1/4">
-                            <img class="rounded-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
+                            @if(is_null($event->university->user->picture))
+                            <img class="rounded-lg" src="https://static.vecteezy.com/system/resources/previews/012/150/128/original/eps10-white-courthouse-or-university-building-solid-icon-isolated-on-black-background-museum-building-symbol-in-a-simple-flat-trendy-modern-style-for-your-website-design-logo-and-mobile-app-vector.jpg">
+@else
+                            <img class="rounded-lg" src="{{asset('/uploads/'.$event->university->user->picture->dp_path)}}">
+   @endif
                         </td>
 
                     </tr>
