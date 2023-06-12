@@ -10,6 +10,7 @@ use App\Http\Controllers\UniversityController;
 
 use App\Http\Controllers\SocietyController;
 use App\Http\Controllers\TraineeController;
+use App\Models\Attendee_Event;
 use App\Models\University;
 
 /*
@@ -50,6 +51,8 @@ Route::middleware(['auth','verified','role:attendee'])->group(function(){
     Route::post('/attendee/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
 
     Route::post('/attendee/joinevent', [EventController::class, 'join'])->name('event.join');
+    Route::post('/attendee/uploaddp', [AttendeeController::class, 'upload_dp'])->name('attendee.upload.dp');
+    Route::post('/attendee/uploadcover', [AttendeeController::class, 'upload_cover'])->name('attendee.upload.cover');
 
     Route::get('/attendee/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
 

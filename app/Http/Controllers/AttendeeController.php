@@ -5,19 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Attendee;
 use App\Models\Attendee_Event;
 use App\Models\Event;
+use App\Models\Picture;
 use Illuminate\Http\Request;
 
 class AttendeeController extends Controller
 {
     public function index()
     {
-        $joinedEvents= Attendee_Event::where('attendee_id', auth()->user()->attendee->id)->pluck('event_id');
+        $attend = auth()->user()->attendee;
+
+
+        if ($attend != null) {
+            $attendeeId= $attend->id;
+            $events = Event::where('status', 'active')
+                ->whereDoesntHave('attendees', function ($query) use ($attendeeId) {
+                    $query->where('attendee_id', $attendeeId);
+                })->latest()
+                ->get();
+
+            $joinedEvents = Event::whereHas('attendees', function ($query) use ($attendeeId) {
+                $query->where('attendee_id', $attendeeId);
+            })
+                ->where('status', 'active')->latest()
+                ->get();
+            $completedEvents = Event::whereHas('attendees', function ($query) use ($attendeeId) {
+                $query->where('attendee_id', $attendeeId);
+            })
+                ->where('status', 'completed')->latest()
+                ->get();
+                return view("attendee/dashboard", compact(['events', 'joinedEvents', 'completedEvents']));
+        }
+
+        return view("attendee/dashboard");
         
-        
-        $events= Event::where('status', 'active')
-        ->get();
-      
-        return view("attendee/dashboard", compact('events'));
     }
 
     public function create(Request $request)
@@ -45,7 +65,7 @@ class AttendeeController extends Controller
             'phone_no' => $request->phone_no,
             'address' => $request->address,
             'bio' => $request->bio,
-            
+
 
         ];
 
@@ -54,4 +74,59 @@ class AttendeeController extends Controller
         return redirect('attendee/dashboard');
     }
 
+    public function upload_dp(Request $req){
+        $req->validate([
+            'file'=> 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
+        ]);
+        $filename = time().'.'.$req->file->extension();
+        $req->file->move('uploads', $filename);  
+
+        if(auth()->user()->picture!= null){
+            $pic = Picture::where('user_id',auth()->user()->id )->first();
+            $pic->dp_path= $filename;
+            $pic->save();
+
+            return redirect('attendee/dashboard');      
+
+        }
+        else{
+            $filewritter = new Picture;
+        $filewritter->dp_path = $filename;
+        $filewritter->user_id= auth()->user()->id;
+        $filewritter->save();
+
+return redirect('attendee/dashboard');    
+
+        }
+    }
+
+        public function upload_cover(Request $req){
+
+            $req->validate([
+                'file'=> 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
+            ]);
+            $filename = time().'.'.$req->file->extension();
+            $req->file->move('uploads', $filename);  
+    
+            if(auth()->user()->picture!= null){
+                $pic = Picture::where('user_id',auth()->user()->id )->first();
+                $pic->cover_path= $filename;
+                $pic->save();
+    
+                return redirect('attendee/dashboard');      
+    
+            }
+            else{
+                $filewritter = new Picture;
+            $filewritter->cover_path = $filename;
+            $filewritter->user_id= auth()->user()->id;
+            $filewritter->save();
+    
+    return redirect('attendee/dashboard');    
+    
+            }
+       
+        
+          
+    }
 }

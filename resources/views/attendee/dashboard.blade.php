@@ -74,6 +74,16 @@
                 <div class="flex flex-col bg-[#1b2730] mx-5 rounded-2xl w-full h-1/2">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
+                            <form action="{{route('attendee.upload.dp')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file">
+                                <input type="submit" value="dp">
+                            </form>
+                            <form action="{{route('attendee.upload.cover')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file">
+                                <button type="submit">cover</button>
+                            </form>
                             <img class="h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
 
                             <img class="h-20 bg-gray-100 rounded-full mt-[-12%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
@@ -93,44 +103,46 @@
 
                 <div class="flex flex-col bg-[#1b2730] mx-5 rounded-2xl w-full h-1/2 p-2 overflow-y-auto scrollbar-hide">
                     <div class="flex flex-col pb-5">
-                        <h2 class="text-gray-100 font-semibold text-lg p-2">Events I Joined</h2>
-
+                        <h2 class="text-gray-100 font-semibold text-lg p-2">Events | Joined</h2>
+@foreach($joinedEvents as $event)
                         <!-- Joined Event 1 -->
                         <div class="flex flex-row rounded-lg mt-3 w-full p-2">
                             <img class="w-14 h-14 bg-gray-100 rounded-full" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
 
                             <div class="ml-5">
-                                <h1 class="text-gray-100 text-sm font-semibold">Event</h1>
-                                <h1 class="text-gray-400 text-sm font-semibold">University</h1>
-                                <h1 class="text-gray-400 text-sm font-semibold">Attended on 27 Jan, 2023</h1>
+                                <h1 class="text-gray-100 text-sm font-semibold">{{$event->name}}</h1>
+                                <h1 class="text-gray-400 text-sm font-semibold">{{$event->university->name}}</h1>
+                                <h1 class="text-gray-400 text-sm font-semibold">On {{date('F d, Y', strtotime($event->date))}}</h1>
                             </div>
                         </div>
+@endforeach
+                 
 
+                    </div>
+                </div>
+                <div class="flex flex-col bg-[#1b2730] mx-5 rounded-2xl w-full h-1/2 p-2 overflow-y-auto scrollbar-hide">
+                    <div class="flex flex-col pb-5">
+                        <h2 class="text-gray-100 font-semibold text-lg p-2">Events | Completed</h2>
+@foreach($completedEvents as $event)
                         <!-- Joined Event 1 -->
                         <div class="flex flex-row rounded-lg mt-3 w-full p-2">
-                            <img class="w-14 h-14 bg-gray-100 rounded-full" src="https://img-dotcom-media.s3.us-east-2.amazonaws.com/assets/d9d63ede-6b16-11e6-932c-cdbbf8730860.jpg">
+                            <img class="w-14 h-14 bg-gray-100 rounded-full" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
 
                             <div class="ml-5">
-                                <h1 class="text-gray-100 text-sm font-semibold">Event 2</h1>
-                                <h1 class="text-gray-400 text-sm font-semibold">University</h1>
-                                <h1 class="text-gray-400 text-sm font-semibold">Attended on 27 Jan, 2023</h1>
+                                <h1 class="text-gray-100 text-sm font-semibold">{{$event->name}}</h1>
+                                <h1 class="text-gray-400 text-sm font-semibold">{{$event->university->name}}</h1>
+                                <h1 class="text-gray-400 text-sm font-semibold">Attended on {{date('F d, Y', strtotime($event->date))}}</h1>
                             </div>
                         </div>
-
-                        <!-- Joined Event 1 -->
-                        <div class="flex flex-row rounded-lg mt-3 w-full p-2">
-                            <img class="w-14 h-14 bg-gray-100 rounded-full" src="https://happeningandfriends.com/uploads/happening/products/46/004554/mock_ST_newSadCat.jpg">
-
-                            <div class="ml-5">
-                                <h1 class="text-gray-100 text-sm font-semibold">Event 3</h1>
-                                <h1 class="text-gray-400 text-sm font-semibold">University</h1>
-                                <h1 class="text-gray-400 text-sm font-semibold">Attended on 27 Jan, 2023</h1>
-                            </div>
-                        </div>
+@endforeach
+                 
 
                     </div>
                 </div>
             </div>
+
+
+            
 
             <!-- Center Bar -->
             <div class="flex flex-col basis-4/5 h-full p-5 rounded-2xl px-10 overflow-scroll">
