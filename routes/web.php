@@ -48,12 +48,13 @@ Route::middleware(['auth','verified','role:attendee'])->group(function(){
 
     Route::get('/attendee/updateprofile', [AttendeeController::class, 'showUpdate'])->name('attendee.update');
     Route::post('/attendee/updateprofile', [AttendeeController::class, 'update'])->name('attendee.update');
-    
+
+    Route::post('/attendee/joinevent', [EventController::class, 'join'])->name('event.join');
+
     Route::get('/attendee/delete', [AttendeeController::class, 'delete'])->name('attendee.delete');
 
     Route::get('/attendee/viewevent', [EventController::class, 'read'])->name('event.read');
-    
-    Route::get('/attendee/joinevent/{id}', [EventController::class, 'join'])->name('event.join');
+        
     Route::get('/attendee/viewjoinedevent/', [EventController::class, 'viewJoinedEvents'])->name('event.viewjoinedevents');
     Route::get('/attendee/leaveevent/{id}', [EventController::class, 'leave'])->name('event.leave');
     

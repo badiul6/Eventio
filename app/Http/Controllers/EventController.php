@@ -82,11 +82,11 @@ class EventController extends Controller
         return redirect('/university/viewevent');
     }
 
-    public function join($event_id)
+    public function join(Request $request)
     {
-        auth()->user()->participant->eventsAttendees()->attach($event_id);
+        auth()->user()->attendee->events()->attach($request->event_id);
 
-        return redirect('/participant/viewevent');
+        return redirect('attendee/dashboard');
     }
 
     public function leave($event_id)
