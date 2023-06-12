@@ -15,13 +15,19 @@ class TraineeController extends Controller
     public function read()
     {
         $train =  auth()->user()->trainee;
-        
-        if($train!= null){
-            $invites= Event_Trainee::where('trainee_id',$train->id )->where('status','pending')->get();
-            return view('/trainee/dashboard', compact('train','invites'));
-        }
-        
-        return view('/trainee/dashboard', compact('train'));
+        $invites = Event_Trainee::where('trainee_id', $train->id)->where('status', 'pending')->get();
+
+        $events = Event::whereHas('trainees', function ($query) use ($train) {
+            $query->where('trainee_id', $train->id)
+                ->where('status', 'accepted');
+        });
+
+        $events2 = clone $events;
+
+        $upcomingEvents = $events->where('status', '!=', 'completed')->get();
+        $completedEvents = $events2->where('status', 'completed')->get();
+
+        return view('/trainee/dashboard', compact('train', 'invites', 'upcomingEvents', 'completedEvents'));
     }
 
     public function create(Request $request)
@@ -81,25 +87,27 @@ class TraineeController extends Controller
     public function getFilteredTraninee(Request $request)
     {
         $topic = Topic::find($request->topic);
-        
+
         return response()->json($topic->trainees);
     }
-    
-    public function acceptInvite(Request $req){
-        
-        $r= Event_Trainee::find($req->id );
-        $r->status="accepted";
+
+    public function acceptInvite(Request $req)
+    {
+
+        $r = Event_Trainee::find($req->id);
+        $r->status = "accepted";
         $r->save();
 
         return redirect("trainee/dashboard");
     }
 
-    public function declineInvite(Request $req){
-        
-        $r= Event_Trainee::find($req->id );
-        $r->status="declined";
+    public function declineInvite(Request $req)
+    {
+
+        $r = Event_Trainee::find($req->id);
+        $r->status = "declined";
         $r->save();
-        
+
         return redirect("trainee/dashboard");
     }
 }

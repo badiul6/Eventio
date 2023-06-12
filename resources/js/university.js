@@ -9,6 +9,10 @@ $(document).ready(function () {
         location.reload();
     });
 
+    $('button[id="editPic"]').click(function (event) {
+        $('#picModal').toggle();
+    });
+
     $('#CheckboxButton').click(function () {
         $('#DefaultCheckbox').toggle();
     });

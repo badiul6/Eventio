@@ -18,6 +18,7 @@
     @include("trainee.createprofile")
     @else
     @include("trainee.updateprofile")
+    @include("trainee.editpic")
     <div class="flex h-screen items-center p-3 bg-slate-200">
         <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-[#d2e0ff]">
             <div class="flex flex-col basis-1/6 h-full items-center pt-6">
@@ -69,7 +70,7 @@
 
                 <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
                     <table>
-                        @foreach($train->events as $event)
+                        @foreach($upcomingEvents as $event)
                         <tr id="{{$event->id}}" name="event-update" class="grid bg-[#e6efff] rounded-2xl p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
                             <td class="text-xl font-semibold">
                                 <i class="fas fa-star text-[#8c9df4]"></i>
@@ -94,6 +95,36 @@
                     </table>
                 </div>
 
+                <span class="mt-2 text-lg font-semibold text-[#5776f1]">
+                    My Completed Events
+                </span>
+
+                <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
+                    <table>
+                        @foreach($completedEvents as $event)
+                        <tr class="grid bg-[#e6efff] rounded-2xl p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
+                            <td class="text-xl font-semibold">
+                                <i class="fas fa-star text-[#8c9df4]"></i>
+                                <span>{{$event->name}}</span>
+                            </td>
+                            <td class="text-right">
+                                <span>
+                                    <i class="fas fa-clock text-[#8c9df4]"></i>
+                                    {{date('F d, Y', strtotime($event->date))}}
+                                    <i class="fas fa-calendar-alt ml-5 text-[#8c9df4]"></i>
+                                    {{date('h:i A', strtotime($event->start_time))}}
+                                    <i class="fas fa-arrow-right text-[#8c9df4]"></i>
+                                    {{date('h:i A', strtotime($event->end_time))}}
+                                </span>
+                            </td>
+                            <td class="font-light">
+                                <i class="fas fa-tag mx-1 text-[#8c9df4]"></i>
+                                <span>{{$event->topic->topic_name}}</span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
             </div>
 
             <div class="flex flex-col p-5 basis-3/12 h-full border-[#d2e0ff] space-y-3 flex-grow-0 ">
@@ -103,32 +134,43 @@
                             <img class="h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
 
                             <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                            <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
+                                <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="flex flex-col items-center py-3">
-                        <label class="text-[#5776f1] font-semibold mt-[-15px] text-lg">{{$train->name}}</label>
+                        <label class="text-[#5776f1] font-semibold mt-[-15px] text-center text-lg">{{$train->name}}</label>
                         <label class="text-[#93a3f5] text-sm font-semibold">{{"@" . $train->user->name}}</label>
                         <label class="text-[#5776f1] text-sm font-semibold mx-10 text-center mt-2">{{$train->bio}}</label>
                     </div>
                 </div>
 
-                <div class="flex flex-col px-2 py-2 space-y-4 flex-grow-0 overflow-auto relative">
+                <div class="flex flex-col py-2 space-y-4 flex-grow-0 overflow-auto relative">
                     <h3 class="w-full text-center text-xl font-semibold text-[#5776f1]">Activity</h3>
-                    @foreach($invites as $invite)
-                    <div class="flex flex-col space-y-3  overflow-auto">
-                        <div class="flex flex-row  items-center justify-center rounded-2xl bg-[#e6efff] w-full">
-                            <div class="flex flex-row px-6 pl-0 py-2 items-center h-16 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
-                                <img class="rounded-full border border-gray-100 shadow-xl shadow-blue-300 ml-[-10px]" src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
-                                <span class="text-sm"><span class="font-semibold">{{$invite->event->university->name}}</span> invites you for <span class="font-semibold">{{$invite->event->name}}</span>!</span>
+                    <div class="flex flex-col space-y-3 overflow-auto">
+                        @foreach($invites as $invite)
+                        <div class="flex flex-col items-center justify-center rounded-2xl bg-[#e6efff] w-full">
+                            <div class="flex flex-row pr-2 pl-0 py-2 items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
+                                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
+                                <span class="text-sm text-left"><span class="font-semibold">{{$invite->event->university->name}}</span> invites you for <span class="font-semibold">{{$invite->event->name}}</span>!</span>
+                            </div>
+
+                            <div class="flex p-2 space-x-2">
                                 <form action="{{route('invite.accept')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$invite->id}}">
-                                    <input type="submit" class="cursor-pointer" value="✅" class="text-lg">
+                                    <button type="submit">
+                                        <i class="fa fa-check-circle fa-lg text-green-400 bg-white rounded-full"></i>
+                                    </button>
+
                                 </form>
                                 <form action="{{route('invite.decline')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$invite->id}}">
-                                    <input class="cursor-pointer" type="submit" value="⛔" class="text-lg">
+                                    <button type="submit">
+                                        <i class="fa fa-times-circle fa-lg text-red-400 bg-white rounded-full"></i>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -148,6 +190,10 @@
 
         $('button[name="m-close"]').click(function(event) {
             $(this).closest('div[name="Modal"]').hide();
+        });
+
+        $('button[id="editPic"]').click(function(event) {
+            $('#picModal').toggle();
         });
 
         $('#event-modal').click(function() {

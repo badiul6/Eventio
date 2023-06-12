@@ -24,6 +24,7 @@
     @include("university.editevent")
     @include("university.createevent")
     @include("university.updateprofile")
+    @include("university.editpic")
     <div class="flex h-screen items-center p-3 bg-slate-200">
         <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-[#d2e0ff]">
             <div class="flex flex-col basis-1/6 h-full items-center pt-6">
@@ -52,7 +53,7 @@
                     <div class="w-full">
                         <form action="{{route('logout')}}" method="post" class="w-full py-2 rounded-full text-[#92a5f4] hover:text-[#5776f1]"">
                             @csrf   
-                            <i class=" fas fa-sign-out-alt mx-2 "></i>
+                            <i class="fas fa-sign-out-alt mx-2 "></i>
                             <input type="submit" value="Logout" class="font-semibold cursor-pointer">
                         </form>
                     </div>
@@ -137,7 +138,7 @@
                 </div>
 
                 <span class="mt-2 text-lg font-semibold text-[#5776f1]">
-                    Live / Upcoming Events
+                    Live / Completed Events
                 </span>
 
                 <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
@@ -183,11 +184,14 @@
                         <div class="flex flex-col w-full items-center rounded-lg">
                             <img class="h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
 
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                            <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
+                                <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="flex flex-col items-center py-3">
-                        <label class="text-[#5776f1] font-semibold mt-[-15px] text-lg">{{$uni->name}}</label>
+                        <label class="text-[#5776f1] font-semibold mt-[-15px] text-lg text-center">{{$uni->name}}</label>
                         <label class="text-[#93a3f5] text-sm font-semibold">{{"@" . $uni->user->name}}</label>
                         <label class="text-[#5776f1] text-sm font-semibold mx-10 text-center mt-2">{{$uni->description}}</label>
                     </div>
@@ -195,18 +199,16 @@
 
                 <div class="flex flex-col py-2 space-y-4 flex-grow-0 overflow-auto relative">
                     <h3 class="w-full text-center text-xl font-semibold text-[#5776f1]">Activity</h3>
-
                     @foreach($invites as $invite)
                     <div class="flex flex-col space-y-3 overflow-auto">
                         <div class="flex flex-row items-center justify-center rounded-2xl w-full cursor-pointer">
-                            <div class="flex flex-row py-2 items-center h-16 justify-center rounded-2xl bg-[#e6efff] w-full cursor-pointer overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
-                                <img class="border border-gray-100 shadow-xl shadow-blue-300 ml-[-10px]" src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="82px" />
+                            <div class="flex flex-row pr-2 pl-0 py-2 bg-[#e6efff] items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
+                                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
                                 <span class="text-sm"><span class="font-semibold">{{$invite->trainee->first_name}}&nbsp;{{$invite->trainee->last_name}}</span> {{$invite->status}} your invitation to join <span class="font-semibold">{{$invite->event->name}}</span>!</span>
                             </div>
                         </div>
                     </div>
                     @endforeach
-
                 </div>
             </div>
 
