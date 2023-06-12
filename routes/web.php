@@ -42,7 +42,7 @@ Route::middleware(['auth','verified','role:attendee'])->group(function(){
     Route::get('/attendee/createprofile', function () {
         return view('attendee/createprofile');})->name('dashboard');
 
-    Route::get('/attendee/dashboard', [AttendeeController::class, 'read'])->name('dashboard');
+    Route::get('/attendee/dashboard', [AttendeeController::class, 'index'])->name('dashboard');
     
     Route::post('/attendee/create', [AttendeeController::class,'create'])->name('attendee.store');
 
