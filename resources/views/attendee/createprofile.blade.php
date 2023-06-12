@@ -1,5 +1,9 @@
+@php
+    $unis = App\Models\University::all();
+@endphp
+
 <!-- Main modal -->
-<div id="profileModal" tabindex="-1" class="overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
+<div id="profileModal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
     <div class="flex flex-row items-center justify-center p-4 w-full h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
@@ -37,11 +41,9 @@
                     <div>
                         <label for=" uni" class="block mb-2 text-sm font-medium text-gray-900 ">University</label>
                         <select id="uni" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
-                            <option selected="">Select category</option>
-                            <option value="TV">TV/Monitors</option>
-                            <option value="PC">PC</option>
-                            <option value="GA">Gaming/Console</option>
-                            <option value="PH">Phones</option>
+                            @foreach($unis as $uni)
+                            <option value="{{$uni->id}}">{{$uni->name}}</option>
+                            @endforeach
                         </select>
                     </div>
 

@@ -9,7 +9,8 @@ class Attendee extends Model
 {
     use HasFactory;
     protected $table = 'attendees';
-
+    public $timestamps = false;
+    protected $fillable = ['id', 'first_name', 'last_name', 'phone_no', 'bio', 'address', 'user_id']; 
 
     public function user()
     {
