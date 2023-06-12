@@ -15,14 +15,12 @@ class TraineeController extends Controller
     public function read()
     {
         $train =  auth()->user()->trainee;
-        // dd($train->id);
+        
         if($train!= null){
             $invites= Event_Trainee::where('trainee_id',$train->id )->where('status','pending')->get();
             return view('/trainee/dashboard', compact('train','invites'));
         }
         
-       
-
         return view('/trainee/dashboard', compact('train'));
     }
 

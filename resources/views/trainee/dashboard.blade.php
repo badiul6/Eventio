@@ -1,46 +1,48 @@
-
 <!doctype html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Include DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
 
-    <!-- Include DataTables JS -->
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
     @vite('resources/css/app.css')
 </head>
 
 <body>
     @if (is_null(auth()->user()->trainee))
-        @include("trainee.createprofile")
+    @include("trainee.createprofile")
     @else
     @include("trainee.updateprofile")
     <div class="flex h-screen items-center p-3 bg-slate-200">
-        <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-slate-200">
+        <div class="flex bg-white flex-grow items-center rounded-2xl h-full p-4 border-[3px] border-[#d2e0ff]">
             <div class="flex flex-col basis-1/6 h-full items-center pt-6">
-                <img src="{{asset('imgs/logo.svg')}}" width="64px">
-                <span>Eventio</span>
+                <img src="{{asset('imgs/logo.svg')}}" width="256px">
 
-                <div class="flex flex-col pt-16 h-full w-3/4 mb-7 items-center space-y-5 p-5">
-                    <button id="event-modal">Create Event</button>
-                    <button id="update-modal">Update</button>
+                <div class="flex flex-col pt-16 h-full w-full mb-7 items-center space-y-5">
+                    <button id="update-modal" class="flex items-center font-semibold w-full py-2 rounded-full text-[#92a5f4] hover:text-[#5776f1]">
+                        <i class=" fas fa-sync mx-2 "></i>
+                        <span class=" w-full">Update Profile</span>
+                    </button>
 
                     <div class="width h-full">&nbsp;</div>
-                    <form  action="{{route('profile.edit')}}" method="get">
-                        <input type="submit" value="Account Settings" class="cursor-pointer">
-                    </form>
-                    <div >
-                        <form action="{{route('logout')}}" method="post">
+                    <div class="w-full">
+                        <form action="{{route('profile.edit')}}" method="get" class="w-full py-2 rounded-full text-[#92a5f4] hover:text-[#5776f1]">
                             @csrf
-                            <input type="submit" value="Logout" class="cursor-pointer">
+                            <i class="fas fa-user-cog mx-2 "></i>
+                            <input type="submit" value="Settings" class="font-semibold cursor-pointer">
+                        </form>
+                    </div>
+
+                    <div class="w-full">
+                        <form action="{{route('logout')}}" method="post" class="w-full py-2 rounded-full text-[#92a5f4] hover:text-[#5776f1]"">
+                            @csrf   
+                            <i class=" fas fa-sign-out-alt mx-2"></i>
+                            <input type="submit" value="Logout" class="font-semibold cursor-pointer">
                         </form>
                     </div>
                 </div>
@@ -50,107 +52,88 @@
             <div class="flex flex-col bg-white basis-4/5 h-full p-5 border-x-[3px] border-slate-200 px-10">
                 <div class="flex">
                     <div class="flex flex-col basis-4/5">
-                        <span class="text-4xl font-semibold">Hello, {{auth()->user()->name}}</span>
-                        <span class="text-sm">Track your events here, stay up-to-date!</span>
+                        <span class="text-4xl font-semibold text-[#5776f1]">Hello, {{$train->user->name}}</span>
+                        <span class="text-[#92a5f4]">Track your events here, stay up-to-date!</span>
                     </div>
-                    <div class="flex justify-end m-2 items-top basis-1/5 px-2">
-                        <p class="font-semibold text-sm">{{ \Carbon\Carbon::now()->format('F d, Y') }}</p>
-                    </div>
-                </div>
-                <hr class="h-px mt-8 mb-2 border-[2] border-slate-300 rounded-xl">
-
-                <div class="flex space-x-1">
-                    <div class="flex basis-1/3 px-6 items-center space-x-4 border-r-[3px] border-slate-200">
-                        <div>
-                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
-                        </div>
-                        <div class="w-full text-center">
-                            <p>In Progress</p>
-                            <span>3</span>
-                        </div>
-                    </div>
-                    <div class="flex basis-1/3 px-6 py-2 items-center space-x-4 border-r-[3px] border-slate-200">
-                        <div>
-                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
-                        </div>
-                        <div class="w-full text-center" <p>Completed</p>
-                            <span>11</span>
-                        </div>
-                    </div>
-                    <div class="flex basis-1/3 px-6 items-center space-x-4 border-slate-200">
-                        <div>
-                            <img src="{{asset('imgs/logo.svg')}}" width="30px">
-                        </div>
-                        <div class=" w-full text-center" <p>Pending</p>
-                            <span>0</span>
-                        </div>
+                    <div class="flex justify-end m-2 items-top basis-2/5 px-2">
+                        <p class="font-semibold mt-1 text-[#8c9df4] text-lg">{{ \Carbon\Carbon::now()->format('F d, Y') }}</p>
+                        <i class="bg-[#e6efff] text-[#8c9df4] rounded-full far fa-calendar-alt fa-lg mx-2 h-fit p-3"></i>
                     </div>
                 </div>
 
-                <hr class="h-px mt-2 mb-2 border-[2] border-slate-300 rounded-xl">
+                <hr class="h-px mt-8 mb-2 border-[2px] border-[#d2e0ff] rounded-xl">
 
-                <div>
+                <span class="mt-5 text-lg font-semibold text-[#5776f1]">
+                    My Events
+                </span>
 
-                </div>
                 <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
-
                     <table>
-                        <tr class="grid bg-slate-100 opacity-90 rounded-lg p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
-                            <!-- name, niche, date time, pics -->
-                            <td class="text-xl font-semibold">Name</td>
-                            <td class="text-right text-sm font-light">Date Time</td>
-                            <td class="font-light">Sports</td>
-                            <td class="flex text-right space-x-1 justify-end">
-                                <img class="h-8 rounded-2xl border-2 border-red-500" src="https://randomuser.me/api/portraits/lego/1.jpg">
-                                <img class="h-8 rounded-2xl border-2 border-green-500" src="https://randomuser.me/api/portraits/lego/2.jpg">
-                                <img class="h-8 rounded-2xl" src="https://randomuser.me/api/portraits/lego/3.jpg">
+                        @foreach($train->events as $event)
+                        <tr id="{{$event->id}}" name="event-update" class="grid bg-[#e6efff] rounded-2xl p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
+                            <td class="text-xl font-semibold">
+                                <i class="fas fa-star text-[#8c9df4]"></i>
+                                <span>{{$event->name}}</span>
+                            </td>
+                            <td class="text-right">
+                                <span>
+                                    <i class="fas fa-clock text-[#8c9df4]"></i>
+                                    {{date('F d, Y', strtotime($event->date))}}
+                                    <i class="fas fa-calendar-alt ml-5 text-[#8c9df4]"></i>
+                                    {{date('h:i A', strtotime($event->start_time))}}
+                                    <i class="fas fa-arrow-right text-[#8c9df4]"></i>
+                                    {{date('h:i A', strtotime($event->end_time))}}
+                                </span>
+                            </td>
+                            <td class="font-light">
+                                <i class="fas fa-tag mx-1 text-[#8c9df4]"></i>
+                                <span>{{$event->topic->topic_name}}</span>
                             </td>
                         </tr>
+                        @endforeach
                     </table>
                 </div>
 
             </div>
 
-            <div class="flex flex-col p-5 basis-2/6 h-full border-slate-200 space-y-3 flex-grow-0">
-                <div class="flex flex-col basis-1/5 bg-slate-100 mx-5 rounded-xl">
+            <div class="flex flex-col p-5 basis-3/12 h-full border-[#d2e0ff] space-y-3 flex-grow-0 ">
+                <div class="flex flex-col bg-[#e6efff] rounded-2xl w-full basis-1/5">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
-                            <img class="h-20 bg-gray-100 rounded-t-lg" src="https://marketplace.canva.com/EAEmB3DmXk0/1/0/1600w/canva-bright-gradient-lettering-rainbow-facebook-cover-0Z5QgybLshE.jpg" width="100%">
+                            <img class="h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
+
                             <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
                         </div>
-                        <span class="font-semibold">{{$train->first_name}}&nbsp;{{ $train->last_name}}</span>
-                        <span class="text-sm font-light">{{$train->bio}}</span>
+                    </div>
+                    <div class="flex flex-col items-center py-3">
+                        <label class="text-[#5776f1] font-semibold mt-[-15px] text-lg">{{$train->name}}</label>
+                        <label class="text-[#93a3f5] text-sm font-semibold">{{"@" . $train->user->name}}</label>
+                        <label class="text-[#5776f1] text-sm font-semibold mx-10 text-center mt-2">{{$train->bio}}</label>
                     </div>
                 </div>
 
                 <div class="flex flex-col px-2 py-2 space-y-4 flex-grow-0 overflow-auto relative">
-                    <h3 class="text-center overflow-hidden before:h-[1px] after:h-[1px] after:bg-blue-300
-           after:inline-block after:relative after:align-middle after:w-1/4 
-           before:bg-blue-300 before:inline-block before:relative before:align-middle 
-           before:w-1/4 before:right-2 after:left-2 text-xl p-4">Activity
-                    </h3>
-@foreach($invites as $invite)
+                    <h3 class="w-full text-center text-xl font-semibold text-[#5776f1]">Activity</h3>
+                    @foreach($invites as $invite)
                     <div class="flex flex-col space-y-3  overflow-auto">
-                        <div class="flex flex-row px-6 pl-0 items-center justify-center rounded-2xl bg-slate-100 w-full cursor-pointer ">
-                            <div class="flex flex-row px-6 pl-0 py-2 items-center h-16 justify-center rounded-2xl bg-slate-100 w-full cursor-pointer overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
+                        <div class="flex flex-row  items-center justify-center rounded-2xl bg-[#e6efff] w-full">
+                            <div class="flex flex-row px-6 pl-0 py-2 items-center h-16 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
                                 <img class="rounded-full border border-gray-100 shadow-xl shadow-blue-300 ml-[-10px]" src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
                                 <span class="text-sm"><span class="font-semibold">{{$invite->event->university->name}}</span> invites you for <span class="font-semibold">{{$invite->event->name}}</span>!</span>
                                 <form action="{{route('invite.accept')}}" method="post">
-                                @csrf
-                                    <input type="hidden" name="id" value="{{$invite->id}}">
-                                    
-                                    <input type="submit" class="cursor-pointer" value="Accept">
-                                </form>
-                               <form action="{{route('invite.decline')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$invite->id}}">
-
-                                    <input class="cursor-pointer" type="submit" value="Decline">
+                                    <input type="submit" class="cursor-pointer" value="✅" class="text-lg">
                                 </form>
-                           </div>
+                                <form action="{{route('invite.decline')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$invite->id}}">
+                                    <input class="cursor-pointer" type="submit" value="⛔" class="text-lg">
+                                </form>
+                            </div>
                         </div>
                     </div>
-@endforeach
+                    @endforeach
                 </div>
             </div>
 
