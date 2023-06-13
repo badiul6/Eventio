@@ -57,7 +57,7 @@ class EventController extends Controller
 
     public function goLive(Request $request){
         $event= Event::find($request->id);
-        dd($request);
+        
         $event->update([
             'status'=> "active"
         ]);
