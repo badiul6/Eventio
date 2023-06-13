@@ -1,5 +1,5 @@
 <!-- Main modal -->
-<div id="updateEvent" name="Modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
+<div id="updateEvent" name="Modal" tabindex="-1" class="hidden overflow-y-auto scrollbar-hide overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
     <div class="flex flex-row items-center justify-center p-4 w-full h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
@@ -16,7 +16,7 @@
                 </button>
             </div>
 
-            <div class="flex flex-col space-y-5">
+            <div class="flex flex-col space-y-5 relative">
                 <form class="flex justify-center" action="{{route('event.live')}}" method="post">
                     @csrf
                     <button type="submit" class="text-black inline-flex items-center bg-green-300 hover:bg-green-200 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5">
@@ -24,6 +24,7 @@
                     </button>
                     <input type="hidden" id="idd" name="id">
                 </form>
+
                 <form id="eventForm" action="{{route('event.edit')}}" method="post">
                     @csrf
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -50,17 +51,25 @@
                         </div>
                         <div class=" sm:col-span-2">
                             <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                            <textarea id="desc" name="desc" required rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 here"></textarea>
+                            <textarea id="desc" name="desc" required rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 scrollbar-hide"></textarea>
                         </div>
                         <input type="hidden" id="id" name="id">
                     </div>
 
+                    <div>
+
+                    </div>
                     <button type="submit" class="text-black inline-flex items-center bg-blue-200 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                         <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                         </svg>
                         Submit
                     </button>
+                </form>
+                <form action="{{route('event.delete')}}" method="post" class="inline-flex items-center bg-red-200 cursor-pointer hover:bg-red-100 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center absolute bottom-1 right-0">
+                @csrf   
+                <input type="hidden" name="event" id="eve">
+                <button type="submit"><i class="fa fa-trash fa-3xl text-white hover:text-black w-full h-full" aria-hidden="true"></i></button>
                 </form>
             </div>
         </div>

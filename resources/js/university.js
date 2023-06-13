@@ -49,6 +49,7 @@ $(document).ready(function () {
                 $('#desc').val(events.description);
                 $('#id').val(events.id);
                 $('#idd').val(events.id);
+                $('#eve').val(events.id);
 
                 if (trainees.length > 0) {
                     Array.from(trainees).forEach(trainee => {

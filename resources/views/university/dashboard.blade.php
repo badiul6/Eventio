@@ -145,7 +145,7 @@
                         <tr class="grid bg-[#e6efff] rounded-2xl p-6 px-6 grid-cols-2 grid-rows-2 mb-1">
                             <td class="text-xl font-semibold">
                                 <i class="fas fa-star mr-2 text-[#8c9df4]"></i>
-                                <span>{{$event->name}}</span>
+                                <span>{{$event->name}}</span><span class="font-light text-sm">&nbsp;&nbsp;({{$event->attendees()->count()}} Joined)</span>
                             </td>
                             <td class="text-right">
                                 <span>

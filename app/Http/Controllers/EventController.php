@@ -84,10 +84,10 @@ class EventController extends Controller
         return redirect('/university/dashboard');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        Event::find($id)->delete();
-        return redirect('/university/viewevent');
+        Event::find($request->event)->delete();
+        return redirect('/university/dashboard');
     }
 
     public function join(Request $request)
