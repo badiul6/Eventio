@@ -54,7 +54,7 @@
             <div class="flex flex-col bg-white basis-4/5 h-full p-5 border-x-[3px] border-slate-200 px-10">
                 <div class="flex">
                     <div class="flex flex-col basis-4/5">
-                        <span class="text-4xl font-semibold text-[#5776f1]">Hello, {{$train->user->name}}</span>
+                        <span class="text-4xl font-semibold text-[#5776f1]">Hello, {{$train->first_name." " .$train->last_name}}</span>
                         <span class="text-[#92a5f4]">Track your events here, stay up-to-date!</span>
                     </div>
                     <div class="flex justify-end m-2 items-top basis-2/5 px-2">
@@ -132,9 +132,18 @@
                 <div class="flex flex-col bg-[#e6efff] rounded-2xl w-full basis-1/5">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
-                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
+                            @if(is_null($train->user->picture))
+                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/cover.jpg')}}">
+@else
+                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$train->user->picture->cover_path)}}">
+@endif
 
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="https://randomuser.me/api/portraits/lego/2.jpg">
+@if(is_null($train->user->picture))
+
+                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="{{asset('/uploads/dp.png')}}" alt="bank">
+@else
+                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="{{asset('/uploads/'.$train->user->picture->dp_path)}}">
+@endif
                             <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
                                 <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
                             </button>
@@ -149,11 +158,16 @@
 
                 <div class="flex flex-col py-2 space-y-4 flex-grow-0 overflow-auto relative">
                     <h3 class="w-full text-center text-xl font-semibold text-[#5776f1]">Activity</h3>
+                    @foreach($invites as $invite)
                     <div class="flex flex-col space-y-3 overflow-auto">
-                        @foreach($invites as $invite)
+                        
                         <div class="flex flex-col items-center justify-center rounded-2xl bg-[#e6efff] w-full">
                             <div class="flex flex-row pr-2 pl-0 py-2 items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
-                                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
+@if(is_null($invite->event->university->user->picture))
+                            <img src="{{asset('/uploads/uni.jpg')}}" alt="user image" width="78px" />
+@else
+                            <img src="{{asset('/uploads/'.$invite->event->university->user->picture->dp_path)}}" alt="user image" width="78px" />
+@endif                            
                                 <span class="text-sm text-left"><span class="font-semibold">{{$invite->event->university->name}}</span> invites you for <span class="font-semibold">{{$invite->event->name}}</span>!</span>
                             </div>
 

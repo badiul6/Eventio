@@ -183,8 +183,11 @@
                 <div class="flex flex-col bg-[#e6efff] rounded-2xl w-full basis-1/5">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
-                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
-                            
+@if(is_null($uni->user->picture))
+                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$uni->user->picture->dp_path)}}">
+@else
+                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/dp.png')}}">
+     @endif                       
                             <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="https://randomuser.me/api/portraits/lego/2.jpg">
                             <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
                                 <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
