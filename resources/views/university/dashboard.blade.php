@@ -184,11 +184,23 @@
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
 @if(is_null($uni->user->picture))
-                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$uni->user->picture->dp_path)}}">
+
+                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/cover.jpg')}}">
 @else
-                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/dp.png')}}">
-     @endif                       
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="https://randomuser.me/api/portraits/lego/2.jpg">
+                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$uni->user->picture->cover_path)}}">
+     @endif
+
+     @if(is_null($uni->user->picture))
+                       
+                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="{{asset('/uploads/dp.png')}}">
+                          @else
+
+                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="{{asset('/uploads/'.$uni->user->picture->dp_path)}}">
+                            @endif       
+
+                
+            
+
                             <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
                                 <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
                             </button>
@@ -207,7 +219,11 @@
                     <div class="flex flex-col space-y-3 overflow-auto">
                         <div class="flex flex-row items-center justify-center rounded-2xl w-full cursor-pointer">
                             <div class="flex flex-row pr-2 pl-0 py-2 bg-[#e6efff] items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
-                                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="user image" width="78px" />
+@if(is_null($invite->trainee->user->picture))
+                            <img src="{{asset('/uploads/dp.png')}}" alt="user image" width="78px" />
+@else
+                                <img src="{{asset('/uploads/'.$invite->trainee->user->picture->dp_path)}}" alt="user image" width="78px" />
+@endif
                                 <span class="text-sm"><span class="font-semibold">{{$invite->trainee->first_name}}&nbsp;{{$invite->trainee->last_name}}</span> {{$invite->status}} your invitation to join <span class="font-semibold">{{$invite->event->name}}</span>!</span>
                             </div>
                         </div>
