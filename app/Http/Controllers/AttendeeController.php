@@ -14,9 +14,9 @@ class AttendeeController extends Controller
     {
         $attend = auth()->user()->attendee;
 
-
         if ($attend != null) {
-            $attendeeId= $attend->id;
+            EventController::updateEventStatus();
+            $attendeeId = $attend->id;
             $events = Event::where('status', 'active')
                 ->whereDoesntHave('attendees', function ($query) use ($attendeeId) {
                     $query->where('attendee_id', $attendeeId);
@@ -33,16 +33,13 @@ class AttendeeController extends Controller
             })
                 ->where('status', 'completed')->latest()
                 ->get();
-                $pic= Picture::where('user_id', auth()->user()->id)->first();
 
-                
-                    return view("attendee/dashboard", compact(['events', 'joinedEvents', 'completedEvents','pic']));
-                
-                
+            $pic = Picture::where('user_id', auth()->user()->id)->first();
+
+            return view("attendee/dashboard", compact(['events', 'joinedEvents', 'completedEvents', 'pic']));
         }
 
         return view("attendee/dashboard");
-        
     }
 
     public function create(Request $request)
@@ -79,59 +76,52 @@ class AttendeeController extends Controller
         return redirect('attendee/dashboard');
     }
 
-    public function upload_dp(Request $req){
+    public function upload_dp(Request $req)
+    {
         $req->validate([
-            'file'=> 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
+            'file' => 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
         ]);
-        $filename = time().'.'.$req->file->extension();
-        $req->file->move('uploads', $filename);  
+        $filename = time() . '.' . $req->file->extension();
+        $req->file->move('uploads', $filename);
 
-        if(auth()->user()->picture!= null){
-            $pic = Picture::where('user_id',auth()->user()->id )->first();
-            $pic->dp_path= $filename;
+        if (auth()->user()->picture != null) {
+            $pic = Picture::where('user_id', auth()->user()->id)->first();
+            $pic->dp_path = $filename;
             $pic->save();
 
-            return redirect('attendee/dashboard');      
-
-        }
-        else{
+            return redirect('attendee/dashboard');
+        } else {
             $filewritter = new Picture;
-        $filewritter->dp_path = $filename;
-        $filewritter->user_id= auth()->user()->id;
-        $filewritter->save();
+            $filewritter->dp_path = $filename;
+            $filewritter->user_id = auth()->user()->id;
+            $filewritter->save();
 
-return redirect('attendee/dashboard');    
-
+            return redirect('attendee/dashboard');
         }
     }
 
-        public function upload_cover(Request $req){
+    public function upload_cover(Request $req)
+    {
 
-            $req->validate([
-                'file'=> 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
-            ]);
-            $filename = time().'.'.$req->file->extension();
-            $req->file->move('uploads', $filename);  
-    
-            if(auth()->user()->picture!= null){
-                $pic = Picture::where('user_id',auth()->user()->id )->first();
-                $pic->cover_path= $filename;
-                $pic->save();
-    
-                return redirect('attendee/dashboard');      
-    
-            }
-            else{
-                $filewritter = new Picture;
+        $req->validate([
+            'file' => 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
+        ]);
+        $filename = time() . '.' . $req->file->extension();
+        $req->file->move('uploads', $filename);
+
+        if (auth()->user()->picture != null) {
+            $pic = Picture::where('user_id', auth()->user()->id)->first();
+            $pic->cover_path = $filename;
+            $pic->save();
+
+            return redirect('attendee/dashboard');
+        } else {
+            $filewritter = new Picture;
             $filewritter->cover_path = $filename;
-            $filewritter->user_id= auth()->user()->id;
+            $filewritter->user_id = auth()->user()->id;
             $filewritter->save();
-    
-    return redirect('attendee/dashboard');    
-    
-            }
-       
-        
-          
+
+            return redirect('attendee/dashboard');
+        }
     }
 }

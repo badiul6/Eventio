@@ -10,8 +10,6 @@ class Event extends Model
 {
     use HasFactory;
     protected $table = 'events';
-
-
     public $fillable = ['uni_id', 'topic_id', 'name', 'location', 'description', 'status', 'capacity', 'date', 'start_time', 'end_time'];
     
     public function attendees()
@@ -19,12 +17,12 @@ class Event extends Model
         return $this->belongsToMany(Attendee::class, 'attendee_events');
     }
 
-    public function university() 
+    public function university()
     {
         return $this->belongsTo(University::class, 'uni_id');
     }
 
-    public function topic() 
+    public function topic()
     {
         return $this->belongsTo(Topic::class);
     }
@@ -33,6 +31,4 @@ class Event extends Model
     {
         return $this->belongsToMany(Trainee::class, 'event_trainees');
     }
-   
-    
 }

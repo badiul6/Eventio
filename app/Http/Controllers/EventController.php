@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-
     // id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id
     public function create(Request $request)
     {
@@ -102,5 +101,22 @@ class EventController extends Controller
         $events = auth()->user()->participant->eventsAttendees;
 
         return view('participant.viewjoinedevent')->with('events', $events);
+    }
+
+    public static function updateEventStatus()
+    {
+        $currentDateTime = now(); // Get the current date and time
+        // dd($currentDateTime->toTimeString());   
+        $records = Event::where('date', '<', $currentDateTime->toDateString()) // Filter by date less than the current date
+            ->orWhere(function ($query) use ($currentDateTime) {
+                $query->where('date', '=', $currentDateTime->toDateString()) // Filter by date equal to the current date
+                    ->where('end_time', '<', $currentDateTime->toTimeString()); // Filter by end time less than the current time
+            })->where('status', 'active')
+            ->get();
+
+        foreach ($records as $event) {
+            $event->status = 'completed';
+            $event->save();
+        }
     }
 }

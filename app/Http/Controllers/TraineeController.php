@@ -8,26 +8,32 @@ use App\Models\Event;
 use App\Models\Trainee;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isNull;
-
 class TraineeController extends Controller
 {
     public function read()
     {
-        $train =  auth()->user()->trainee;
-        $invites = Event_Trainee::where('trainee_id', $train->id)->where('status', 'pending')->get();
+        $attend = auth()->user()->trainee;
 
-        $events = Event::whereHas('trainees', function ($query) use ($train) {
-            $query->where('trainee_id', $train->id)
-                ->where('status', 'accepted');
-        });
+        if ($attend != null) {
+            EventController::updateEventStatus();
 
-        $events2 = clone $events;
+            $train =  auth()->user()->trainee;
+            $invites = Event_Trainee::where('trainee_id', $train->id)->where('status', 'pending')->get();
 
-        $upcomingEvents = $events->where('status', '!=', 'completed')->get();
-        $completedEvents = $events2->where('status', 'completed')->get();
+            $events = Event::whereHas('trainees', function ($query) use ($train) {
+                $query->where('trainee_id', $train->id)
+                    ->where('status', 'accepted');
+            });
 
-        return view('/trainee/dashboard', compact('train', 'invites', 'upcomingEvents', 'completedEvents'));
+            $events2 = clone $events;
+
+            $upcomingEvents = $events->where('status', '!=', 'completed')->get();
+            $completedEvents = $events2->where('status', 'completed')->get();
+
+            return view('/trainee/dashboard', compact('train', 'invites', 'upcomingEvents', 'completedEvents'));
+        }
+
+        return view('/trainee/dashboard');
     }
 
     public function create(Request $request)

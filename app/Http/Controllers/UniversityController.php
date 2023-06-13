@@ -22,6 +22,7 @@ class UniversityController extends Controller
         $topics = Topic::all();
         $trainees = Trainee::all();
         if ($uni != null) {
+            EventController::updateEventStatus();
             $eventIds = Event::where('uni_id', $uni->id)->pluck('id');
 
             $invites = Event_Trainee::whereIn('event_id', $eventIds)
@@ -37,7 +38,6 @@ class UniversityController extends Controller
                 ->where('status', '!=', 'pending')
                 ->latest()
                 ->get();
-            $this->updateEventStatus();
 
             $pevent = Event::where('uni_id', $uni->id)->where('status', 'pending')->pluck('id')->count();
             $aevent = Event::where('uni_id', $uni->id)->where('status', 'active')->pluck('id')->count();
@@ -106,6 +106,7 @@ class UniversityController extends Controller
 
         return redirect('/');
     }
+
     public function getEvents(Request $request)
     {
 
@@ -130,22 +131,5 @@ class UniversityController extends Controller
         }
 
         return response()->json([$event, $remainingTrainees]);
-    }
-
-    public function updateEventStatus()
-    {
-        $currentDateTime = now(); // Get the current date and time
-        // dd($currentDateTime->toTimeString());   
-        $records = Event::where('date', '<', $currentDateTime->toDateString()) // Filter by date less than the current date
-            ->orWhere(function ($query) use ($currentDateTime) {
-                $query->where('date', '=', $currentDateTime->toDateString()) // Filter by date equal to the current date
-                    ->where('end_time', '<', $currentDateTime->toTimeString()); // Filter by end time less than the current time
-            })->where('status', 'active')
-            ->get();
-
-        foreach ($records as $event) {
-            $event->status = 'completed';
-            $event->save();
-        }
     }
 }
