@@ -179,7 +179,7 @@
                             <img class="h-[70px] w-[70px] bg-gray-100 rounded-full mt-[-12%]" src={{strlen($pic->dp_path) == 0 ? 'https://ionicframework.com/docs/img/demos/avatar.svg' : asset('/uploads/'.$pic->dp_path)}}>
                             @else
                             <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png">
-                            <img class="h-[110px] w-[78px] bg-gray-100 rounded-full mt-[-12%]" src="https://ionicframework.com/docs/img/demos/avatar.svg">
+                            <img class="h-[78px] w-[78px] bg-gray-100 rounded-full mt-[-12%]" src="https://ionicframework.com/docs/img/demos/avatar.svg">
                             @endif<button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-21%]">
                                 <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
                             </button>
