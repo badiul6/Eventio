@@ -125,7 +125,7 @@
                                 <span>{{$event->topic->topic_name}}</span>
                             </td>
                             <td class="flex text-right space-x-1 justify-end">
-                            <i class="fas fa-calendar-alt pt-1 mr-2 ml-5 text-[#8c9df4]"></i>
+                                <i class="fas fa-calendar-alt pt-1 mr-2 ml-5 text-[#8c9df4]"></i>
                                 {{date('h:i A', strtotime($event->start_time))}}
                                 <i class="fas fa-arrow-right mt-1  text-[#8c9df4]"></i>
                                 {{date('h:i A', strtotime($event->end_time))}}
@@ -165,9 +165,6 @@
                             </td>
                         </tr>
                         @endforeach
-
-
-
                     </table>
                 </div>
 
@@ -177,22 +174,13 @@
                 <div class="flex flex-col bg-[#e6efff] rounded-2xl w-full basis-1/5">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
-                            @if(is_null($uni->user->picture))
-
-                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/cover.jpg')}}">
+                            @if ($pic)
+                            <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src={{strlen($pic->cover_path) == 0 ? 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png' : asset('/uploads/'.$pic->cover_path)}}>
+                            <img class="h-[70px] w-[70px] bg-gray-100 rounded-full mt-[-12%]" src={{strlen($pic->dp_path) == 0 ? 'https://ionicframework.com/docs/img/demos/avatar.svg' : asset('/uploads/'.$pic->dp_path)}}>
                             @else
-                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$uni->user->picture->cover_path)}}">
-                            @endif
-
-                            @if(is_null($uni->user->picture))
-
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="{{asset('/uploads/dp.png')}}">
-                            @else
-
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="{{asset('/uploads/'.$uni->user->picture->dp_path)}}">
-                            @endif
-
-                            <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
+                            <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png">
+                            <img class="h-[110px] w-[78px] bg-gray-100 rounded-full mt-[-12%]" src="https://ionicframework.com/docs/img/demos/avatar.svg">
+                            @endif<button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-21%]">
                                 <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
                             </button>
                         </div>

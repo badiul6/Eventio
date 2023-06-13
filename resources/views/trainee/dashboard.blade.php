@@ -132,19 +132,13 @@
                 <div class="flex flex-col bg-[#e6efff] rounded-2xl w-full basis-1/5">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
-                            @if(is_null($train->user->picture))
-                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/cover.jpg')}}">
-@else
-                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$train->user->picture->cover_path)}}">
-@endif
-
-@if(is_null($train->user->picture))
-
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="{{asset('/uploads/dp.png')}}" alt="bank">
-@else
-                            <img class="h-20 bg-gray-100 rounded-full mt-[-16%] border-[3px] border-white" src="{{asset('/uploads/'.$train->user->picture->dp_path)}}">
-@endif
-                            <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
+                            @if ($pic)
+                            <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src={{strlen($pic->cover_path) == 0 ? 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png' : asset('/uploads/'.$pic->cover_path)}}>
+                            <img class="h-[70px] w-[70px] bg-gray-100 rounded-full mt-[-12%]" src={{strlen($pic->dp_path) == 0 ? 'https://ionicframework.com/docs/img/demos/avatar.svg' : asset('/uploads/'.$pic->dp_path)}}>
+                            @else
+                            <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png">
+                            <img class="h-[78px] w-[78px] bg-gray-100 rounded-full mt-[-12%]" src="https://ionicframework.com/docs/img/demos/avatar.svg">
+                            @endif<button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-21%]">
                                 <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
                             </button>
                         </div>
@@ -159,15 +153,14 @@
                 <div class="flex flex-col py-2 space-y-4 flex-grow-0 overflow-auto relative">
                     <h3 class="w-full text-center text-xl font-semibold text-[#5776f1]">Activity</h3>
                     @foreach($invites as $invite)
-                    <div class="flex flex-col space-y-3 overflow-auto">
-                        
-                        <div class="flex flex-col items-center justify-center rounded-2xl bg-[#e6efff] w-full">
+                    <div class="flex flex-col overflow-auto">
+                        <div class="flex h-full px-5 flex-col items-center justify-center rounded-2xl bg-[#e6efff] w-full">
                             <div class="flex flex-row pr-2 pl-0 py-2 items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
-@if(is_null($invite->event->university->user->picture))
-                            <img src="{{asset('/uploads/uni.jpg')}}" alt="user image" width="78px" />
-@else
-                            <img src="{{asset('/uploads/'.$invite->event->university->user->picture->dp_path)}}" alt="user image" width="78px" />
-@endif                            
+                                @if(is_null($invite->event->university->user->picture))
+                                <img src="{{asset('/uploads/uni.jpg')}}" alt="user image" width="78px" class="w-86 h-86 rounded-full"/>
+                                @else
+                                <img src="{{asset('/uploads/'.$invite->event->university->user->picture->dp_path)}}" alt="user image" width="78px" class="w-10 h-10   rounded-full" />
+                                @endif
                                 <span class="text-sm text-left"><span class="font-semibold">{{$invite->event->university->name}}</span> invites you for <span class="font-semibold">{{$invite->event->name}}</span>!</span>
                             </div>
 

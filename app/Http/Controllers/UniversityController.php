@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Topic;
 use App\Models\Trainee;
 use App\Models\Event_Trainee;
+use App\Models\Picture;
 use Carbon\Carbon;
 
 use function PHPUnit\Framework\isNull;
@@ -39,10 +40,13 @@ class UniversityController extends Controller
                 ->latest()
                 ->get();
 
+            $pic = Picture::where('user_id', auth()->user()->id)->first();
+
             $pevent = Event::where('uni_id', $uni->id)->where('status', 'pending')->pluck('id')->count();
             $aevent = Event::where('uni_id', $uni->id)->where('status', 'active')->pluck('id')->count();
             $cevent = Event::where('uni_id', $uni->id)->where('status', 'completed')->pluck('id')->count();
-            return view('/university/dashboard', compact('uni', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent', 'upcomingEvents', 'events'));
+            
+            return view('/university/dashboard', compact('uni', 'pic', 'topics', 'trainees', 'invites', 'pevent', 'aevent', 'cevent', 'upcomingEvents', 'events'));
         }
         return view('/university/dashboard', compact('uni'));
     }

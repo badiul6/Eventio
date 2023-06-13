@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event_Trainee;
 use App\Models\Topic;
 use App\Models\Event;
+use App\Models\Picture;
 use App\Models\Trainee;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,9 @@ class TraineeController extends Controller
             $upcomingEvents = $events->where('status', '!=', 'completed')->get();
             $completedEvents = $events2->where('status', 'completed')->get();
 
-            return view('/trainee/dashboard', compact('train', 'invites', 'upcomingEvents', 'completedEvents'));
+            $pic = Picture::where('user_id', auth()->user()->id)->first();
+
+            return view('/trainee/dashboard', compact('train', 'pic', 'invites', 'upcomingEvents', 'completedEvents'));
         }
 
         return view('/trainee/dashboard');
