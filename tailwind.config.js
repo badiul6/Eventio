@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+const plugin = require('tailwindcss/plugin')
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -19,5 +20,24 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        plugin(function ({ addUtilities }) {
+            addUtilities({
+                '.scrollbar-hide': {
+                    /* IE and Edge */
+                    '-ms-overflow-style': 'none',
+
+                    /* Firefox */
+                    'scrollbar-width': 'none',
+
+                    /* Safari and Chrome */
+                    '&::-webkit-scrollbar': {
+                        display: 'none'
+                    }
+                }
+            }
+            )
+        })
+    ],
 };

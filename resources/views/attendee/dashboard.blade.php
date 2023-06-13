@@ -146,7 +146,7 @@
 
 
             <!-- Center Bar -->
-            <div class="flex flex-col basis-4/5 h-full p-5 rounded-2xl px-10 overflow-scroll">
+            <div class="flex flex-col basis-4/5 h-full p-5 rounded-2xl px-10 overflow-scroll scrollbar-hide">
 
                 <table id="attendee-events" class="flex flex-col rounded-2xl w-full h-1/2">
 
@@ -156,7 +156,7 @@
                         <td class="flex flex-col basis-3/4 flex-grow">
                             <span class="text-white text-sm font-semibold">{{$event->university->name}} Presents</span>
                             <span class="text-white text-left text-3xl font-semibold row-start-2">{{$event->name}}</span>
-                            <span class="text-white basis-1/2 font-light row-start-3 text-justify mt-5 mr-20 overflow-scroll">{{$event->description}}</span>
+                            <span class="text-white basis-1/2 font-light row-start-3 text-justify mt-5 mr-20">{{$event->description}}</span>
 
                             <span class="flex flex-row mt-5 space-x-2 mr-20">
                                 <form action="{{route('event.join')}}" method="post">
