@@ -36,7 +36,7 @@
                     <div id="profileArea" class="relative">
                         <button class="flex items-center space-x-2 px-4 py-2 rounded-full bg-[#3e4a52]  focus:outline-none">
                             @if(is_null($pic))
-                            <img class="w-8 h-8 rounded-full" src="https://ionicframework.com/docs/img/demos/avatar.svg">
+                            <img class="w-8 h-8 rounded-full" src="{{asset('/uploads/dp.png')}}">
                             @else
                             <img class="w-8 h-8 rounded-full" src="{{asset('/uploads/'.$pic->dp_path)}}">
                             @endif
@@ -81,8 +81,8 @@
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full h-1/3 items-center overflow-crop rounded-lg">
                             @if ($pic)
-                            <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src={{strlen($pic->cover_path) == 0 ? 'https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png' : asset('/uploads/'.$pic->cover_path)}}>
-                            <img class="h-[110px] w-[78px] bg-gray-100 rounded-full mt-[-12%]" src={{strlen($pic->dp_path) == 0 ? 'https://ionicframework.com/docs/img/demos/avatar.svg' : asset('/uploads/'.$pic->dp_path)}}>
+                            <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src={{strlen($pic->cover_path) == 0 ? asset('/uploads/cover.jpg') : asset('/uploads/'.$pic->cover_path)}}>
+                            <img class="h-[110px] w-[78px] bg-gray-100 rounded-full mt-[-12%]" src={{strlen($pic->dp_path) == 0 ? asset('/uploads/dp.png') : asset('/uploads/'.$pic->dp_path)}}>
                             @else
                             <img id="cover" class="object-cover w-full h-[100px] bg-gray-100 rounded-t-lg" src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_1280.png">
                             <img class="h-[110px] w-[78px] bg-gray-100 rounded-full mt-[-12%]" src="https://ionicframework.com/docs/img/demos/avatar.svg">
@@ -110,8 +110,14 @@
                         @foreach($joinedEvents as $event)
                         <!-- Joined Event 1 -->
                         <div class="flex flex-row rounded-lg mt-3 w-full p-2">
-                            <img class="w-14 h-14 bg-gray-100 rounded-full" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
+                        @if(is_null($event->university->user->picture))
 
+                            <img class="w-14 h-14 bg-gray-100 rounded-full" src="{{asset('/uploads/uni.jpg')}}">
+                           
+                            @else
+                            <img class="w-14 h-14 bg-gray-100 rounded-full" src="{{asset('/uploads/'.$event->university->user->picture->dp_path)}}">
+
+                            @endif
                             <div class="ml-5">
                                 <h1 class="text-gray-100 text-sm font-semibold">{{$event->name}}</h1>
                                 <h1 class="text-gray-400 text-sm font-semibold">{{$event->university->name}}</h1>
@@ -129,8 +135,14 @@
                         @foreach($completedEvents as $event)
                         <!-- Joined Event 1 -->
                         <div class="flex flex-row rounded-lg mt-3 w-full p-2">
-                            <img class="w-14 h-14 bg-gray-100 rounded-full" src="https://timelinecovers.pro/facebook-cover/download/Best-Covers-For-Facebook-Timeline-sunflower.jpg">
+                        @if(is_null($event->university->user->picture))
 
+<img class="w-14 h-14 bg-gray-100 rounded-full" src="{{asset('/uploads/uni.jpg')}}">
+
+@else
+<img class="w-14 h-14 bg-gray-100 rounded-full" src="{{asset('/uploads/'.$event->university->user->picture->dp_path)}}">
+
+@endif
                             <div class="ml-5">
                                 <h1 class="text-gray-100 text-sm font-semibold">{{$event->name}}</h1>
                                 <h1 class="text-gray-400 text-sm font-semibold">{{$event->university->name}}</h1>
@@ -174,7 +186,7 @@
 
                         <td class="flex justify-end space-x-1 h-full w-full basis-1/4">
                             @if(is_null($event->university->user->picture))
-                            <img class="rounded-lg" src="https://static.vecteezy.com/system/resources/previews/012/150/128/original/eps10-white-courthouse-or-university-building-solid-icon-isolated-on-black-background-museum-building-symbol-in-a-simple-flat-trendy-modern-style-for-your-website-design-logo-and-mobile-app-vector.jpg">
+                            <img class="rounded-lg" src="{{asset('/uploads/uni.jpg')}}">
                             @else
                             <img class="rounded-lg" src="{{asset('/uploads/'.$event->university->user->picture->dp_path)}}">
                             @endif
