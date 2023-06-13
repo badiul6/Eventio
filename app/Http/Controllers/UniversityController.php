@@ -108,6 +108,7 @@ class UniversityController extends Controller
     }
     public function getEvents(Request $request)
     {
+
         $event = Event::find($request->event_id);
         $train = $event->topic->trainees;
         $traineeIds = $train->pluck('id');
@@ -120,7 +121,14 @@ class UniversityController extends Controller
         if (is_null($temp) || count($temp) === 0) {
             return response()->json([$event, []]);
         }
-        $remainingTrainees = Trainee::where('id', $temp)->get();
+
+        $remainingTrainees = array();
+
+        foreach ($temp as $t) {
+            $train = Trainee::where('id', $t)->first();
+            $remainingTrainees[] = $train;
+        }
+
         return response()->json([$event, $remainingTrainees]);
     }
 

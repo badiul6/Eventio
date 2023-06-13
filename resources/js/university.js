@@ -39,6 +39,7 @@ $(document).ready(function () {
             },
 
             success: function (data) {
+
                 let events = data[0];
                 let trainees = data[1];
                 let index = 0;
