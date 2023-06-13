@@ -63,9 +63,6 @@
                     </button>
                 </form>
             </div>
-            <!-- id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id 	topic_id 	created_at 	updated_at -->
-
-
         </div>
     </div>
 </div>

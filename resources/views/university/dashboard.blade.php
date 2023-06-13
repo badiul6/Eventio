@@ -54,7 +54,7 @@
                     <div class="w-full">
                         <form action="{{route('logout')}}" method="post" class="w-full py-2 rounded-full text-[#92a5f4] hover:text-[#5776f1]"">
                             @csrf   
-                            <i class="fas fa-sign-out-alt mx-2 "></i>
+                            <i class=" fas fa-sign-out-alt mx-2 "></i>
                             <input type="submit" value="Logout" class="font-semibold cursor-pointer">
                         </form>
                     </div>
@@ -105,10 +105,10 @@
                 <span class="mt-5 text-lg font-semibold text-[#5776f1]">
                     Pending Events
                 </span>
-                <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
+                <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb scrollbar-hide">
                     <table>
                         @foreach($upcomingEvents as $event)
-                        <tr id="{{$event->id}}" name="event-update" class="grid bg-[#e6efff] rounded-2xl p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
+                        <tr id="{{$event->id}}" name="event-update" class="grid bg-[#e6efff] rounded-2xl p-6 px-6 grid-cols-2 grid-rows-2 mb-1">
                             <!-- name, niche, date time, pics -->
                             <td class="text-xl font-semibold">
                                 <i class="fas fa-star text-[#8c9df4]"></i>
@@ -118,10 +118,6 @@
                                 <span>
                                     <i class="fas fa-clock text-[#8c9df4]"></i>
                                     {{date('F d, Y', strtotime($event->date))}}
-                                    <i class="fas fa-calendar-alt ml-5 text-[#8c9df4]"></i>
-                                    {{date('h:i A', strtotime($event->start_time))}}
-                                    <i class="fas fa-arrow-right text-[#8c9df4]"></i>
-                                    {{date('h:i A', strtotime($event->end_time))}}
                                 </span>
                             </td>
                             <td class="font-light">
@@ -129,9 +125,10 @@
                                 <span>{{$event->topic->topic_name}}</span>
                             </td>
                             <td class="flex text-right space-x-1 justify-end">
-                                <img class="h-8 rounded-2xl border-2 border-red-500" src="https://randomuser.me/api/portraits/lego/1.jpg">
-                                <img class="h-8 rounded-2xl border-2 border-green-500" src="https://randomuser.me/api/portraits/lego/2.jpg">
-                                <img class="h-8 rounded-2xl" src="https://randomuser.me/api/portraits/lego/3.jpg">
+                            <i class="fas fa-calendar-alt pt-1 mr-2 ml-5 text-[#8c9df4]"></i>
+                                {{date('h:i A', strtotime($event->start_time))}}
+                                <i class="fas fa-arrow-right mt-1  text-[#8c9df4]"></i>
+                                {{date('h:i A', strtotime($event->end_time))}}
                             </td>
                         </tr>
                         @endforeach
@@ -142,22 +139,18 @@
                     Live / Completed Events
                 </span>
 
-                <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb">
+                <div class="flex flex-col px-2 py-2 space-y-4 basis-5/6 flex-grow-0 overflow-auto relative scrollbar-thumb scrollbar-hide">
                     <table>
                         @foreach($events as $event)
-                        <tr class="grid bg-[#e6efff] rounded-2xl p-3 px-6 grid-cols-2 grid-rows-2 mb-1">
+                        <tr class="grid bg-[#e6efff] rounded-2xl p-6 px-6 grid-cols-2 grid-rows-2 mb-1">
                             <td class="text-xl font-semibold">
-                                <i class="fas fa-star text-[#8c9df4]"></i>
+                                <i class="fas fa-star mr-2 text-[#8c9df4]"></i>
                                 <span>{{$event->name}}</span>
                             </td>
                             <td class="text-right">
                                 <span>
                                     <i class="fas fa-clock text-[#8c9df4]"></i>
                                     {{date('F d, Y', strtotime($event->date))}}
-                                    <i class="fas fa-calendar-alt ml-5 text-[#8c9df4]"></i>
-                                    {{date('h:i A', strtotime($event->start_time))}}
-                                    <i class="fas fa-arrow-right text-[#8c9df4]"></i>
-                                    {{date('h:i A', strtotime($event->end_time))}}
                                 </span>
                             </td>
                             <td class="font-light">
@@ -165,9 +158,10 @@
                                 <span>{{$event->topic->topic_name}}</span>
                             </td>
                             <td class="flex text-right space-x-1 justify-end">
-                                <img class="h-8 rounded-2xl border-2 border-red-500" src="https://randomuser.me/api/portraits/lego/1.jpg">
-                                <img class="h-8 rounded-2xl border-2 border-green-500" src="https://randomuser.me/api/portraits/lego/2.jpg">
-                                <img class="h-8 rounded-2xl" src="https://randomuser.me/api/portraits/lego/3.jpg">
+                                <i class="fas fa-calendar-alt pt-1 mr-2 ml-5 text-[#8c9df4]"></i>
+                                {{date('h:i A', strtotime($event->start_time))}}
+                                <i class="fas fa-arrow-right mt-1 mr-2 text-[#8c9df4]"></i>
+                                {{date('h:i A', strtotime($event->end_time))}}
                             </td>
                         </tr>
                         @endforeach
@@ -183,23 +177,20 @@
                 <div class="flex flex-col bg-[#e6efff] rounded-2xl w-full basis-1/5">
                     <div class="flex flex-col items-center pb-5">
                         <div class="flex flex-col w-full items-center rounded-lg">
-@if(is_null($uni->user->picture))
+                            @if(is_null($uni->user->picture))
 
-                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/cover.jpg')}}">
-@else
-                        <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$uni->user->picture->cover_path)}}">
-     @endif
+                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/cover.jpg')}}">
+                            @else
+                            <img id="cover" class="cursor-pointer h-full bg-gray-100 rounded-t-lg" src="{{asset('/uploads/'.$uni->user->picture->cover_path)}}">
+                            @endif
 
-     @if(is_null($uni->user->picture))
-                       
+                            @if(is_null($uni->user->picture))
+
                             <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="{{asset('/uploads/dp.png')}}">
-                          @else
+                            @else
 
                             <img class="h-20 bg-gray-100 rounded-full mt-[-16%]" src="{{asset('/uploads/'.$uni->user->picture->dp_path)}}">
-                            @endif       
-
-                
-            
+                            @endif
 
                             <button id="editPic" class="h-20 w-20  opacity-0 rounded-full mt-[-30%] hover:opacity-70 hover:bg-gray-400">
                                 <i class="hover:opacity-100 rounded-full fas fa-pencil-alt fa-xl text-white"></i>
@@ -219,11 +210,11 @@
                     <div class="flex flex-col space-y-3 overflow-auto">
                         <div class="flex flex-row items-center justify-center rounded-2xl w-full cursor-pointer">
                             <div class="flex flex-row pr-2 pl-0 py-2 bg-[#e6efff] items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
-@if(is_null($invite->trainee->user->picture))
-                            <img src="{{asset('/uploads/dp.png')}}" alt="user image" width="78px" />
-@else
+                                @if(is_null($invite->trainee->user->picture))
+                                <img src="{{asset('/uploads/dp.png')}}" alt="user image" width="78px" />
+                                @else
                                 <img src="{{asset('/uploads/'.$invite->trainee->user->picture->dp_path)}}" alt="user image" width="78px" />
-@endif
+                                @endif
                                 <span class="text-sm"><span class="font-semibold">{{$invite->trainee->first_name}}&nbsp;{{$invite->trainee->last_name}}</span> {{$invite->status}} your invitation to join <span class="font-semibold">{{$invite->event->name}}</span>!</span>
                             </div>
                         </div>

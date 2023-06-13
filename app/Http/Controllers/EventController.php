@@ -11,9 +11,7 @@ class EventController extends Controller
     public function create(Request $request)
     {
        $train= $request->trainee_ids;
-    //    dd($train);
-       
-        
+    
         $data = [
             'uni_id' => auth()->user()->university->id,
             'topic_id' => $request->topic,
@@ -56,6 +54,7 @@ class EventController extends Controller
 
         return view('university.editevent')->with('event', $event);
     }
+
     public function goLive(Request $request){
         $event= Event::find($request->id);
         dd($request);
@@ -64,14 +63,23 @@ class EventController extends Controller
         ]);
         return redirect('/university/dashboard');
     }
+
     public function update(Request $request)
     {
+
         $event= Event::find($request->id);
+
         $event->update([
             'name' => $request->name,            
             'capacity' => $request->capacity,
             'description'=>$request->desc
         ]);   
+
+        if (!is_null($request->t_ids))
+        {
+            $event= Event::find($request->id);
+            $event->trainees()->syncWithoutDetaching($request->t_ids);
+        }
 
         return redirect('/university/dashboard');
     }
