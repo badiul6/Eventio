@@ -184,7 +184,7 @@
                             </span>
                         </td>
 
-                        <td class="flex justify-end space-x-1 h-full w-full basis-1/4">
+                        <td class="flex justify-end space-x-1 h-4/5 w-full basis-1/4 pt-10">
                             @if(is_null($event->university->user->picture))
                             <img class="rounded-lg" src="{{asset('/uploads/uni.jpg')}}">
                             @else
