@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class TraineeController extends Controller
 {
-    public function read()
+    public function read()//
     {
         $attend = auth()->user()->trainee;
 
@@ -39,7 +39,7 @@ class TraineeController extends Controller
         return view('/trainee/dashboard');
     }
 
-    public function create(Request $request)
+    public function create(Request $request)//
     {
         $data = [
             'first_name' => $request->fname,
@@ -67,7 +67,7 @@ class TraineeController extends Controller
         return $this->read();
     }
 
-    public function update(Request $request)
+    public function update(Request $request)//
     {
         $data = [
             'first_name' => $request->fname,
@@ -100,7 +100,7 @@ class TraineeController extends Controller
         return response()->json($topic->trainees);
     }
 
-    public function acceptInvite(Request $req)
+    public function acceptInvite(Request $req)//
     {
 
         $r = Event_Trainee::find($req->id);
@@ -110,7 +110,7 @@ class TraineeController extends Controller
         return redirect("trainee/dashboard");
     }
 
-    public function declineInvite(Request $req)
+    public function declineInvite(Request $req)//
     {
 
         $r = Event_Trainee::find($req->id);

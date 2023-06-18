@@ -17,7 +17,7 @@ use function PHPUnit\Framework\isNull;
 class UniversityController extends Controller
 {
 
-    public function read()
+    public function read()//
     {
         $uni =  auth()->user()->university;
         $topics = Topic::all();
@@ -51,7 +51,7 @@ class UniversityController extends Controller
         return view('/university/dashboard', compact('uni'));
     }
 
-    public function create(Request $request)
+    public function create(Request $request)//
     {
         // name 	address 	contact 	website 	social_link 	description
         $data = [
@@ -70,19 +70,8 @@ class UniversityController extends Controller
         return $this->read();
     }
 
-    public function showUpdate()
-    {
-        $uni =  auth()->user()->university;
 
-        return view('/university/updateprofile', compact('uni'));
-    }
-
-    public function loadcreateevent()
-    {
-        return view('university.createevent');
-    }
-
-    public function update(Request $request)
+    public function update(Request $request)//
     {
         $data = [
             'name' => $request->name,
@@ -99,17 +88,6 @@ class UniversityController extends Controller
         return redirect('/university/dashboard');
     }
 
-    public function delete(Request $request)
-    {
-        auth()->user()->delete();
-
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/');
-    }
 
     public function getEvents(Request $request)
     {

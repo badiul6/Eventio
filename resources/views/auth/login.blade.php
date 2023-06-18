@@ -42,7 +42,7 @@
         <div class="flex-grow h-px bg-gray-300"></div>
       </div>
       <div class="sign-up mt-4">
-        Don't have an account? <a href="#" class="text-blue-500">Sign up</a>
+        Don't have an account? <a href="/signup" class="text-blue-500">Sign up</a>
       </div>
     </div>
   </form>

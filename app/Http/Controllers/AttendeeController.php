@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class AttendeeController extends Controller
 {
-    public function index()
+    public function index()//
     {
         $attend = auth()->user()->attendee;
 
@@ -42,7 +42,7 @@ class AttendeeController extends Controller
         return view("attendee/dashboard");
     }
 
-    public function create(Request $request)
+    public function create(Request $request)//
     {
         $data = [
             'first_name' => $request->first_name,
@@ -59,7 +59,7 @@ class AttendeeController extends Controller
 
         return redirect('attendee/dashboard');
     }
-    public function update(Request $request)
+    public function update(Request $request)//
     {
         $data = [
             'first_name' => $request->first_name,
@@ -76,52 +76,5 @@ class AttendeeController extends Controller
         return redirect('attendee/dashboard');
     }
 
-    public function upload_dp(Request $req)
-    {
-        $req->validate([
-            'file' => 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
-        ]);
-        $filename = time() . '.' . $req->file->extension();
-        $req->file->move('uploads', $filename);
-
-        if (auth()->user()->picture != null) {
-            $pic = Picture::where('user_id', auth()->user()->id)->first();
-            $pic->dp_path = $filename;
-            $pic->save();
-
-            return redirect('attendee/dashboard');
-        } else {
-            $filewritter = new Picture;
-            $filewritter->dp_path = $filename;
-            $filewritter->user_id = auth()->user()->id;
-            $filewritter->save();
-
-            return redirect('attendee/dashboard');
-        }
-    }
-
-    public function upload_cover(Request $req)
-    {
-
-        $req->validate([
-            'file' => 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',
-        ]);
-        $filename = time() . '.' . $req->file->extension();
-        $req->file->move('uploads', $filename);
-
-        if (auth()->user()->picture != null) {
-            $pic = Picture::where('user_id', auth()->user()->id)->first();
-            $pic->cover_path = $filename;
-            $pic->save();
-
-            return redirect('attendee/dashboard');
-        } else {
-            $filewritter = new Picture;
-            $filewritter->cover_path = $filename;
-            $filewritter->user_id = auth()->user()->id;
-            $filewritter->save();
-
-            return redirect('attendee/dashboard');
-        }
-    }
+   
 }

@@ -21,7 +21,7 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
-    public function upload_dp(Request $req)
+    public function upload_dp(Request $req)//
     {
         $req->validate([
             'file' => 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:100000',
@@ -46,7 +46,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function upload_cover(Request $req)
+    public function upload_cover(Request $req)//
     {
         $req->validate([
             'file' => 'required|mimes:pdf,doc,docx,xlx,csv,jpg,png|max:4048',

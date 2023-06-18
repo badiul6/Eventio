@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     // id 	name 	description 	location 	capacity 	date 	start_time 	end_time 	status 	uni_id
-    public function create(Request $request)
+    public function create(Request $request)//
     {
        $train= $request->trainee_ids;
     
@@ -36,26 +36,8 @@ class EventController extends Controller
         return redirect('/university/dashboard');
     }
 
-    public function read()
+    public function goLive(Request $request)//
     {
-        $part_id = auth()->user()->participant->id;
-        $user_role = auth()->user()->role;
-        
-        $events = Event::whereDoesntHave('attendees', function ($query) use ($part_id) {
-            $query->where('attendee_id', $part_id);
-        })->get();
-
-        return view('/'. $user_role . '/viewevent', compact('events'));
-    }
-
-    public function showUpdate($id)
-    {
-        $event = Event::where('id', $id)->first();
-
-        return view('university.editevent')->with('event', $event);
-    }
-
-    public function goLive(Request $request){
         $event= Event::find($request->id);
         
         $event->update([
@@ -64,7 +46,7 @@ class EventController extends Controller
         return redirect('/university/dashboard');
     }
 
-    public function update(Request $request)
+    public function update(Request $request)//
     {
 
         $event= Event::find($request->id);
@@ -84,34 +66,20 @@ class EventController extends Controller
         return redirect('/university/dashboard');
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request)//
     {
         Event::find($request->event)->delete();
         return redirect('/university/dashboard');
     }
 
-    public function join(Request $request)
+    public function join(Request $request)//
     {
         auth()->user()->attendee->events()->attach($request->event_id);
 
         return redirect('attendee/dashboard');
     }
 
-    public function leave($event_id)
-    {
-        auth()->user()->participant->eventsAttendees()->detach($event_id);
-
-        return redirect('/participant/viewjoinedevent');
-    }
-
-    public function viewJoinedEvents()
-    {
-        $events = auth()->user()->participant->eventsAttendees;
-
-        return view('participant.viewjoinedevent')->with('events', $events);
-    }
-
-    public static function updateEventStatus()
+    public static function updateEventStatus()//
     {
         $currentDateTime = now(); // Get the current date and time
         // dd($currentDateTime->toTimeString());   
