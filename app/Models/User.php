@@ -11,17 +11,14 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+     
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +38,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function picture()
+    {
+        return $this->hasOne(Picture::class);
+    }
+
+    public function university()
+    {
+        return $this->hasOne(University::class);
+    }
+    public function trainee()
+    {
+        return $this->hasOne(Trainee::class);
+    }
+    public function attendee()
+    {
+        return $this->hasOne(Attendee::class);
+    }
 }
