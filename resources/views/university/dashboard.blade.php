@@ -198,7 +198,7 @@
                         <div class="flex flex-row items-center justify-center rounded-2xl w-full cursor-pointer">
                             <div class="flex flex-row pr-2 pl-0 py-2 bg-[#e6efff] items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
                                 @if(is_null($invite->trainee->user->picture))
-                                <img src="{{asset('/uploads/dp.png')}}" alt="user image" width="78px" />
+                                <img src="{{asset('/imgs/dp.png')}}" alt="user image" width="78px" />
                                 @else
                                 <img src="{{asset('/uploads/'.$invite->trainee->user->picture->dp_path)}}" alt="user image" width="78px" />
                                 @endif

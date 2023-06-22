@@ -160,7 +160,7 @@
                         <div class="flex h-full px-5 flex-col items-center justify-center rounded-2xl bg-[#e6efff] w-full">
                             <div class="flex flex-row pr-2 pl-0 py-2 items-center h-20 justify-center rounded-2xl w-full overflow-clip flex-grow-0 space-x-3 rounded-l-lg">
                                 @if(is_null($invite->event->university->user->picture))
-                                <img src="{{asset('/uploads/uni.jpg')}}" alt="user image" width="78px" class="w-86 h-86 rounded-full"/>
+                                <img src="{{asset('/imgs/uni.jpg')}}" alt="user image" width="78px" class="w-86 h-86 rounded-full"/>
                                 @else
                                 <img src="{{asset('/uploads/'.$invite->event->university->user->picture->dp_path)}}" alt="user image" width="78px" class="w-10 h-10   rounded-full" />
                                 @endif
