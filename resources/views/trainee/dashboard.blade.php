@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -11,6 +13,7 @@
 
 
     @vite('resources/css/app.css')
+    @vite('resources/js/trainee.js')
 </head>
 
 <body>
@@ -192,34 +195,3 @@
 </body>
 
 </html>
-
-<script>
-    $(document).ready(function() {
-
-        $('button[name="m-close"]').click(function(event) {
-            $(this).closest('div[name="Modal"]').hide();
-        });
-
-        $('button[id="editPic"]').click(function(event) {
-            $('#picModal').toggle();
-        });
-
-        $('#cover').on('click', function(event) {
-            $('#coverModal').toggle();
-        });
-
-        $('#event-modal').click(function() {
-            $('#eventModal').toggle();
-        });
-
-        $('#update-modal').click(function() {
-            showPreviousEvents();
-            $('#updateModal').toggle();
-
-        });
-
-        $('#dropdownCheckboxButton').click(function() {
-            $('#dropdownDefaultCheckbox').toggle();
-        });
-    });
-</script>

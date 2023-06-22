@@ -1,28 +1,4 @@
 <!-- Main modal -->
-<style>
-    #interests-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .interest {
-        display: flex;
-        align-items: center;
-        background-color: #e0e0e0;
-        padding: 4px 8px;
-        border-radius: 4px;
-    }
-
-    .interest-text {
-        margin-right: 4px;
-    }
-
-    .remove-icon {
-        cursor: pointer;
-        color: red;
-    }
-</style>
 <div id="updateModal" name="Modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-ful backdrop-blur-md bg-slate-800 bg-opacity-10">
     <div class="flex flex-row items-center justify-center p-4 w-full h-full">
         <!-- Modal content -->
@@ -74,7 +50,7 @@
                     <div class="sm:col-span-2">
                         <label for="interest-input" class="block mb-2 text-sm font-medium text-gray-900 ">Areas of interest</label>
                         <input type="text" id="interest-input" placeholder="Enter an interest">
-                        <div id="interests-container"></div>
+                        <div id="interests-container" class="flex flex-wrap py-1 space-x-2"></div>
                     </div>
                 </div>
 
@@ -89,69 +65,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    const interestsContainer = document.getElementById('interests-container');
-    const interestInput = document.getElementById('interest-input');
-    const form = document.getElementById('profileForm');
-
-    let interests = [];
-
-    function showPreviousEvents() {
-        var assignedTopics = <?php echo json_encode(auth()->user()->trainee->topics); ?>;
-
-        Array.from(assignedTopics).forEach(topic => {
-            const interest = topic.topic_name;
-            addInterest(interest);
-            interests.push(interest);
-        });
-    }
-
-    interestInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter' && interestInput.value.trim() !== '') {
-            const interest = interestInput.value.trim();
-            addInterest(interest);
-            interests.push(interest);
-            interestInput.value = '';
-        }
-    });
-
-    function addInterest(interest) {
-        const interestElement = document.createElement('div');
-        interestElement.classList.add('interest');
-
-        const interestText = document.createElement('span');
-        interestText.classList.add('interest-text');
-        interestText.textContent = interest;
-        interestElement.appendChild(interestText);
-
-        const removeIcon = document.createElement('span');
-        removeIcon.classList.add('remove-icon');
-        removeIcon.innerHTML = '&#10006;';
-        removeIcon.addEventListener('click', function() {
-            interestElement.remove();
-            interests = interests.filter(item => item !== interest);
-        });
-        interestElement.appendChild(removeIcon);
-
-        interestsContainer.appendChild(interestElement);
-    }
-
-    form.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-        }
-    });
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const input = document.createElement('input');
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('name', 'interests');
-        input.setAttribute('value', JSON.stringify(interests));
-
-        form.appendChild(input);
-        form.submit();
-    });
-</script>

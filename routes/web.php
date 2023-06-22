@@ -69,6 +69,7 @@ Route::middleware(['auth','verified','role:trainee'])->group(function(){
 
     Route::get('trainee/dashboard', [TraineeController::class, 'read']);
     Route::post('/trainee/create', [TraineeController::class,'create'])->name('trainee.store');
+    Route::post('/trainee/getinterests', [TraineeController::class,'getInterests'])->name('trainee.interests');
     Route::post('/trainee/acceptinvite', [TraineeController::class, 'acceptInvite'])->name('invite.accept');
     Route::post('/trainee/declineinvite', [TraineeController::class, 'declineInvite'])->name('invite.decline');
     Route::post('/trainee/updateprofile', [TraineeController::class, 'update'])->name('trainee.update');

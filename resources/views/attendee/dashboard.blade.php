@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @vite('resources/css/app.css')
-
+    @vite('resources/js/attendee.js')
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
@@ -202,29 +203,3 @@
 </body>
 
 </html>
-
-<script>
-    $(document).ready(function() {
-
-        $('#profileArea').on('click', function(event) {
-            $('#profileDropDown').toggle();
-        });
-        $('#update').on('click', function(event) {
-            $('#updateModal').toggle();
-        });
-        $('#uupdate').on('click', function(event) {
-            $('#updateModal').toggle();
-        });
-        $('button[name="m-close"]').click(function(event) {
-            $(this).closest('div[name="Modal"]').hide();
-        });
-
-        $('button[id="editPic"]').click(function(event) {
-            $('#picModal').toggle();
-        });
-
-        $('#cover').on('click', function(event) {
-            $('#coverModal').toggle();
-        });
-    });
-</script>

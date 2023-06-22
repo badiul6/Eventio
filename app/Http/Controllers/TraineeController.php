@@ -100,6 +100,11 @@ class TraineeController extends Controller
         return response()->json($topic->trainees);
     }
 
+    public function getInterests()
+    {
+        return response()->json(auth()->user()->trainee->topics);
+    }
+    
     public function acceptInvite(Request $req)//
     {
 
